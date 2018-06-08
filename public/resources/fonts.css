@@ -1,0 +1,35 @@
+
+@font-face {
+    font-family: 'fzlantingyuans-db1-gbregular';
+    src: url('../fonts/fzlantyjw_zhongcu-webfont.woff2') format('woff2'),
+    url('../fonts/fzlantyjw_zhongcu-webfont.woff') format('woff'),
+    url('../fonts/fzlantyjw_zhongcu-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'fzlantingyuans-l-gbregular';
+    src: url('../fonts/fzlantyjw_xi-webfont.woff2') format('woff2'),
+         url('../fonts/fzlantyjw_xi-webfont.woff') format('woff'),
+         url('../fonts/fzlantyjw_xi-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'fzlantingyuans-r-gbregular';
+    src: url('../fonts/fzlantyjw-webfont.woff2') format('woff2'),
+    url('../fonts/fzlantyjw-webfont.woff') format('woff'),
+    url('../fonts/fzlantyjw-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.hanzi {
+    font-family: 'Raleway', 'fzlantingyuans-l-gbregular', sans-serif;
+    font-weight: 100;
+}
