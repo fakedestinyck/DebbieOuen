@@ -27,7 +27,7 @@ Route::get('/saveCode', function () {
 });
 
 Route::get('/submitCode', function () {
-    system("storage/compile.sh 2>&1");
+    system("sudo storage/compile.sh 2>&1");
 });
 
 //Route::get('/submitCode', function(){
