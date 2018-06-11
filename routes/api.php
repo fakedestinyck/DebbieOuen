@@ -17,18 +17,9 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::get('/saveCode', function () {
-    $myfile = fopen("storage/".$_GET['codeFileName'], "w") or die("Unable to open file!");
-    $txt = $_GET['code'];
-    fwrite($myfile, $txt);
-    fclose($myfile);
-    echo "success";
+Route::post('/saveCode', "CodesController@store");
 
-});
-
-Route::get('/submitCode', function () {
-    system("sudo storage/compile.sh 2>&1");
-});
+Route::get('/submitCode', "CodesController@show");
 
 //Route::get('/submitCode', function(){
 //    echo "start...";

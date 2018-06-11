@@ -182,11 +182,28 @@
                 }
                 this.compiling = true;
                 var that = this;
-                axios.get('../api/saveCode', {
-                    params: {
-                        code: this.myCodeMirror.getValue(),
-                        codeFileName: this.codeFileName
-                    }
+//                axios.get('../api/saveCode', {
+//                    params: {
+//                        code: this.myCodeMirror.getValue(),
+//                        codeFileName: this.codeFileName
+//                    }
+//                })
+//                    .then(function (response) {
+//                        that.compiling = false;
+//                        if (response.data === "success") {
+//                            alert("Successfully saved!");
+//                            that.codeFileName = "";
+//                            that.myCodeMirror.setValue("");
+//                        } else {
+//                            alert(response.data);
+//                        }
+//                    })
+//                    .catch(function (error) {
+//                        alert(error);
+//                    });
+                axios.post('../api/saveCode', {
+                    code: this.myCodeMirror.getValue(),
+                    codeFileName: this.codeFileName
                 })
                     .then(function (response) {
                         that.compiling = false;
