@@ -15,6 +15,11 @@ class CreateCodesTable extends Migration
     {
         Schema::create('codes', function (Blueprint $table) {
             $table->increments('id');
+            $table->string("name");
+            $table->string("ddl");
+            $table->string("type");
+            $table->string("description");
+            $table->integer("compile_times")->default(0)->nullable();
             $table->timestamps();
         });
     }

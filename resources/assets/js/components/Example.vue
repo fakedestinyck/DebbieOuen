@@ -68,33 +68,43 @@
                                 <!--<div class="demo-crumbs mdl-color-text&#45;&#45;grey-500">-->
                                     <!--Google &gt; Material Design Lite &gt; How to install MDL-->
                                 <!--</div>-->
+                                <div class="self-wrapper" v-show="!projectInfoLocked">
                                 <h3>Project Details</h3>
                                 <p>
                                     请根据提示依次填写项目信息。
                                 </p>
-                                <p>Please fill out these project information.
+                                <p>
+                                    Please fill out these project information.
                                 </p>
                                 <form action="#">
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                        <input class="mdl-textfield__input" type="text" id="projectName">
+                                        <input class="mdl-textfield__input" type="text" id="projectName" v-model="projectName" required>
                                         <label class="mdl-textfield__label" for="projectName">Project Name</label>
                                     </div>
                                     <br>
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                        <input class="mdl-textfield__input" type="text" id="projectDdl">
+                                        <input class="mdl-textfield__input" type="text" id="projectDdl" v-model="projectDdl" required>
                                         <label class="mdl-textfield__label" for="projectDdl">Project Due</label>
                                     </div>
                                     <br><br>
                                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-                                        <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked>
+                                        <input type="radio" id="option-1" class="mdl-radio__button" name="options"
+                                               v-model="projectType" value="individual" >
                                         <span class="mdl-radio__label">Individual Project</span>
                                     </label>
                                     <span>&nbsp;&nbsp;&nbsp;</span>
                                     <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                                        <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2">
+                                        <input type="radio" id="option-2" class="mdl-radio__button" name="options"
+                                               v-model="projectType" value="group">
                                         <span class="mdl-radio__label">Group Project</span>
                                     </label>
                                 </form>
+                                <br>
+                                <a class="mdl-button mdl-js-button mdl-button--raised
+                                            mdl-js-ripple-effect mdl-button--colored" @click="saveInfo"
+                                   v-show="!compiling">Save project info</a>
+                                </div>
+                                <div class="self-wrapper" v-show="projectInfoLocked">
                                 <h3>Project Files</h3>
                                 <p>
                                     请根据提示上传相关附件。代码可以在网页中直接编辑，将文件拖入编辑框，或者选择上传。
@@ -122,6 +132,7 @@
                                     <!-- MDL Spinner Component -->
                                     <div class="mdl-spinner mdl-js-spinner is-active" v-show="compiling"></div>
                                 </form>
+                                </div>
                             </div>
                         </div>
                         <footer class="demo-footer mdl-mini-footer">
@@ -176,6 +187,17 @@
                     theme: "mdn-like"
                 });
             },
+            saveInfo: function() {
+                if (
+                    this.projectName === "" ||
+                    this.projectDdl === "" ||
+                    this.projectType === ""
+                ) {
+                    alert("Please fill out all these information!")
+                } else {
+                    this.projectInfoLocked = true;
+                }
+            },
             saveCode: function() {
                 if (this.codeFileName.replace(/(^\s*)|(\s*$)/g, "") === "") {
                     return false;
@@ -212,6 +234,7 @@
                             that.codeFileName = "";
                             that.myCodeMirror.setValue("");
                         } else {
+
                             alert(response.data);
                         }
                     })
@@ -247,8 +270,12 @@
                 showCodeStyleNaming: false,
                 myCodeMirror: null,
                 compiling: false,
+                projectName: "",
+                projectDdl: "",
+                projectType: "",
                 compileError: "",
-                codeFileName: ""
+                codeFileName: "",
+                projectInfoLocked: false
             }
         }
     }

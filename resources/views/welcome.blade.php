@@ -124,7 +124,7 @@
                 <div class="flex-center position-ref full-height">
                     <div class="content">
                         <div class="title m-b-md">
-                            你好呀233
+                            姐姐是大笨蛋！
                         </div>
                     </div>
                 </div>

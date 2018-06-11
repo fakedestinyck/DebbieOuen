@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class CodesController extends Controller
+class ProjectsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +19,9 @@ class CodesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         //
     }
@@ -35,26 +34,18 @@ class CodesController extends Controller
      */
     public function store(Request $request)
     {
-        $content = $request->all();
-        $myfile = fopen("storage/".$content["codeFileName"], "w") or die("Unable to open file!");
-        $txt = $content["code"];
-        fwrite($myfile, $txt);
-        fclose($myfile);
-        echo "success";
+        //
     }
 
     /**
      * Display the specified resource.
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        if ($_SERVER['HTTP_HOST'] == "localhost") {
-            system("storage/compile.sh 2>&1");
-        } else {
-            system("sudo storage/compile.sh 2>&1");
-        }
+        //
     }
 
     /**
