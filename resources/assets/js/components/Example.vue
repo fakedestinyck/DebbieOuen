@@ -224,8 +224,9 @@
                             console.log("false");
                         } else {
                             that.codeArray = data;
-                            that.projectInfoLocked = true;
+//                            that.projectInfoLocked = true;
                         }
+                        that.projectInfoLocked = true;
                     })
                     .catch(function (error) {
                         that.compiling = false;

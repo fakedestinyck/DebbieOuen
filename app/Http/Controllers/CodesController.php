@@ -68,28 +68,24 @@ class CodesController extends Controller
      */
     public function show($fileName)
     {
-        if ($_SERVER['HTTP_HOST'] == "localhost") {
-            exec("if [ ! -d \"storage/".$fileName."/\" ];then mkdir -m 777 storage/".$fileName.
-                ";echo \"not found\";else ls storage/".$fileName.";fi",$result);
-            if (count($result) == 0) {
-                // 说明已存在，但是没有文件
-                echo "null";
-            } else {
-                if ($result[0] == "not found") {
-                    echo "not found";
-                } else {
-                    $arr = array();
-                    foreach ($result as $code) {
-                        $code = "storage/".$fileName.'/'.$code;
-                        $file = fopen($code, "r") or die("Unable to open file!");
-                        $arr[str_replace( "storage/".$fileName.'/',"",$code)] = fread($file,filesize($code));
-                        fclose($file);
-                    }
-                    echo json_encode($arr);
-                }
-            }
+        exec("if [ ! -d \"storage/".$fileName."/\" ];then mkdir -m 777 storage/".$fileName.
+            ";echo \"not found\";else ls storage/".$fileName.";fi",$result);
+        if (count($result) == 0) {
+            // 说明已存在，但是没有文件
+            echo "null";
         } else {
-            system("sudo storage/compile.sh 2>&1");
+            if ($result[0] == "not found") {
+                echo "not found";
+            } else {
+                $arr = array();
+                foreach ($result as $code) {
+                    $code = "storage/".$fileName.'/'.$code;
+                    $file = fopen($code, "r") or die("Unable to open file!");
+                    $arr[str_replace( "storage/".$fileName.'/',"",$code)] = fread($file,filesize($code));
+                    fclose($file);
+                }
+                echo json_encode($arr);
+            }
         }
     }
 
