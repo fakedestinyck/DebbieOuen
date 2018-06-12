@@ -17,9 +17,11 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::post('/saveCode', "CodesController@store");
+Route::post('/saveCode', "CodesController@storeCode");
 
-Route::get('/submitCode', "CodesController@show");
+Route::get('/submitCode', "CodesController@compile");
+
+Route::get('/readCode/{fileName}',"CodesController@show");
 
 //Route::get('/submitCode', function(){
 //    echo "start...";

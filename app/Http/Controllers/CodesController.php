@@ -36,7 +36,24 @@ class CodesController extends Controller
     public function store(Request $request)
     {
         $content = $request->all();
+        
         $myfile = fopen("storage/".$content["codeFileName"], "w") or die("Unable to open file!");
+        $txt = $content["code"];
+        fwrite($myfile, $txt);
+        fclose($myfile);
+        echo "success";
+    }
+
+    /**
+     * Store codes in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeCode(Request $request)
+    {
+        $content = $request->all();
+        $myfile = fopen("storage/".$content["projectName"].'/'.$content["codeFileName"], "w") or die("Unable to open file!");
         $txt = $content["code"];
         fwrite($myfile, $txt);
         fclose($myfile);
@@ -46,14 +63,47 @@ class CodesController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param string $fileName
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($fileName)
     {
         if ($_SERVER['HTTP_HOST'] == "localhost") {
-            system("storage/compile.sh 2>&1");
+            exec("if [ ! -d \"storage/".$fileName."/\" ];then mkdir -m 777 storage/".$fileName.
+                ";echo \"not found\";else ls storage/".$fileName.";fi",$result);
+            if (count($result) == 0) {
+                // 说明已存在，但是没有文件
+                echo "null";
+            } else {
+                if ($result[0] == "not found") {
+                    echo "not found";
+                } else {
+                    $arr = array();
+                    foreach ($result as $code) {
+                        $code = "storage/".$fileName.'/'.$code;
+                        $file = fopen($code, "r") or die("Unable to open file!");
+                        $arr[str_replace( "storage/".$fileName.'/',"",$code)] = fread($file,filesize($code));
+                        fclose($file);
+                    }
+                    echo json_encode($arr);
+                }
+            }
         } else {
             system("sudo storage/compile.sh 2>&1");
+        }
+    }
+
+    /**
+     * Compile codes.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function compile()
+    {
+        if ($_SERVER['HTTP_HOST'] == "localhost") {
+            system("g++ storage/".$_GET['projectName']."/*.cpp -o storage/".$_GET['projectName']."/Main 2>&1");
+        } else {
+            system("sudo g++ storage/".$_GET['projectName']."/*.cpp -o storage/".$_GET['projectName']."/Main 2>&1");
         }
     }
 

@@ -15,6 +15,7 @@ require('./bootstrap');
 
 Vue.component('example', require('./components/Example.vue'));
 window.Vue = require('vue');
+Vue.use(require('vue-cookies'));
 
 const app = new Vue({
     el: '#app',

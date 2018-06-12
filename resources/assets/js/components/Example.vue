@@ -6,8 +6,8 @@
                 <span class="mdl-layout-title">VE280</span>
             </div>
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-                <a href="#scroll-tab-1" class="mdl-layout__tab is-active">C++ Coding Style</a>
-                <a href="#scroll-tab-2" class="mdl-layout__tab">Upload My Project</a>
+                <a href="#scroll-tab-1" class="mdl-layout__tab">C++ Coding Style</a>
+                <a href="#scroll-tab-2" class="mdl-layout__tab is-active">Upload My Project</a>
                 <a href="#scroll-tab-3" class="mdl-layout__tab">View uploaded Projects</a>
             </div>
         </header>
@@ -20,7 +20,7 @@
             </nav>
         </div>
         <main class="mdl-layout__content mdl-demo">
-            <section class="mdl-layout__tab-panel is-active" id="scroll-tab-1">
+            <section class="mdl-layout__tab-panel" id="scroll-tab-1">
                 <div class="page-content" style="padding-top:50px">
                     <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
                         <div class="mdl-card mdl-cell mdl-cell--12-col">
@@ -57,7 +57,7 @@
                     </section>
                 </div>
             </section>
-            <section class="mdl-layout__tab-panel" id="scroll-tab-2">
+            <section class="mdl-layout__tab-panel is-active" id="scroll-tab-2">
                 <div class="page-content demo-layout mdl-layout mdl-layout--fixed-header
                         mdl-js-layout mdl-color--grey-100">
                     <div class="demo-ribbon"></div>
@@ -103,6 +103,8 @@
                                 <a class="mdl-button mdl-js-button mdl-button--raised
                                             mdl-js-ripple-effect mdl-button--colored" @click="saveInfo"
                                    v-show="!compiling">Save project info</a>
+                                <!-- MDL Spinner Component -->
+                                <div class="mdl-spinner mdl-js-spinner is-active" v-show="compiling"></div>
                                 </div>
                                 <div class="self-wrapper" v-show="projectInfoLocked">
                                 <h3>Project Files</h3>
@@ -167,7 +169,14 @@
 <script>
     export default {
         mounted: function() {
-            this.createCodingArea();
+            this.projectName = (this.$cookies.get("projectName") === null ? "" : this.$cookies.get("projectName"));
+            this.projectDdl = (this.$cookies.get("projectDdl") === null ? "" : this.$cookies.get("projectDdl"));
+            this.projectType = (this.$cookies.get("projectType") === null ? "" : this.$cookies.get("projectType"));
+        },
+        updated: function() {
+            if (this.projectInfoLocked && !this.codingAreaCreated) {
+                this.createCodingArea();
+            }
         },
         methods: {
             greet: function (event) {
@@ -179,6 +188,7 @@
                 }
             },
             createCodingArea: function() {
+                this.codingAreaCreated = true;
                 this.myCodeMirror = CodeMirror(document.getElementById("codeTextArea"), {
                     value: "#include <iostream>\nusing namespace std;\n\nint main(){\n    //...Your code here\n    \n    return 0;\n}\n",
                     mode:  "text/x-c++src",
@@ -195,11 +205,38 @@
                 ) {
                     alert("Please fill out all these information!")
                 } else {
-                    this.projectInfoLocked = true;
+                    this.$cookies.set("projectName",this.projectName,-1);
+                    this.$cookies.set("projectDdl",this.projectDdl,-1);
+                    this.$cookies.set("projectType",this.projectType,-1);
+                    this.compiling = true;
+                    this.readCodes();
                 }
+            },
+            readCodes: function() {
+                var that = this;
+                axios.get('../api/readCode/'+this.projectName, {
+                    //
+                })
+                    .then(function (response) {
+                        that.compiling = false;
+                        var data = response.data;
+                        if (data === "not found") {
+                            console.log("false");
+                        } else {
+                            that.codeArray = data;
+                            that.projectInfoLocked = true;
+                        }
+                    })
+                    .catch(function (error) {
+                        that.compiling = false;
+                        alert(error);
+                    });
             },
             saveCode: function() {
                 if (this.codeFileName.replace(/(^\s*)|(\s*$)/g, "") === "") {
+                    return false;
+                }
+                if (this.myCodeMirror.getValue().replace(/(^\s*)|(\s*$)/g, "") === "") {
                     return false;
                 }
                 this.compiling = true;
@@ -224,6 +261,7 @@
 //                        alert(error);
 //                    });
                 axios.post('../api/saveCode', {
+                    projectName: this.projectName,
                     code: this.myCodeMirror.getValue(),
                     codeFileName: this.codeFileName
                 })
@@ -247,7 +285,7 @@
                 var that = this;
                 axios.get('../api/submitCode', {
                     params: {
-                        code: "none"
+                        projectName: this.projectName
                     }
                 })
                     .then(function (response) {
@@ -256,7 +294,9 @@
                             that.compileError = "";
                             alert("Compile success!");
                         } else {
-                            that.compileError = response.data.replace(/storage\//g,"");
+                            let str = "storage/"+that.projectName+"/";
+                            that.compileError = response.data.replace(new RegExp(str,'g'),"")
+                                .replace(/ generated./g," generated.\n\n");
                             console.log(response.data);
                         }
                     })
@@ -275,7 +315,9 @@
                 projectType: "",
                 compileError: "",
                 codeFileName: "",
-                projectInfoLocked: false
+                projectInfoLocked: false,
+                codingAreaCreated: false,
+                codeArray: {}
             }
         }
     }
