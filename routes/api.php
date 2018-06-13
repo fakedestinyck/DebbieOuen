@@ -23,6 +23,8 @@ Route::get('/submitCode', "CodesController@compile");
 
 Route::get('/readCode/{fileName}',"CodesController@show");
 
+Route::post('/runCode',"CodesController@run");
+
 //Route::get('/submitCode', function(){
 //    echo "start...";
 //    echo "<br>";

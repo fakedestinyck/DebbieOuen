@@ -70,6 +70,10 @@
         .m-b-md {
             margin-bottom: 30px;
         }
+
+        textarea {
+            resize: none;
+        }
     </style>
 </head>
 <body>
@@ -84,7 +88,7 @@
 {{--<script src="{{ asset('js/codemirror.js') }}"></script>--}}
 {{--<script src="{{ asset('js/clike.js') }}"></script>--}}
 <script src="{{ asset('js/app.js') }}"></script>
-<dialog class="mdl-dialog">
+<dialog class="mdl-dialog" id="dialogDismiss">
     <h5 class="mdl-dialog__title">敬请期待！</h5>
     <div class="mdl-dialog__content">
         <p>
@@ -96,6 +100,7 @@
         {{--<button type="button" class="mdl-button close">Disagree</button>--}}
     </div>
 </dialog>
+
 <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
     <div class="mdl-snackbar__text"></div>
     <button class="mdl-snackbar__action" type="button"></button>
@@ -103,7 +108,7 @@
 
 <script>
 //    document.getElementsByClassName("title")[0]
-    var dialog = document.querySelector('dialog');
+    var dialog = document.querySelector('#dialogDismiss');
     //            var showDialogButton = document.querySelector('#show-dialog');
     var showDialogButton = document.querySelectorAll('.show-dialog');
     if (! dialog.showModal) {
@@ -117,6 +122,8 @@
     dialog.querySelector('.close').addEventListener('click', function() {
         dialog.close();
     });
+
+
 //    $(document).ready(function(){
 //        $('#projectDdl').bootstrapMaterialDatePicker({ format : 'dddd DD MMMM YYYY - HH:mm' });
 //    });

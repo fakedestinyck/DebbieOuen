@@ -104,6 +104,31 @@ class CodesController extends Controller
     }
 
     /**
+     * Run codes.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function run(Request $request)
+    {
+        $content = $request->all();
+        $txt = $content["param"];
+        if ($txt != "") {
+            $myfile = fopen("storage/".$content["projectName"]."/user_input.txt", "w") or die("Unable to open file!");
+            fwrite($myfile, $txt);
+            fclose($myfile);
+            system("storage/".$content['projectName']."/Main < storage/".$content['projectName']."/user_input.txt 2>&1");
+        } else {
+            system("storage/".$content['projectName']."/Main < storage/general_input.txt 2>&1");
+        }
+//        if ($_SERVER['HTTP_HOST'] == "localhost") {
+//
+//        } else {
+//            system("sudo g++ storage/".$_GET['projectName']."/*.cpp -o storage/".$_GET['projectName']."/Main 2>&1");
+//        }
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

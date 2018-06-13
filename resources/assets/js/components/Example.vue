@@ -125,12 +125,26 @@
                                     <div id="codeTextArea"></div>
                                     <br>
                                     <pre>{{ compileError }}</pre>
-                                    <a class="mdl-button mdl-js-button mdl-button--raised
+                                    <pre id="runningResult" v-show="runningResult !== ''">{{ runningResult }}</pre>
+                                    <div class="mdl-grid mdl-grid--no-spacing">
+                                        <div class="mdl-cell mdl-cell--4-col">
+                                            <a class="mdl-button mdl-js-button mdl-button--raised
                                             mdl-js-ripple-effect mdl-button--accent" @click="saveCode"
-                                       v-show="!compiling">Save and add another file</a>
-                                    <a class="mdl-button mdl-js-button mdl-button--raised
+                                               v-show="!compiling">Save and add another file</a>
+                                        </div>
+                                        <div class="mdl-cell mdl-cell--4-col">
+                                            <a class="mdl-button mdl-js-button mdl-button--raised
                                             mdl-js-ripple-effect mdl-button--colored" @click="submitCode"
-                                            v-show="!compiling">Compile all submitted files</a>
+                                               v-show="!compiling">Compile all submitted files</a>
+                                        </div>
+                                        <!-- Add spacer, to align navigation to the right -->
+                                        <div class="mdl-layout-spacer"></div>
+                                        <div class="mdl-cell mdl-cell--1-col">
+                                            <a class="mdl-button mdl-js-button mdl-button--raised
+                                            mdl-js-ripple-effect mdl-button--colored show-dialog-input" @click="runButton"
+                                               v-show="!compiling">Run</a>
+                                        </div>
+                                    </div>
                                     <!-- MDL Spinner Component -->
                                     <div class="mdl-spinner mdl-js-spinner is-active" v-show="compiling"></div>
                                 </form>
@@ -161,6 +175,29 @@
                 </div>
             </section>
         </main>
+
+        <!--输入数据对话框-->
+        <dialog class="mdl-dialog" id="dialogInput">
+            <h5 class="mdl-dialog__title">运行参数</h5>
+            <div class="mdl-dialog__content">
+                <p>
+                    请输入将要被重定向到std::cin的数据
+                    <br>如果没有请留空
+                </p>
+                <!-- Floating Multiline Textfield -->
+                <form action="#">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <textarea class="mdl-textfield__input" type="text" rows= "5" id="runningParameter" v-model="runningParameter"></textarea>
+                        <label class="mdl-textfield__label" for="runningParameter">Your input here...</label>
+                    </div>
+                </form>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button type="button" class="submit mdl-button mdl-js-button mdl-button--raised
+                    mdl-js-ripple-effect mdl-button--colored" @click="parameterOK">OK</button>
+                <button type="button" class="mdl-button close" @click="dialogInput.close();">Cancel</button>
+            </div>
+        </dialog>
     </div>
 </template>
 
@@ -304,6 +341,34 @@
                     .catch(function (error) {
                         console.log(error);
                     });
+            },
+            runCode: function () {
+                let param = this.runningParameter;
+                let that = this;
+                axios.post('../api/runCode', {
+                    projectName: this.projectName,
+                    param: param
+                })
+                    .then(function (response) {
+                        that.compiling = false;
+                        that.runningResult = response.data;
+                        console.log(response.data);
+                    })
+                    .catch(function (error) {
+                        alert(error);
+                    });
+            },
+            runButton: function () {
+                this.dialogInput = document.querySelector('#dialogInput');
+                if (! this.dialogInput.showModal) {
+                    dialogPolyfill.registerDialog(this.dialogInput);
+                }
+                this.dialogInput.showModal();
+            },
+            parameterOK: function () {
+                this.dialogInput.close();
+                this.compiling = true;
+                this.runCode();
             }
         },
         data() {
@@ -318,9 +383,18 @@
                 codeFileName: "",
                 projectInfoLocked: false,
                 codingAreaCreated: false,
-                codeArray: {}
+                runningParameter: "",
+                codeArray: {},
+                dialogInput: null,
+                runningResult: ""
             }
         }
     }
-
 </script>
+
+<style scoped>
+    #runningResult {
+        border: solid red 3px;
+        padding: 10px;
+    }
+</style>
