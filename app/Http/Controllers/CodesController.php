@@ -97,9 +97,9 @@ class CodesController extends Controller
     public function compile()
     {
         if ($_SERVER['HTTP_HOST'] == "localhost") {
-            system("g++ storage/".$_GET['projectName']."/*.cpp -o storage/".$_GET['projectName']."/Main 2>&1");
+            system("clang++ storage/".$_GET['projectName']."/*.cpp -o storage/".$_GET['projectName']."/Main 2>&1");
         } else {
-            system("sudo g++ storage/".$_GET['projectName']."/*.cpp -o storage/".$_GET['projectName']."/Main 2>&1");
+            system("sudo clang++ storage/".$_GET['projectName']."/*.cpp -o storage/".$_GET['projectName']."/Main 2>&1");
         }
     }
 
