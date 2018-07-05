@@ -434,7 +434,7 @@
                             if (response.data === "success") {
                                 let link = document.createElement('a');
                                 link.download = '.tar';
-                                link.href = '../storage/tmpTAR/tmp.tar';
+                                link.href = 'storage/tmpTAR/tmp.tar';
                                 link.click();
                             }
                         })
