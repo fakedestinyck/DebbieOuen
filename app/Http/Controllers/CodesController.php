@@ -153,7 +153,7 @@ class CodesController extends Controller
                 system("rm -f storage/tmpTAR/*");
                 echo "Error: Upload files failed!";
             } else {
-                passthru("cd storage/tmpTAR; tar -cvf tmp.tar *");
+                exec("cd storage/tmpTAR; tar -cvf tmp.tar *");
                 echo "success";
             }
         } else {
