@@ -25,6 +25,8 @@ Route::get('/readCode/{fileName}',"CodesController@show");
 
 Route::post('/runCode',"CodesController@run");
 
+Route::post('/uploadTarFile',"CodesController@upTar");
+
 //Route::get('/submitCode', function(){
 //    echo "start...";
 //    echo "<br>";

@@ -129,6 +129,39 @@ class CodesController extends Controller
     }
 
     /**
+     * upload tared files.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function upTar(Request $request)
+    {
+        if (!empty($_FILES['file'])) {
+            system("rm -f storage/tmpTAR/*");
+            $root_dir = "storage/tmpTAR/";
+            $fileNum = count($_FILES['file']['name']);
+            $failed = false;
+            for ($i = 0; $i < $fileNum; ++$i) {
+                $filename = $_FILES['file']['name'][$i];
+                $uploadFile = $root_dir.$filename;
+                if (!move_uploaded_file($_FILES['file']['tmp_name'][$i], $uploadFile)) {
+                    $failed = true;
+                    break;
+                }
+            }
+            if ($failed) {
+                system("rm -f storage/tmpTAR/*");
+                echo "Error: Upload files failed!";
+            } else {
+                system("cd storage/tmpTAR; tar -cvf tmp.tar *");
+                echo "success";
+            }
+        } else {
+            echo "empty";
+        }
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

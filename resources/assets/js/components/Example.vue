@@ -9,6 +9,7 @@
                 <a href="#scroll-tab-1" class="mdl-layout__tab">C++ Coding Style</a>
                 <a href="#scroll-tab-2" class="mdl-layout__tab is-active">Upload My Project</a>
                 <a href="#scroll-tab-3" class="mdl-layout__tab">View uploaded Projects</a>
+                <a href="#scroll-tab-4" class="mdl-layout__tab">Miscellaneous Tools</a>
             </div>
         </header>
         <div class="mdl-layout__drawer">
@@ -172,6 +173,53 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <section class="mdl-layout__tab-panel" id="scroll-tab-4">
+                <div class="page-content demo-layout mdl-layout mdl-layout--fixed-header
+                        mdl-js-layout mdl-color--grey-100">
+                    <div class="demo-ribbon"></div>
+                    <main class="demo-main mdl-layout__content">
+                        <div class="demo-container mdl-grid">
+                            <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                            <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+                                <!--<div class="demo-crumbs mdl-color-text&#45;&#45;grey-500">-->
+                                <!--Google &gt; Material Design Lite &gt; How to install MDL-->
+                                <!--</div>-->
+                                <div class="self-wrapper">
+                                    <h3>Yet Another Compressor to Tar</h3>
+                                    <p>
+                                        请上传需要被压缩的文件
+                                    </p>
+                                    <p>
+                                        Please upload all files need to be compressed.
+                                    </p>
+                                    <form id="uploadForm" enctype="multipart/form-data">
+                                        Files: <input type="file" name="file" id="uploadFiles" multiple="multiple"/><br>
+                                    </form>
+                                    <br>
+                                    <button class="mdl-button mdl-js-button mdl-button--raised
+                                            mdl-js-ripple-effect mdl-button--colored" id="upload" @click="uploadFile"
+                                            v-show="!compiling">Compress files</button>
+                                    <!--<a class="mdl-button mdl-js-button mdl-button&#45;&#45;raised-->
+                                            <!--mdl-js-ripple-effect mdl-button&#45;&#45;colored" @click="saveInfo"-->
+                                       <!--v-show="!compiling">Save project info</a>-->
+                                    <!-- MDL Spinner Component -->
+                                    <div class="mdl-spinner mdl-js-spinner is-active" v-show="compiling"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="demo-footer mdl-mini-footer">
+                            <div class="mdl-mini-footer--left-section">
+                                <ul class="mdl-mini-footer--link-list">
+                                    <li><a href="#">Help</a></li>
+                                    <li><a href="#">Privacy and Terms</a></li>
+                                    <li><a href="#">User Agreement</a></li>
+                                </ul>
+                            </div>
+                        </footer>
+                    </main>
                 </div>
             </section>
         </main>
@@ -369,6 +417,32 @@
                 this.dialogInput.close();
                 this.compiling = true;
                 this.runCode();
+            },
+            uploadFile: function () {
+                this.compiling = true;
+                let that = this;
+                let form = new FormData();
+                let files = $("#uploadFiles").get(0).files;
+                if ($("#uploadFiles").val() != "") {
+                    for (let i = 0; i < files.length; i++) {
+                        form.append("file["+i+"]",files[i]);
+                    }
+                    axios.post('../api/uploadTarFile', form)
+                        .then(function (response) {
+                            that.compiling = false;
+                            console.log(response.data);
+                            if (response.data === "success") {
+                                let link = document.createElement('a');
+                                link.download = '.tar';
+                                link.href = '../storage/tmpTAR/tmp.tar';
+                                link.click();
+                            }
+                        })
+                        .catch(function (error) {
+                            that.compiling = false;
+                            console.log("error: " + error);
+                        });
+                }
             }
         },
         data() {
