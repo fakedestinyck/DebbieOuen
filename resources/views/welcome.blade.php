@@ -50,6 +50,7 @@
 
             .title {
                 font-size: 84px;
+                line-height: 120px;
             }
 
             .links > a {
@@ -65,6 +66,14 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            @media screen and (max-width: 1024px) {
+                .title {
+                    font-size: 40px;
+                    line-height: 44px;
+                }
+            }
+
         </style>
     </head>
     <body>
@@ -103,20 +112,20 @@
             <header class="mdl-layout__header">
                 <div class="mdl-layout__header-row">
                     <!-- Title -->
-                    <span class="mdl-layout-title">姐姐的小房间</span>
+                    <span class="mdl-layout-title">{{ config('app.name', 'Laravel') }}</span>
                     <!-- Add spacer, to align navigation to the right -->
                     <div class="mdl-layout-spacer"></div>
                     <!-- Navigation. We hide it in small screens. -->
                     <nav class="mdl-navigation mdl-layout--large-screen-only">
-                        <a class="mdl-navigation__link" href="{{ url('course/ve280') }}">VE280</a>
+                        <a class="mdl-navigation__link" href="#" onclick="alert('功能正在施工')">管理员登陆</a>
                     </nav>
                 </div>
             </header>
             <div class="mdl-layout__drawer">
-                <span class="mdl-layout-title">Navigation</span>
+                <span class="mdl-layout-title">导航</span>
                 <nav class="mdl-navigation">
-                    <a class="mdl-navigation__link" href="{{ url('course/ve280') }}">VE280</a>
                     <a class="mdl-navigation__link show-dialog" href="#">敬请期待</a>
+                    <a class="mdl-navigation__link" href="{{ url('ranks/ranking') }}">打榜数据</a>
                     <a class="mdl-navigation__link show-dialog" href="#">敬请期待</a>
                 </nav>
             </div>
@@ -124,25 +133,25 @@
                 <div class="flex-center position-ref full-height">
                     <div class="content">
                         <div class="title m-b-md">
-                            姐姐是大笨蛋！
+                            银河以北，<span style="color: deepskyblue;">蒋申</span>最美<br>SING Fighting!
                         </div>
                     </div>
                 </div>
             </main>
         </div>
 
-        <dialog class="mdl-dialog">
-            <h5 class="mdl-dialog__title">敬请期待！</h5>
-            <div class="mdl-dialog__content">
-                <p>
-                    Still working on it...
-                </p>
-            </div>
-            <div class="mdl-dialog__actions">
-                <button type="button" class="close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Dismiss</button>
+        {{--<dialog class="mdl-dialog">--}}
+            {{--<h5 class="mdl-dialog__title">敬请期待！</h5>--}}
+            {{--<div class="mdl-dialog__content">--}}
+                {{--<p>--}}
+                    {{--正在施工。。。--}}
+                {{--</p>--}}
+            {{--</div>--}}
+            {{--<div class="mdl-dialog__actions">--}}
+                {{--<button type="button" class="close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">知道啦</button>--}}
                 {{--<button type="button" class="mdl-button close">Disagree</button>--}}
-            </div>
-        </dialog>
+            {{--</div>--}}
+        {{--</dialog>--}}
 
         {{--<script src="{{ asset('js/app.js') }}"></script>--}}
         <script>

@@ -19,6 +19,7 @@
     {{--<link rel="stylesheet" href="{{ asset('css/styles.css') }}" />--}}
     {{--<link rel="stylesheet" href="{{ asset('css/mdn-like.css') }}"/>--}}
     <link rel="stylesheet" href="{{ asset('css/libs.css') }}"/>
+
     <style>
         html, body {
             background-color: #fff;
@@ -53,10 +54,6 @@
             text-align: center;
         }
 
-        .title {
-            font-size: 84px;
-        }
-
         .links > a {
             color: #636b6f;
             padding: 0 25px;
@@ -85,22 +82,23 @@
 <example></example>
 </div>
 <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+
 <script src="{{ asset('js/libs.js') }}"></script>
 {{--<script src="{{ asset('js/codemirror.js') }}"></script>--}}
 {{--<script src="{{ asset('js/clike.js') }}"></script>--}}
 <script src="{{ asset('js/app.js') }}"></script>
-<dialog class="mdl-dialog" id="dialogDismiss">
-    <h5 class="mdl-dialog__title">敬请期待！</h5>
-    <div class="mdl-dialog__content">
-        <p>
-            Still working on it...
-        </p>
-    </div>
-    <div class="mdl-dialog__actions">
-        <button type="button" class="close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Dismiss</button>
+{{--<dialog class="mdl-dialog" id="dialogDismiss">--}}
+    {{--<h5 class="mdl-dialog__title">敬请期待！</h5>--}}
+    {{--<div class="mdl-dialog__content">--}}
+        {{--<p>--}}
+            {{--Still working on it...--}}
+        {{--</p>--}}
+    {{--</div>--}}
+    {{--<div class="mdl-dialog__actions">--}}
+        {{--<button type="button" class="close mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Dismiss</button>--}}
         {{--<button type="button" class="mdl-button close">Disagree</button>--}}
-    </div>
-</dialog>
+    {{--</div>--}}
+{{--</dialog>--}}
 
 <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
     <div class="mdl-snackbar__text"></div>

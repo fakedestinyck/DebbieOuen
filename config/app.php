@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => '姐姐的小房间',
+    'name' => 'Debbie蒋申的非官方应援站',
 
     /*
     |--------------------------------------------------------------------------

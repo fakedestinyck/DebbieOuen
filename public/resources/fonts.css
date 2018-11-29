@@ -3,7 +3,8 @@
     font-family: 'fzlantingyuans-db1-gbregular';
     src: url('../fonts/fzlantyjw_zhongcu-webfont.woff2') format('woff2'),
     url('../fonts/fzlantyjw_zhongcu-webfont.woff') format('woff'),
-    url('../fonts/fzlantyjw_zhongcu-webfont.ttf') format('truetype');
+    url('../fonts/fzlantyjw_zhongcu-webfont.ttf') format('truetype'),
+    url('../fonts/fzlantyjw_zhongcu-webfont.svg#fzlantingyuans-db1-gbregular') format('svg');
     font-weight: normal;
     font-style: normal;
 

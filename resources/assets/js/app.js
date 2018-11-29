@@ -16,6 +16,8 @@ require('./bootstrap');
 Vue.component('example', require('./components/Example.vue'));
 window.Vue = require('vue');
 Vue.use(require('vue-cookies'));
+import './echartResizeHelper.js';
+
 
 const app = new Vue({
     el: '#app',

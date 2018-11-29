@@ -17,15 +17,27 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::post('/saveCode', "CodesController@storeCode");
+Route::prefix('youni')->group(function () {
+    Route::get('/',function (){
+        return abort(404);
+    });
+    Route::get('/get', 'YouniController@get');
+    Route::get('/getLatest', 'YouniController@getLatest');
+    Route::get('/get/all', 'YouniController@getAll');
+    Route::get('/get/{timestamp}', 'YouniController@getSpecific');
 
-Route::get('/submitCode', "CodesController@compile");
+});
 
-Route::get('/readCode/{fileName}',"CodesController@show");
 
-Route::post('/runCode',"CodesController@run");
-
-Route::post('/uploadTarFile',"CodesController@upTar");
+//Route::post('/saveCode', "CodesController@storeCode");
+//
+//Route::get('/submitCode', "CodesController@compile");
+//
+//Route::get('/readCode/{fileName}',"CodesController@show");
+//
+//Route::post('/runCode',"CodesController@run");
+//
+//Route::post('/uploadTarFile',"CodesController@upTar");$_SERVER['SERVER_NAME']
 
 //Route::get('/submitCode', function(){
 //    echo "start...";

@@ -15,9 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/course/ve280', function () {
-    return view('course/ve280');
+Route::get('/ranks/ranking', function () {
+    return view('ranks/ranking');
 });
 
 
 
+
+//Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
