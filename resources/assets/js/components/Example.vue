@@ -330,13 +330,13 @@
                     .then(function (response) {
                         if (response.status === 200) {
 
-                            let rankData = response.data.data;
-                            console.log(rankData);
+                            let rankData = response.data;
+                            console.log(response.data);
                             for (let i = rankData.length-1; i >=0 ; --i) {
-                                console.log(that.getRank(rankData[i].chartsList));
-                                that.youniAllRanks.push(that.getRank(rankData[i].chartsList));
+
+                                that.youniAllRanks.push(rankData[i].charts.rank);
                                 that.youniAllTimes.push(rankData[i].updateTime);
-                                that.youniAllPoints.push(that.getPoint(rankData[i].chartsList))
+                                that.youniAllPoints.push(rankData[i].charts.uniIndex);
                             }
                             that.createChartRank();
                         }

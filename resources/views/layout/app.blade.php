@@ -137,7 +137,7 @@
 //    var showToastButton = document.querySelector('#demo-show-toast');
 //    showToastButton.addEventListener('click', function() {
 //        'use strict';
-//        var data = {message: '你姐还在努力制作网页中……就先给你看着玩玩LOL'};
+//        var data = {message: '还在努力制作网页中……就先给你看着玩玩LOL'};
 //        snackbarContainer.MaterialSnackbar.showSnackbar(data);
 //    });
 //}());

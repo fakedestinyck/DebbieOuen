@@ -119,12 +119,21 @@ class YouniController extends Controller
         foreach ($files as $file) {
             $data = $this->getSpecific($file);
             if ($data["status"] == "200") {
-                $dataArray[] = $data["data"];
+                $fileArray = json_decode(json_encode($data['data']),true);
+                foreach ($fileArray['chartsList']  as $datum) {
+                    if ($datum["songId"] == "221452950") {
+                        $dataArray[] = [
+                            "updateTime"=>$fileArray['updateTime'],
+                            "charts"=>$datum
+                        ];
+                        break;
+                    }
+                }
             } else {
-                return array('status'=>'404', 'msg'=>"无法找到文件：".$file.".json");
+                return response("无法找到文件：".$file.".json",500);
                 break;
             }
         }
-        return array('status'=>"200", 'data'=>$dataArray);
+        return response($dataArray,200);
     }
 }
