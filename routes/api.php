@@ -38,7 +38,7 @@ Route::prefix('youni')->group(function () {
 //Route::post('/runCode',"CodesController@run");
 //
 //Route::post('/uploadTarFile',"CodesController@upTar");$_SERVER['SERVER_NAME']
-
+Route::post('/downloadFile',"WeiboController@downloadFile");
 //Route::get('/submitCode', function(){
 //    echo "start...";
 //    echo "<br>";

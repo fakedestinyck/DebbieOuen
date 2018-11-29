@@ -63,9 +63,12 @@
                             <div class="title m-b-md">
                                 敬请期待...
                             </div>
+                            <p @click="downloadFile('txt')">下载</p>
                         </div>
                     </div>
                 </div>
+
+
             </section>
             <section class="mdl-layout__tab-panel is-active" id="scroll-tab-2">
                 <div class="page-content demo-layout mdl-layout mdl-layout--fixed-header
@@ -112,7 +115,7 @@
                                         <input class="mdl-textfield__input" type="text" id="codeFileName" v-model="codeFileName" required>
                                         <label class="mdl-textfield__label" for="codeFileName">File Name</label>
                                     </div>
-                                    <div id="codeTextArea"></div>
+                                    <!--<div id="codeTextArea"></div>-->
                                     <br>
                                     <pre>{{ compileError }}</pre>
                                     <pre id="runningResult" v-show="runningResult !== ''">{{ runningResult }}</pre>
@@ -450,15 +453,19 @@
                 let minute = timeString.substring(colon+1);
                 return new Date(year,month,day,hour,minute);
             },
-            createCodingArea: function() {
-                this.codingAreaCreated = true;
-                this.myCodeMirror = CodeMirror(document.getElementById("codeTextArea"), {
-                    value: "#include <iostream>\nusing namespace std;\n\nint main(){\n    //...Your code here\n    \n    return 0;\n}\n",
-                    mode:  "text/x-c++src",
-                    lineNumbers: true,
-                    scrollbarStyle: "native",
-                    theme: "mdn-like"
-                });
+            downloadFile: function (filetype) {
+                axios.post('../api/downloadFile', {
+                    nothing: "nothing"
+                })
+                    .then(function (response) {
+                        let link = document.createElement('a');
+                        link.download = '练习生榜数据.'+filetype;
+                        link.href = '../storage/weiboData/'+response.data;
+                        link.click();
+                    })
+                    .catch(function (error) {
+                        console.log("error: " + error);
+                    });
             },
             saveInfo: function() {
                 if (

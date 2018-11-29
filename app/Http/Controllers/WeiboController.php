@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ProjectsController extends Controller
+class WeiboController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -80,5 +80,19 @@ class ProjectsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function downloadFile(Request $request)
+    {
+        #header("Content-type: text/plain; charset=utf-8");
+        $dir = dirname( __FILE__ ).'/../../../../getWeiboData/';
+        $a =  exec("/Users/Fakedestinyck/miniconda3/bin/python3.5 ".$dir."getFullList.py 2>&1");
+        if ($a == "success") {
+            return response("all.txt",200);
+        } else {
+            return response($a,500);
+        }
+
     }
 }
