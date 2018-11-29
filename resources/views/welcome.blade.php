@@ -11,8 +11,10 @@
         <link href="{{ asset('resources/fonts.css') }}" rel="stylesheet">
         <!-- CSS -->
         <!-- Add Material font (Roboto) and Material icon as needed -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />
+        {{--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">--}}
+        <link href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet">
+        {{--<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />--}}
+        <link href="https://cdn.bootcss.com/material-design-lite/1.3.0/material.indigo-pink.min.css" rel="stylesheet">
         {{--<!-- Styles -->--}}
         <style>
             html, body {
@@ -105,7 +107,8 @@
         {{--</div>--}}
 
         <!-- Optional JavaScript -->
-        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        {{--<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>--}}
+        <script src="https://cdn.bootcss.com/material-design-lite/1.3.0/material.min.js"></script>
 
         <!-- Always shows a header, even in smaller screens. -->
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
