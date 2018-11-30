@@ -98,7 +98,7 @@
                                     <h4>可视化数据</h4>
                                     <h5>千年数据</h5>
                                     <!-- MDL Spinner Component -->
-                                    <div class="mdl-spinner mdl-js-spinner is-active" v-show="compiling"></div>
+                                    <div class="mdl-spinner mdl-js-spinner is-active" v-show="youniRankPointLoading"></div>
                                     <div id="chart-rank" style="height: 400px; width: 100%;" v-on-echart-resize></div>
                                     <div><br></div>
                                     <h5>前后几名的数据</h5>
@@ -371,7 +371,6 @@
                                 that.youniAllTimes.push(rankData[i].updateTime);
                                 that.youniAllPoints.push(rankData[i].charts.uniIndex);
                             }
-                            that.compiling = true;
                             let waitForLibsJs = setInterval(function(){
                                 if (that.libsJsLoadComplete) {
                                     clearInterval(waitForLibsJs);
@@ -538,7 +537,7 @@
                 };
                 if (option && typeof option === "object") {
                     myChart.setOption(option, true);
-                    that.compiling = false;
+                    that.youniRankPointLoading = false;
                 }
 
             },
@@ -827,6 +826,7 @@
                 youniCurrentRank: "",
                 isYouniGraphLoaded: false,
                 youniAllRanks: [],
+                youniRankPointLoading: true,
                 youniAllTimes: [],
                 youniAllPoints: [],
                 youniOtherRanks: [],
