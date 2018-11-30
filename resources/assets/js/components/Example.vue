@@ -157,64 +157,64 @@
                     </main>
                 </div>
             </section>
-            <section class="mdl-layout__tab-panel" id="scroll-tab-3">
-                <div class="page-content">
-                    <div class="flex-center position-ref full-height">
-                        <div class="content">
-                            <div class="title m-b-md">
-                                敬请期待...
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <!--<section class="mdl-layout__tab-panel" id="scroll-tab-3">-->
+                <!--<div class="page-content">-->
+                    <!--<div class="flex-center position-ref full-height">-->
+                        <!--<div class="content">-->
+                            <!--<div class="title m-b-md">-->
+                                <!--敬请期待...-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</section>-->
 
-            <section class="mdl-layout__tab-panel" id="scroll-tab-4">
-                <div class="page-content demo-layout mdl-layout mdl-layout--fixed-header
-                        mdl-js-layout mdl-color--grey-100">
-                    <div class="demo-ribbon"></div>
-                    <main class="demo-main mdl-layout__content">
-                        <div class="demo-container mdl-grid">
-                            <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-                            <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
-                                <!--<div class="demo-crumbs mdl-color-text&#45;&#45;grey-500">-->
-                                <!--Google &gt; Material Design Lite &gt; How to install MDL-->
+            <!--<section class="mdl-layout__tab-panel" id="scroll-tab-4">-->
+                <!--<div class="page-content demo-layout mdl-layout mdl-layout&#45;&#45;fixed-header-->
+                        <!--mdl-js-layout mdl-color&#45;&#45;grey-100">-->
+                    <!--<div class="demo-ribbon"></div>-->
+                    <!--<main class="demo-main mdl-layout__content">-->
+                        <!--<div class="demo-container mdl-grid">-->
+                            <!--<div class="mdl-cell mdl-cell&#45;&#45;2-col mdl-cell&#45;&#45;hide-tablet mdl-cell&#45;&#45;hide-phone"></div>-->
+                            <!--<div class="demo-content mdl-color&#45;&#45;white mdl-shadow&#45;&#45;4dp content mdl-color-text&#45;&#45;grey-800 mdl-cell mdl-cell&#45;&#45;8-col">-->
+                                <!--&lt;!&ndash;<div class="demo-crumbs mdl-color-text&#45;&#45;grey-500">&ndash;&gt;-->
+                                <!--&lt;!&ndash;Google &gt; Material Design Lite &gt; How to install MDL&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--<div class="self-wrapper">-->
+                                    <!--<h3>Yet Another Compressor to Tar</h3>-->
+                                    <!--<p>-->
+                                        <!--请上传需要被压缩的文件-->
+                                    <!--</p>-->
+                                    <!--<p>-->
+                                        <!--Please upload all files need to be compressed.-->
+                                    <!--</p>-->
+                                    <!--<form id="uploadForm" enctype="multipart/form-data">-->
+                                        <!--Files: <input type="file" name="file" id="uploadFiles" multiple="multiple"/><br>-->
+                                    <!--</form>-->
+                                    <!--<br>-->
+                                    <!--<button class="mdl-button mdl-js-button mdl-button&#45;&#45;raised-->
+                                            <!--mdl-js-ripple-effect mdl-button&#45;&#45;colored" id="upload" @click="uploadFile"-->
+                                            <!--v-show="!compiling">Compress files</button>-->
+                                    <!--&lt;!&ndash;<a class="mdl-button mdl-js-button mdl-button&#45;&#45;raised&ndash;&gt;-->
+                                            <!--&lt;!&ndash;mdl-js-ripple-effect mdl-button&#45;&#45;colored" @click="saveInfo"&ndash;&gt;-->
+                                       <!--&lt;!&ndash;v-show="!compiling">Save project info</a>&ndash;&gt;-->
+                                    <!--&lt;!&ndash; MDL Spinner Component &ndash;&gt;-->
+                                    <!--<div class="mdl-spinner mdl-js-spinner is-active" v-show="compiling"></div>-->
                                 <!--</div>-->
-                                <div class="self-wrapper">
-                                    <h3>Yet Another Compressor to Tar</h3>
-                                    <p>
-                                        请上传需要被压缩的文件
-                                    </p>
-                                    <p>
-                                        Please upload all files need to be compressed.
-                                    </p>
-                                    <form id="uploadForm" enctype="multipart/form-data">
-                                        Files: <input type="file" name="file" id="uploadFiles" multiple="multiple"/><br>
-                                    </form>
-                                    <br>
-                                    <button class="mdl-button mdl-js-button mdl-button--raised
-                                            mdl-js-ripple-effect mdl-button--colored" id="upload" @click="uploadFile"
-                                            v-show="!compiling">Compress files</button>
-                                    <!--<a class="mdl-button mdl-js-button mdl-button&#45;&#45;raised-->
-                                            <!--mdl-js-ripple-effect mdl-button&#45;&#45;colored" @click="saveInfo"-->
-                                       <!--v-show="!compiling">Save project info</a>-->
-                                    <!-- MDL Spinner Component -->
-                                    <div class="mdl-spinner mdl-js-spinner is-active" v-show="compiling"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <footer class="demo-footer mdl-mini-footer">
-                            <div class="mdl-mini-footer--left-section">
-                                <ul class="mdl-mini-footer--link-list">
-                                    <li><a href="#">Help</a></li>
-                                    <li><a href="#">Privacy and Terms</a></li>
-                                    <li><a href="#">User Agreement</a></li>
-                                </ul>
-                            </div>
-                        </footer>
-                    </main>
-                </div>
-            </section>
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<footer class="demo-footer mdl-mini-footer">-->
+                            <!--<div class="mdl-mini-footer&#45;&#45;left-section">-->
+                                <!--<ul class="mdl-mini-footer&#45;&#45;link-list">-->
+                                    <!--<li><a href="#">Help</a></li>-->
+                                    <!--<li><a href="#">Privacy and Terms</a></li>-->
+                                    <!--<li><a href="#">User Agreement</a></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</footer>-->
+                    <!--</main>-->
+                <!--</div>-->
+            <!--</section>-->
         </main>
 
         <!--输入数据对话框-->
@@ -326,6 +326,7 @@
                 this.isYouniGraphLoaded = true;
                 console.log("Graph loaded");
                 let that = this;
+                this.hideLoading();
                 axios.get('/api/youni/get/all', {
                     //
                 })
@@ -501,7 +502,6 @@
             },
             libsJsLoaded: function () {
                 this.libsJsLoadComplete = true;
-                this.hideLoading();
             },
             hideLoading: function () {
                 $('#loading_all').delay(500).hide(0);
