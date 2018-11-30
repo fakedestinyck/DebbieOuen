@@ -21,7 +21,4 @@ import './echartResizeHelper.js';
 
 const app = new Vue({
     el: '#app',
-    data: {
-        testValue: 0
-    }
 });

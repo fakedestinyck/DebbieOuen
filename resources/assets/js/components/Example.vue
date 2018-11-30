@@ -96,9 +96,29 @@
                                 </div>
                                 <div class="self-wrapper" v-show="!projectInfoLocked">
                                     <h4>可视化数据</h4>
+                                    <h5>千年数据</h5>
                                     <!-- MDL Spinner Component -->
                                     <div class="mdl-spinner mdl-js-spinner is-active" v-show="compiling"></div>
                                     <div id="chart-rank" style="height: 400px; width: 100%;" v-on-echart-resize></div>
+                                    <div><br></div>
+                                    <h5>前后几名的数据</h5>
+                                    <p>输入区间过大可能导致浏览器卡死或报错！</p>
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="lowerBound" v-model="lowerBound" required>
+                                        <label class="mdl-textfield__label" for="lowerBound">查找的排名上限</label>
+                                    </div>
+                                    <br>
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="upperBound" v-model="upperBound" required>
+                                        <label class="mdl-textfield__label" for="lowerBound">查找的排名下限</label>
+                                    </div>
+                                    <br>
+                                    <!-- MDL Spinner Component -->
+                                    <div class="mdl-spinner mdl-js-spinner is-active" v-show="loadingOthersRank"></div>
+                                    <a class="mdl-button mdl-js-button mdl-button--raised
+                                            mdl-js-ripple-effect mdl-button--colored" @click="searchRank"
+                                       v-show="!loadingOthersRank">查找</a>
+                                    <div id="chart-compare" style="height: 400px; width: 100%;" v-on-echart-resize></div>
                                 </div>
                                 <div class="self-wrapper" v-show="projectInfoLocked">
                                 <h3>Project Files</h3>
@@ -308,6 +328,17 @@
                     }
                 }
             },
+            searchRank: function () {
+                var re = /^[0-9]+.?[0-9]*/;
+                if (!re.test(this.upperBound) || !re.test(this.lowerBound)) {
+                    alert("请输入正确的正整数");
+                } else {
+                    this.loadingOthersRank = true;
+                    this.youniOtherRanks.length = 0;
+                    this.loadYouniOthersGraph();
+                }
+
+            },
             onSwitchTabs: function(tabIndex) {
                 switch (tabIndex) {
                     case 0:
@@ -356,6 +387,57 @@
                     });
 
             },
+            loadYouniOthersGraph: function () {
+                let that = this;
+                axios.post('/api/youni/getOthers', {
+                    lb: this.lowerBound,
+                    ub: this.upperBound
+                })
+                    .then(function (response) {
+                        if (response.status === 200) {
+                            let data = response.data;
+                            for (var key in data) {
+                                // check if the property/key is defined in the object itself, not in parent
+                                if (data.hasOwnProperty(key)) {
+                                    console.log(key, data[key]);
+                                    var oneSeries = {
+                                        name: key,
+                                        type:'line',
+                                        smooth:false,
+                                        showAllSymbol: true,
+                                        symbolSize: 5,
+                                        sampling: 'average',
+                                        data: (function () {
+                                            let d = [];
+                                            let len = 0;
+                                            let value;
+                                            while (len < data[key].length) {
+                                                d.push([
+                                                    that.convertTimeString(data[key][len]["t"]),
+                                                    data[key][len]["r"]
+                                                ]);
+                                                len++;
+                                            }
+                                            return d;
+                                        })()
+                                    };
+                                    that.youniOtherRanks.push(oneSeries);
+                                }
+                            }
+                            let waitForLibsJs = setInterval(function(){
+                                if (that.libsJsLoadComplete) {
+                                    clearInterval(waitForLibsJs);
+                                    that.createChartCompare();
+                                } else {
+                                    console.log("wait for js");
+                                }
+                            }, 50);
+                        }
+                    })
+                    .catch(function (error) {
+                        alert(error);
+                    });
+            },
             createChartRank: function() {
                 let that = this;
                 var dom = document.getElementById("chart-rank");
@@ -365,10 +447,17 @@
                 var option = {
                     tooltip: {
                         trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            label: {
+                                backgroundColor: '#6a7985'
+                            },
+                            snap: true
+                        }
                     },
                     title: {
                         left: 'center',
-                        text: '排名变化',
+                        text: '千年排名分数变化',
                     },
                     xAxis: [{
                         type: 'time',
@@ -398,13 +487,14 @@
                     dataZoom: {
                         type: 'slider',
                         show: true,
-                        start : 70
+                        start : 70,
+                        bottom: 0
                     },
                     series: [
                         {
                             name:'排名',
                             type:'line',
-                            smooth:true,
+                            smooth:false,
                             showAllSymbol: true,
                             symbolSize: 5,
                             sampling: 'average',
@@ -449,6 +539,53 @@
                 if (option && typeof option === "object") {
                     myChart.setOption(option, true);
                     that.compiling = false;
+                }
+
+            },
+            createChartCompare: function() {
+                let that = this;
+                var dom = document.getElementById("chart-compare");
+                var myChart = echarts.init(dom, 'debbie');
+                var app = {};
+
+                var option = {
+                    tooltip: {
+                        trigger: 'axis',
+                    },
+                    title: {
+                        left: 'center',
+                        text: '前后几名排名变化',
+                    },
+                    xAxis: [{
+                        type: 'time',
+                        boundaryGap: false,
+                        splitNumber:10
+                    }],
+                    yAxis: [{
+                        name: '排名',
+                        nameLocation: 'start',
+                        type: 'value',
+                        inverse: true,
+                        scale: true,
+                        minInterval: 1,
+                        splitNumber: 5,
+                        min: function(value) {
+                            return value.min - 2;
+                        },
+                        max: function(value) {
+                            return value.max + 2;
+                        }
+                    }],
+                    dataZoom: {
+                        type: 'slider',
+                        show: true,
+                        start : 70
+                    },
+                    series: that.youniOtherRanks
+                };
+                if (option && typeof option === "object") {
+                    myChart.setOption(option, true);
+                    that.loadingOthersRank = false;
                 }
 
             },
@@ -692,6 +829,10 @@
                 youniAllRanks: [],
                 youniAllTimes: [],
                 youniAllPoints: [],
+                youniOtherRanks: [],
+                lowerBound: "",
+                upperBound: "",
+                loadingOthersRank: false,
                 showCodeStyleNaming: false,
                 myCodeMirror: null,
                 compiling: false,

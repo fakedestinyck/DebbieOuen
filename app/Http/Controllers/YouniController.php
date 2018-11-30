@@ -113,6 +113,61 @@ class YouniController extends Controller
         return $this->getSpecific($files[0]);
     }
 
+    public function getOthers() {
+        $dataArray = array();
+        $latest = $this->getLatest();
+        if ($latest["status"] == 200) {
+            $fileArray = json_decode(json_encode($latest['data']),true);
+            $charts = $fileArray["chartsList"];
+            foreach ($charts as $chart) {
+                $dataArray[$chart["rank"]] = $chart["songId"];
+            }
+        }
+        return $dataArray;
+    }
+
+    public function getOthersRank($idArray) {
+        $allRanksData = array();
+        $files = $this->get();
+        foreach ($files as $file) {
+            $data = $this->getSpecific($file);
+            if ($data["status"] == "200") {
+                $fileArray = json_decode(json_encode($data['data']),true);
+                $updateTime = $fileArray["updateTime"];
+                foreach ($fileArray['chartsList']  as $datum) {
+                    if (in_array($datum["songId"],$idArray)) {
+//                        $allRanksData[$datum["songId"]]["r"][] = ["t"=>$updateTime,"r"=>$datum["rank"]];
+//                        $allRanksData[$datum["songId"]]["n"] = $datum["songName"];
+                        $allRanksData[$datum["songName"]][] = ["t"=>$updateTime,"r"=>$datum["rank"]];
+                    }
+                }
+            } else {
+                return response("无法找到文件：".$file.".json",500);
+                break;
+            }
+        }
+        return response($allRanksData,200);
+    }
+
+    public function getSomeRanks(Request $request) {
+        $params = $request->all();
+        $lowerB = $params["lb"];
+        $upperB = $params["ub"];
+        if ($lowerB >$upperB) {
+            $tmp = $lowerB;
+            $lowerB = $upperB;
+            $upperB = $tmp;
+        }
+        $rankArray = array();
+        $idArray = $this->getOthers();
+        foreach ($idArray as $key=>$value) {
+            if ($key >= $lowerB && $key <= $upperB) {
+                $rankArray[] = $value;
+            }
+        }
+        return $this->getOthersRank($rankArray);
+    }
+
     public function getAll() {
         $dataArray = array();
         $files = $this->get();
@@ -124,7 +179,7 @@ class YouniController extends Controller
                     if ($datum["songId"] == "221452950") {
                         $dataArray[] = [
                             "updateTime"=>$fileArray['updateTime'],
-                            "charts"=>$datum
+                            "charts"=>$datum,
                         ];
                         break;
                     }

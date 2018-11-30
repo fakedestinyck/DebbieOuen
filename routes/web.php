@@ -19,7 +19,7 @@ Route::get('/ranks/ranking', function () {
     return view('ranks/ranking');
 });
 
-
+Route::post('/ranks/30', 'YouniController@getSomeRanks');
 
 
 //Auth::routes();
