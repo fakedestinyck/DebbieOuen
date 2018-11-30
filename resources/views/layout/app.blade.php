@@ -101,17 +101,23 @@
         }
         #loading_all div {
             position:absolute;
-            width:60px;
+            width:100%;
             height:60px;
             top:50%;
             margin-top:-60px;
-            left:50%;
-            margin-left:-30px;
         }
         /*滚动条禁用*/
         .scoll_dis {
             overflow:scroll;
             overflow-y:hidden;
+        }
+        #loading_all img {
+            position:absolute;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+            margin:auto;
         }
 
     </style>
@@ -176,6 +182,9 @@
     document.addEventListener("touchmove", myFunction);
     function myFunction(e) {
         e.preventDefault();
+        e.stopPropagation();
+        console.log("touched");
+        return false;
     }
 
 

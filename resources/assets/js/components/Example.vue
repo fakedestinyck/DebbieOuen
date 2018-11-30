@@ -252,6 +252,7 @@
             this.projectName = (this.$cookies.get("projectName") === null ? "" : this.$cookies.get("projectName"));
             this.projectDdl = (this.$cookies.get("projectDdl") === null ? "" : this.$cookies.get("projectDdl"));
             this.projectType = (this.$cookies.get("projectType") === null ? "" : this.$cookies.get("projectType"));
+            this.hideLoading();
             this.loadRankingData();
             this.loadYouniGraph();
             this.loadJs('https://cdn.bootcss.com/echarts/4.2.0-rc.2/echarts.common.min.js',this.echartsLoaded);
@@ -331,7 +332,6 @@
                 })
                     .then(function (response) {
                         if (response.status === 200) {
-                            that.hideLoading();
                             let rankData = response.data;
                             console.log(response.data);
                             for (let i = rankData.length-1; i >=0 ; --i) {
@@ -504,11 +504,11 @@
                 this.libsJsLoadComplete = true;
             },
             hideLoading: function () {
-                $('#loading_all').delay(300).hide(0);
+                $('#loading_all').delay(500).hide(0);
                 setTimeout(function(){
                     $('body').removeClass("scoll_dis");
-                    document.removeEventListener("touchmove", myFunction);
-                },300);
+//                    document.removeEventListener("touchmove", myFunction);
+                },500);
                 console.log("hide");
             },
             saveInfo: function() {
