@@ -254,7 +254,7 @@
             this.projectType = (this.$cookies.get("projectType") === null ? "" : this.$cookies.get("projectType"));
             this.loadRankingData();
             this.loadYouniGraph();
-            this.loadLibsJs('/js/libs.js',this.libsJsLoaded);
+            this.loadJs('https://cdn.bootcss.com/echarts/4.2.0-rc.2/echarts.common.min.js',this.echartsLoaded);
         },
         updated: function() {
             if (this.projectInfoLocked && !this.codingAreaCreated) {
@@ -478,7 +478,7 @@
                         console.log("error: " + error);
                     });
             },
-            loadLibsJs: function loadScript(url, callback){
+            loadJs: function loadScript(url, callback){
                 var script = document.createElement ("script");
                 script.type = "text/javascript";
                 if (script.readyState){ //IE
@@ -495,6 +495,10 @@
                 }
                 script.src = url;
                 document.getElementsByTagName("head")[0].appendChild(script);
+            },
+            echartsLoaded: function () {
+                this.echartsLoadComplete = true;
+                this.loadJs('/js/libs.js',this.libsJsLoaded);
             },
             libsJsLoaded: function () {
                 this.libsJsLoadComplete = true;
@@ -664,6 +668,7 @@
         },
         data() {
             return {
+                echartsLoadComplete: false,
                 libsJsLoadComplete: false,
                 youniUpdateTime: "加载中",
                 youniIssueTitle: "加载中",
