@@ -252,10 +252,9 @@
             this.projectName = (this.$cookies.get("projectName") === null ? "" : this.$cookies.get("projectName"));
             this.projectDdl = (this.$cookies.get("projectDdl") === null ? "" : this.$cookies.get("projectDdl"));
             this.projectType = (this.$cookies.get("projectType") === null ? "" : this.$cookies.get("projectType"));
-            this.hideLoading();
+            this.loadJs('https://cdn.bootcss.com/echarts/4.2.0-rc.2/echarts.common.min.js',this.echartsLoaded);
             this.loadRankingData();
             this.loadYouniGraph();
-            this.loadJs('https://cdn.bootcss.com/echarts/4.2.0-rc.2/echarts.common.min.js',this.echartsLoaded);
         },
         updated: function() {
             if (this.projectInfoLocked && !this.codingAreaCreated) {
@@ -502,12 +501,17 @@
             },
             libsJsLoaded: function () {
                 this.libsJsLoadComplete = true;
+                this.hideLoading();
             },
             hideLoading: function () {
                 $('#loading_all').delay(500).hide(0);
                 setTimeout(function(){
                     $('body').removeClass("scoll_dis");
-//                    document.removeEventListener("touchmove", myFunction);
+                    document.removeEventListener("touchmove", myFunction);
+                    $('html, body, main').css({
+                        overflow: 'auto',
+                        height: 'auto'
+                    });
                 },500);
                 console.log("hide");
             },

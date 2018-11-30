@@ -187,6 +187,11 @@
         return false;
     }
 
+    $('html, body, main').css({
+        overflow: 'hidden',
+        height: '100%'
+    });
+
 
 
 //    $(document).ready(function(){
