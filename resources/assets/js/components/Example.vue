@@ -254,6 +254,7 @@
             this.projectType = (this.$cookies.get("projectType") === null ? "" : this.$cookies.get("projectType"));
             this.loadRankingData();
             this.loadYouniGraph();
+            this.loadLibsJs('/js/libs.js',this.libsJsLoaded);
         },
         updated: function() {
             if (this.projectInfoLocked && !this.codingAreaCreated) {
@@ -340,7 +341,14 @@
                                 that.youniAllPoints.push(rankData[i].charts.uniIndex);
                             }
                             that.compiling = true;
-                            that.createChartRank();
+                            let waitForLibsJs = setInterval(function(){
+                                if (that.libsJsLoadComplete) {
+                                    clearInterval(waitForLibsJs);
+                                    that.createChartRank();
+                                } else {
+                                    console.log("wait for js");
+                                }
+                            }, 50);
                         }
                     })
                     .catch(function (error) {
@@ -469,6 +477,27 @@
                     .catch(function (error) {
                         console.log("error: " + error);
                     });
+            },
+            loadLibsJs: function loadScript(url, callback){
+                var script = document.createElement ("script");
+                script.type = "text/javascript";
+                if (script.readyState){ //IE
+                    script.onreadystatechange = function(){
+                        if (script.readyState === "loaded" || script.readyState === "complete"){
+                            script.onreadystatechange = null;
+                            callback();
+                        }
+                    };
+                } else { //Others
+                    script.onload = function(){
+                        callback();
+                    };
+                }
+                script.src = url;
+                document.getElementsByTagName("head")[0].appendChild(script);
+            },
+            libsJsLoaded: function () {
+                this.libsJsLoadComplete = true;
             },
             saveInfo: function() {
                 if (
@@ -635,6 +664,7 @@
         },
         data() {
             return {
+                libsJsLoadComplete: false,
                 youniUpdateTime: "加载中",
                 youniIssueTitle: "加载中",
                 youniStartTime: "加载中",

@@ -25,7 +25,8 @@ mix.styles([
 mix.scripts([
     // 'resources/assets/js/codemirror.js',
     // 'resources/assets/js/clike.js',
-    'resources/assets/js/echarts.js',
+    // 'resources/assets/js/echarts.js',
+    'resources/assets/js/echarts.min.js',
     'resources/assets/js/echartsdebbietheme.js'
 
 ], 'public/js/libs.js');
