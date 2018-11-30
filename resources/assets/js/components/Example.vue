@@ -168,9 +168,10 @@
                         <footer class="demo-footer mdl-mini-footer">
                             <div class="mdl-mini-footer--left-section">
                                 <ul class="mdl-mini-footer--link-list">
-                                    <li><a href="#">Help</a></li>
-                                    <li><a href="#">Privacy and Terms</a></li>
-                                    <li><a href="#">User Agreement</a></li>
+                                    <li><a href="#">帮助</a></li>
+                                    <li><a href="#">隐私政策</a></li>
+                                    <li><a href="#">用户协议</a></li>
+                                    <li><a href="http://www.miibeian.gov.cn/">沪ICP备16029354号-2</a></li>
                                 </ul>
                             </div>
                         </footer>

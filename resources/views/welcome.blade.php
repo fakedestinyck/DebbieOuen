@@ -46,7 +46,7 @@
             }
 
             .full-height {
-                height: calc(100vh - 64px);
+                height: calc(100vh - 64px - 20px);
             }
 
             .flex-center {
@@ -160,6 +160,9 @@
                     </div>
                 </div>
             </main>
+            <footer style="text-align: center;">
+                <a href="http://www.miibeian.gov.cn/" style="text-decoration: none;color: darkgray">沪ICP备16029354号-2</a>
+            </footer>
         </div>
 
         {{--<dialog class="mdl-dialog">--}}
