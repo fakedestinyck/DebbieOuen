@@ -595,7 +595,7 @@
                 let space = timeString.indexOf(" ");
                 let colon = timeString.indexOf(":");
                 let year = timeString.substring(0,firstDash);
-                let month = timeString.substring(firstDash,secondDash)-1;
+                let month = timeString.substring(firstDash+1,secondDash)-1;
                 let day = timeString.substring(secondDash+1,space);
                 let hour = timeString.substring(space+1,colon);
                 let minute = timeString.substring(colon+1);
