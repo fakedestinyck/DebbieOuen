@@ -122,11 +122,11 @@
 
     </style>
 </head>
-{{--<div id="loading_all">--}}
-    {{--<div>--}}
-        {{--<img src="/resources/loading.gif" class="img-responsive">--}}
-    {{--</div>--}}
-{{--</div>--}}
+<div id="loading_all">
+    <div>
+        <img src="/resources/loading.gif" class="img-responsive">
+    </div>
+</div>
 <body class="scoll_dis">
 
 
