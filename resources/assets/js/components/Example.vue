@@ -92,11 +92,12 @@
                                 <!--<a class="mdl-button mdl-js-button mdl-button&#45;&#45;raised-->
                                             <!--mdl-js-ripple-effect mdl-button&#45;&#45;colored" @click="saveInfo"-->
                                    <!--v-show="!compiling">Save project info</a>-->
-                                <!--&lt;!&ndash; MDL Spinner Component &ndash;&gt;-->
-                                <!--<div class="mdl-spinner mdl-js-spinner is-active" v-show="compiling"></div>-->
+
                                 </div>
                                 <div class="self-wrapper" v-show="!projectInfoLocked">
                                     <h4>可视化数据</h4>
+                                    <!-- MDL Spinner Component -->
+                                    <div class="mdl-spinner mdl-js-spinner is-active" v-show="compiling"></div>
                                     <div id="chart-rank" style="height: 400px; width: 100%;" v-on-echart-resize></div>
                                 </div>
                                 <div class="self-wrapper" v-show="projectInfoLocked">
@@ -338,6 +339,7 @@
                                 that.youniAllTimes.push(rankData[i].updateTime);
                                 that.youniAllPoints.push(rankData[i].charts.uniIndex);
                             }
+                            that.compiling = true;
                             that.createChartRank();
                         }
                     })
@@ -438,6 +440,7 @@
                 };
                 if (option && typeof option === "object") {
                     myChart.setOption(option, true);
+                    that.compiling = false;
                 }
 
             },

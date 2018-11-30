@@ -11,11 +11,9 @@
     "bootstrap-sass": "^3.3.7",
     "jquery": "^3.1.0",
     "laravel-mix": "^0.10.0",
-    "lodash": "^4.16.2",
     "vue": "^2.0.1"
   },
   "dependencies": {
-    "codemirror": "^5.38.0",
     "vue-cookies": "^1.5.6"
   }
 }

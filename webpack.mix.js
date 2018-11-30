@@ -16,15 +16,15 @@ mix.js('resources/assets/js/app.js', 'public/js')
 
 mix.styles([
 
-    'resources/assets/css/codemirror.css',
+    // 'resources/assets/css/codemirror.css',
     'resources/assets/css/styles.css',
-    'resources/assets/css/mdn-like.css'
+    // 'resources/assets/css/mdn-like.css'
 
 ], 'public/css/libs.css');
 
 mix.scripts([
-    'resources/assets/js/codemirror.js',
-    'resources/assets/js/clike.js',
+    // 'resources/assets/js/codemirror.js',
+    // 'resources/assets/js/clike.js',
     'resources/assets/js/echarts.js',
     'resources/assets/js/echartsdebbietheme.js'
 

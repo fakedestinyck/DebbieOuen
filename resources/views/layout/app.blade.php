@@ -87,7 +87,7 @@
 </div>
 <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
 
-<script src="{{ asset('js/libs.js') }}"></script>
+
 {{--<script src="{{ asset('js/codemirror.js') }}"></script>--}}
 {{--<script src="{{ asset('js/clike.js') }}"></script>--}}
 <script src="{{ asset('js/app.js') }}"></script>
@@ -143,4 +143,5 @@
 //}());
 </script>
 </body>
+<script src="{{ asset('js/libs.js') }}"></script>
 </html>
