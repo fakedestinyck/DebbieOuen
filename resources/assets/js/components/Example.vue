@@ -331,7 +331,7 @@
                 })
                     .then(function (response) {
                         if (response.status === 200) {
-
+                            that.hideLoading();
                             let rankData = response.data;
                             console.log(response.data);
                             for (let i = rankData.length-1; i >=0 ; --i) {
@@ -502,6 +502,14 @@
             },
             libsJsLoaded: function () {
                 this.libsJsLoadComplete = true;
+            },
+            hideLoading: function () {
+                $('#loading_all').delay(300).hide(0);
+                setTimeout(function(){
+                    $('body').removeClass("scoll_dis");
+                    document.removeEventListener("touchmove", myFunction);
+                },300);
+                console.log("hide");
             },
             saveInfo: function() {
                 if (

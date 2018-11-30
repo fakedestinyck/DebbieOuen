@@ -91,9 +91,38 @@
         textarea {
             resize: none;
         }
+
+        #loading_all {
+            width:100%;
+            height:100%;
+            position:fixed;
+            z-index:999;
+            background-color:black;
+        }
+        #loading_all div {
+            position:absolute;
+            width:60px;
+            height:60px;
+            top:50%;
+            margin-top:-60px;
+            left:50%;
+            margin-left:-30px;
+        }
+        /*滚动条禁用*/
+        .scoll_dis {
+            overflow:scroll;
+            overflow-y:hidden;
+        }
+
     </style>
 </head>
-<body>
+<div id="loading_all">
+    <div>
+        <img src="/resources/loading.gif" class="img-responsive">
+    </div>
+</div>
+<body class="scoll_dis">
+
 
 <!-- Optional JavaScript -->
 {{--<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>--}}
@@ -129,20 +158,26 @@
 
 <script>
 //    document.getElementsByClassName("title")[0]
-    var dialog = document.querySelector('#dialogDismiss');
-    //            var showDialogButton = document.querySelector('#show-dialog');
-    var showDialogButton = document.querySelectorAll('.show-dialog');
-    if (! dialog.showModal) {
-        dialogPolyfill.registerDialog(dialog);
+//    var dialog = document.querySelector('#dialogDismiss');
+//    //            var showDialogButton = document.querySelector('#show-dialog');
+//    var showDialogButton = document.querySelectorAll('.show-dialog');
+//    if (! dialog.showModal) {
+//        dialogPolyfill.registerDialog(dialog);
+//    }
+//    for (var i = 0; i < showDialogButton.length; ++i) {
+//        showDialogButton[i].addEventListener('click', function() {
+//            dialog.showModal();
+//        });
+//    }
+//    dialog.querySelector('.close').addEventListener('click', function() {
+//        dialog.close();
+//    });
+    //阻止触摸事件
+    document.addEventListener("touchmove", myFunction);
+    function myFunction(e) {
+        e.preventDefault();
     }
-    for (var i = 0; i < showDialogButton.length; ++i) {
-        showDialogButton[i].addEventListener('click', function() {
-            dialog.showModal();
-        });
-    }
-    dialog.querySelector('.close').addEventListener('click', function() {
-        dialog.close();
-    });
+
 
 
 //    $(document).ready(function(){
