@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#ffffff">
 
     <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.9/theme-chalk/index.css" rel="stylesheet">
     <!-- Fonts -->
     <link href="{{ asset('resources/fonts.css') }}" rel="stylesheet">
     <!-- CSS -->
@@ -211,4 +211,5 @@
 </script>
 </body>
 <script src="https://cdn.bootcss.com/echarts/4.2.0-rc.2/echarts.common.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.9/index.js"></script>
 </html>

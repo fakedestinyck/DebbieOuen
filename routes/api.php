@@ -25,7 +25,7 @@ Route::prefix('youni')->group(function () {
     Route::get('/getLatest', 'YouniController@getLatest');
     Route::get('/get/all', 'YouniController@getAll');
     Route::get('/get/{timestamp}', 'YouniController@getSpecific');
-    Route::post('/getOthers', 'YouniController@getSomeRanks');
+    Route::post('/getOthers', 'YouniController@getSomeRanks')->middleware(['addHeader']);
 
 });
 

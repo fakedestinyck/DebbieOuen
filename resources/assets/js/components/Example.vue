@@ -61,7 +61,55 @@
                     <div class="flex-center position-ref full-height">
                         <div class="content">
                             <div class="title m-b-md">
-                                敬请期待...
+                                <el-table
+                                        :data="tableData4"
+                                        style="width: 100%"
+                                        max-height="250">
+                                    <el-table-column
+                                            fixed
+                                            prop="date"
+                                            label="日期"
+                                            width="150">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="name"
+                                            label="姓名"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="province"
+                                            label="省份"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="city"
+                                            label="市区"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="address"
+                                            label="地址"
+                                            width="300">
+                                    </el-table-column>
+                                    <el-table-column
+                                            prop="zip"
+                                            label="邮编"
+                                            width="120">
+                                    </el-table-column>
+                                    <el-table-column
+                                            fixed="right"
+                                            label="操作"
+                                            width="120">
+                                        <template slot-scope="scope">
+                                            <el-button
+                                                    @click.native.prevent="deleteRow(scope.$index, tableData4)"
+                                                    type="text"
+                                                    size="small">
+                                                移除
+                                            </el-button>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
                             </div>
                             <p @click="downloadFile('txt')">下载</p>
                         </div>
@@ -115,6 +163,7 @@
                                     <br>
                                     <!-- MDL Spinner Component -->
                                     <div class="mdl-spinner mdl-js-spinner is-active" v-show="loadingOthersRank"></div>
+                                    <div v-show="loadingOthersRank">{{ getOthersProgress }}%获取完成</div>
                                     <a class="mdl-button mdl-js-button mdl-button--raised
                                             mdl-js-ripple-effect mdl-button--colored" @click="searchRank"
                                        v-show="!loadingOthersRank">查找</a>
@@ -291,6 +340,9 @@
                     alert(event.target.tagName)
                 }
             },
+            deleteRow(index, rows) {
+                rows.splice(index, 1);
+            },
             loadRankingData: function() {
                 this.youniCurrentRank = "";
                 let that = this;
@@ -389,17 +441,29 @@
             },
             loadYouniOthersGraph: function () {
                 let that = this;
+                function getDownloadProgress(event){
+                    return event.currentTarget.getResponseHeader('X-Content-Length');
+
+                }
+                let config = {
+                    onDownloadProgress: function(progressEvent) {
+                        let percentCompleted = Math.round( (progressEvent.loaded * 100) / getDownloadProgress(progressEvent) );
+                        console.log(percentCompleted);
+                        that.getOthersProgress = percentCompleted;
+                    }
+                };
+                that.getOthersProgress = 0;
                 axios.post('/api/youni/getOthers', {
                     lb: this.lowerBound,
                     ub: this.upperBound
-                })
+                }, config)
                     .then(function (response) {
                         if (response.status === 200) {
                             let data = response.data;
                             for (var key in data) {
                                 // check if the property/key is defined in the object itself, not in parent
                                 if (data.hasOwnProperty(key)) {
-                                    console.log(key, data[key]);
+//                                    console.log(key, data[key]);
                                     var oneSeries = {
                                         name: key,
                                         type:'line',
@@ -831,6 +895,7 @@
                 youniAllTimes: [],
                 youniAllPoints: [],
                 youniOtherRanks: [],
+                getOthersProgress: 0,
                 lowerBound: "",
                 upperBound: "",
                 loadingOthersRank: false,
@@ -847,7 +912,57 @@
                 runningParameter: "",
                 codeArray: {},
                 dialogInput: null,
-                runningResult: ""
+                runningResult: "",
+                tableData4: [{
+                    date: '2016-05-03',
+                    name: '王小虎',
+                    province: '上海',
+                    city: '普陀区',
+                    address: '上海市普陀区金沙江路 1518 弄',
+                    zip: 200333
+                }, {
+                    date: '2016-05-02',
+                    name: '王小虎',
+                    province: '上海',
+                    city: '普陀区',
+                    address: '上海市普陀区金沙江路 1518 弄',
+                    zip: 200333
+                }, {
+                    date: '2016-05-04',
+                    name: '王小虎',
+                    province: '上海',
+                    city: '普陀区',
+                    address: '上海市普陀区金沙江路 1518 弄',
+                    zip: 200333
+                }, {
+                    date: '2016-05-01',
+                    name: '王小虎',
+                    province: '上海',
+                    city: '普陀区',
+                    address: '上海市普陀区金沙江路 1518 弄',
+                    zip: 200333
+                }, {
+                    date: '2016-05-08',
+                    name: '王小虎',
+                    province: '上海',
+                    city: '普陀区',
+                    address: '上海市普陀区金沙江路 1518 弄',
+                    zip: 200333
+                }, {
+                    date: '2016-05-06',
+                    name: '王小虎',
+                    province: '上海',
+                    city: '普陀区',
+                    address: '上海市普陀区金沙江路 1518 弄',
+                    zip: 200333
+                }, {
+                    date: '2016-05-07',
+                    name: '王小虎',
+                    province: '上海',
+                    city: '普陀区',
+                    address: '上海市普陀区金沙江路 1518 弄',
+                    zip: 200333
+                }]
             }
         }
     }
