@@ -129,20 +129,22 @@
 </div>
 <body class="scoll_dis">
 
+<div id="app">
+<example></example>
+</div>
 
+
+{{--<script src="{{ asset('js/libs.js') }}"></script>--}}
+{{--<script src="{{ asset('js/codemirror.js') }}"></script>--}}
+{{--<script src="{{ asset('js/clike.js') }}"></script>--}}
 <!-- Optional JavaScript -->
 {{--<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>--}}
 <script src="https://cdn.bootcss.com/material-design-lite/1.3.0/material.min.js"></script>
 
 
-<div id="app">
-<example></example>
-</div>
-<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
-
-{{--<script src="{{ asset('js/libs.js') }}"></script>--}}
-{{--<script src="{{ asset('js/codemirror.js') }}"></script>--}}
-{{--<script src="{{ asset('js/clike.js') }}"></script>--}}
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+<script src="https://unpkg.com/element-ui@2.4.11/lib/index.js"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 {{--<dialog class="mdl-dialog" id="dialogDismiss">--}}
     {{--<h5 class="mdl-dialog__title">敬请期待！</h5>--}}
@@ -211,5 +213,4 @@
 </script>
 </body>
 <script src="https://cdn.bootcss.com/echarts/4.2.0-rc.2/echarts.common.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.9/index.js"></script>
 </html>

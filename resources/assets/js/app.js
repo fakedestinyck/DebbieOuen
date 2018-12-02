@@ -13,12 +13,18 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+// import 'element-ui/lib/theme-chalk/index.css';
+// window.Vue = require('vue');
+
 Vue.component('example', require('./components/Example.vue'));
-window.Vue = require('vue');
+import ElementUI from 'element-ui';
 Vue.use(require('vue-cookies'));
+Vue.use(ElementUI);
+
 import './echartResizeHelper.js';
-
-
+// import ElementUI from 'element-ui';
+// import 'element-ui/lib/theme-chalk/index.css';
+// Vue.use(ElementUI);
 const app = new Vue({
     el: '#app',
 });

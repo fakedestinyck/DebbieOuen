@@ -22,105 +22,151 @@
         </div>
         <main class="mdl-layout__content mdl-demo">
             <section class="mdl-layout__tab-panel" id="scroll-tab-1">
-                <!--<div class="page-content" style="padding-top:50px">-->
-                    <!--<section class="section&#45;&#45;center mdl-grid mdl-grid&#45;&#45;no-spacing mdl-shadow&#45;&#45;2dp">-->
-                        <!--<div class="mdl-card mdl-cell mdl-cell&#45;&#45;12-col">-->
-                            <!--<div class="mdl-card__supporting-text">-->
-                                <!--<h4>命名规则</h4>-->
-                                <!--命名的风格能立刻告诉我们这个名字代表的实体到底是什么东西：类型，变量，函数，常量，宏，等等，而不需要我们去寻找-->
-                                <!--该实体的声明。我们头脑中的模式匹配引擎大量依赖于这些命名规则。-->
-                            <!--</div>-->
-                            <!--<div class="mdl-card__actions mdl-card&#45;&#45;border">-->
-                                <!--<a class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button&#45;&#45;colored"-->
-                                   <!--v-show="!showCodeStyleNaming" v-on:click="showCodeStyleNaming = true">-->
-                                    <!--Button-->
-                                <!--</a>-->
-                            <!--</div>-->
-                            <!--<div class="mdl-card__supporting-text" v-show="showCodeStyleNaming">-->
-                                <!--<h4 class="mdl-cell mdl-cell&#45;&#45;12-col">Details</h4>-->
-                                <!--<div class="section__text mdl-cell mdl-cell&#45;&#45;12-col">-->
-                                    <!--<h5>通用命名规则</h5>-->
-                                    <!--函数名，变量名，和文件名应该是描述性的；不要过度缩写。类型名和变量名应该是名词，而函数名应该是命令式的动词。-->
-                                    <!--尽量有理由的起一个描述性的名字。别担心行空间的问题，让你的代码能被新读者很快理解远远比这更重要。-->
-                                    <!--<br>-->
-                                    <!--类型名和变量名通常应该是名词。<br>-->
-                                    <!--不要使用缩写，除非这个缩写在你的项目之外也被广泛使用。<br>-->
-                                    <!--永远不要用省略字母的缩写。-->
-                                <!--</div>-->
-                                <!--<div class="section__text mdl-cell mdl-cell&#45;&#45;12-col">-->
-                                    <!--<h5>通用命名规则</h5>-->
-                                    <!--函数名，变量名，和文件名应该是描述性的；不要过度缩写。类型名和变量名应该是名词，而函数名应该是命令式的动词。-->
-                                    <!--尽量有理由的起一个描述性的名字。别担心行空间的问题，让你的代码能被新读者很快理解远远比这更重要。-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                <section class="section--center mdl-grid mdl-grid--no-spacing">
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <h4>蒋申的微博实力排行榜数据</h4>
 
-                    <!--</section>-->
-                <!--</div>-->
-                <div class="page-content">
-                    <div class="flex-center position-ref full-height">
-                        <div class="content">
-                            <div class="title m-b-md">
-                                <el-table
-                                        :data="tableData4"
-                                        style="width: 100%"
-                                        max-height="250">
-                                    <el-table-column
-                                            fixed
-                                            prop="date"
-                                            label="日期"
-                                            width="150">
+
+                        <el-table :data="weiboRankData" style="width: 100%" max-height="250">
+                            <el-table-column fixed prop="date" label="日期" :width="columnSmallWidth">
+                            </el-table-column>
+                            <el-table-column label="总分">
+                                <el-table-column prop="myTotalScore" label="总分" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="myTotalRank" label="排名" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="beforeName" label="前一位" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="beforeScore" label="得分" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="afterName" label="后一位" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="afterScore" label="得分" :width="columnSmallWidth">
+                                </el-table-column>
+                            </el-table-column>
+
+                            <el-table-column label="阅读数">
+                                <el-table-column prop="readingValue" label="阅读数" :width="columnXLargeWidth">
+                                </el-table-column>
+                                <el-table-column prop="readingScore" label="得分" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="readingRank" label="排名" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="tweetsNumber" label="发博" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column label="第一名">
+                                    <el-table-column prop="readingBeforeName" label="姓名" :width="columnSmallWidth">
                                     </el-table-column>
-                                    <el-table-column
-                                            prop="name"
-                                            label="姓名"
-                                            width="120">
+                                    <el-table-column prop="readingBeforeValue" label="阅读数" :width="columnLargeWidth">
                                     </el-table-column>
-                                    <el-table-column
-                                            prop="province"
-                                            label="省份"
-                                            width="120">
+                                </el-table-column>
+                            </el-table-column>
+
+                            <el-table-column label="互动数">
+                                <el-table-column prop="interactionValue" label="互动数" :width="columnXLargeWidth">
+                                </el-table-column>
+                                <el-table-column prop="interactionScore" label="得分" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="interactionRank" label="排名" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="interactionRepostCount" label="微博被互动" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="interactionCommentCount" label="评论被互动" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="interactionStoryCount" label="微博故事被互动" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column label="第一名">
+                                    <el-table-column prop="interactionBeforeName" label="姓名" :width="columnSmallWidth">
                                     </el-table-column>
-                                    <el-table-column
-                                            prop="city"
-                                            label="市区"
-                                            width="120">
+                                    <el-table-column prop="interactionBeforeValue" label="互动数" :width="columnLargeWidth">
                                     </el-table-column>
-                                    <el-table-column
-                                            prop="address"
-                                            label="地址"
-                                            width="300">
+                                </el-table-column>
+                            </el-table-column>
+
+                            <el-table-column label="社会影响力">
+                                <el-table-column prop="impactValue" label="影响力" :width="columnXLargeWidth">
+                                </el-table-column>
+                                <el-table-column prop="impactScore" label="得分" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="impactRank" label="排名" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="impactSearchCount" label="搜索量" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="impactMentionCount" label="提到次数" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column label="第一名">
+                                    <el-table-column prop="impactBeforeName" label="姓名" :width="columnSmallWidth">
                                     </el-table-column>
-                                    <el-table-column
-                                            prop="zip"
-                                            label="邮编"
-                                            width="120">
+                                    <el-table-column prop="impactBeforeValue" label="影响力" :width="columnLargeWidth">
                                     </el-table-column>
-                                    <el-table-column
-                                            fixed="right"
-                                            label="操作"
-                                            width="120">
-                                        <template slot-scope="scope">
-                                            <el-button
-                                                    @click.native.prevent="deleteRow(scope.$index, tableData4)"
-                                                    type="text"
-                                                    size="small">
-                                                移除
-                                            </el-button>
-                                        </template>
+                                </el-table-column>
+                            </el-table-column>
+
+                            <el-table-column label="爱慕值">
+                                <el-table-column prop="flowerValue" label="爱慕值" :width="columnXLargeWidth">
+                                </el-table-column>
+                                <el-table-column prop="flowerScore" label="得分" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="flowerRank" label="排名" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="flowerPersonCount" label="送花人数" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="flowerTotalNumCount" label="送花次数" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column label="第一名">
+                                    <el-table-column prop="flowerBeforeName" label="姓名" :width="columnSmallWidth">
                                     </el-table-column>
-                                </el-table>
-                            </div>
-                            <p @click="downloadFile('txt')">下载</p>
-                        </div>
+                                    <el-table-column prop="flowerBeforeValue" label="爱慕值" :width="columnLargeWidth">
+                                    </el-table-column>
+                                </el-table-column>
+                            </el-table-column>
+
+                            <el-table-column label="正能量值">
+                                <el-table-column prop="energyValue" label="正能量" :width="columnXLargeWidth">
+                                </el-table-column>
+                                <el-table-column prop="energyScore" label="得分" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="energyRank" label="排名" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column label="主动行为正能量">
+                                    <el-table-column prop="energyActiveValue" label="值" :width="columnSmallWidth">
+                                    </el-table-column>
+                                    <el-table-column prop="energyActiveScore" label="得分" :width="columnSmallWidth">
+                                    </el-table-column>
+                                    <el-table-column prop="energyActiveRank" label="排名" :width="columnSmallWidth">
+                                    </el-table-column>
+                                </el-table-column>
+                                <el-table-column label="被动影响正能量">
+                                    <el-table-column prop="energyPassiveValue" label="值" :width="columnSmallWidth">
+                                    </el-table-column>
+                                    <el-table-column prop="energyPassiveScore" label="得分" :width="columnSmallWidth">
+                                    </el-table-column>
+                                    <el-table-column prop="energyPassiveRank" label="排名" :width="columnSmallWidth">
+                                    </el-table-column>
+                                </el-table-column>
+
+                                <el-table-column label="第一名">
+                                    <el-table-column prop="energyBeforeName" label="姓名" :width="columnSmallWidth">
+                                    </el-table-column>
+                                    <el-table-column prop="energyBeforeValue" label="正能量" :width="columnLargeWidth">
+                                    </el-table-column>
+                                </el-table-column>
+                            </el-table-column>
+
+                            <!--<el-table-column fixed="right" label="操作" width="120">-->
+                                <!--<template slot-scope="scope">-->
+                                    <!--<el-button @click.native.prevent="deleteRow(scope.$index, tableData4)" type="text" size="small">-->
+                                        <!--移除-->
+                                    <!--</el-button>-->
+                                <!--</template>-->
+                            <!--</el-table-column>-->
+                        </el-table>
                     </div>
-                </div>
-
-
+                </section>
             </section>
+
             <section class="mdl-layout__tab-panel is-active" id="scroll-tab-2">
-                <div class="page-content demo-layout mdl-layout mdl-layout--fixed-header
-                        mdl-js-layout mdl-color--grey-100">
+                <section class="mdl-grid mdl-grid--no-spacing">
                     <div class="demo-ribbon"></div>
                     <main class="demo-main mdl-layout__content">
                         <div class="demo-container mdl-grid">
@@ -214,18 +260,20 @@
                                 </div>
                             </div>
                         </div>
-                        <footer class="demo-footer mdl-mini-footer">
-                            <div class="mdl-mini-footer--left-section">
-                                <ul class="mdl-mini-footer--link-list">
-                                    <li><a href="#">帮助</a></li>
-                                    <li><a href="#">隐私政策</a></li>
-                                    <li><a href="#">用户协议</a></li>
-                                    <li><a href="http://www.miibeian.gov.cn/">沪ICP备16029354号-2</a></li>
-                                </ul>
-                            </div>
-                        </footer>
+                        <!--<footer class="demo-footer mdl-mini-footer">-->
+                            <!--<div class="mdl-mini-footer&#45;&#45;left-section">-->
+                                <!--<ul class="mdl-mini-footer&#45;&#45;link-list">-->
+                                    <!--<li><a href="#">帮助</a></li>-->
+                                    <!--<li><a href="#">隐私政策</a></li>-->
+                                    <!--<li><a href="#">用户协议</a></li>-->
+                                    <!--<li><a href="http://www.miibeian.gov.cn/">沪ICP备16029354号-2</a></li>-->
+                                <!--</ul>-->
+                            <!--</div>-->
+                        <!--</footer>-->
                     </main>
-                </div>
+
+
+                </section>
             </section>
             <!--<section class="mdl-layout__tab-panel" id="scroll-tab-3">-->
                 <!--<div class="page-content">-->
@@ -285,6 +333,16 @@
                     <!--</main>-->
                 <!--</div>-->
             <!--</section>-->
+            <footer class="demo-footer mdl-mini-footer">
+                <div class="mdl-mini-footer--left-section">
+                    <ul class="mdl-mini-footer--link-list">
+                        <li><a href="#">帮助</a></li>
+                        <li><a href="#">隐私政策</a></li>
+                        <li><a href="#">用户协议</a></li>
+                        <li><a href="http://www.miibeian.gov.cn/">沪ICP备16029354号-2</a></li>
+                    </ul>
+                </div>
+            </footer>
         </main>
 
         <!--输入数据对话框-->
@@ -312,8 +370,6 @@
     </div>
 </template>
 
-
-
 <script>
 //    import '@/directive/echartResizeHelper.js';
     export default {
@@ -340,7 +396,7 @@
                     alert(event.target.tagName)
                 }
             },
-            deleteRow(index, rows) {
+            deleteRow: function (index, rows) {
                 rows.splice(index, 1);
             },
             loadRankingData: function() {
@@ -410,7 +466,6 @@
                 this.isYouniGraphLoaded = true;
                 console.log("Graph loaded");
                 let that = this;
-                this.hideLoading();
                 axios.get('/api/youni/get/all', {
                     //
                 })
@@ -703,6 +758,7 @@
             },
             libsJsLoaded: function () {
                 this.libsJsLoadComplete = true;
+                this.hideLoading();
             },
             hideLoading: function () {
                 $('#loading_all').delay(500).hide(0);
@@ -913,56 +969,61 @@
                 codeArray: {},
                 dialogInput: null,
                 runningResult: "",
-                tableData4: [{
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
-                }, {
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
-                }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
-                }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
-                }, {
-                    date: '2016-05-08',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
-                }, {
-                    date: '2016-05-06',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
-                }, {
-                    date: '2016-05-07',
-                    name: '王小虎',
-                    province: '上海',
-                    city: '普陀区',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    zip: 200333
-                }]
+                weiboRankData: [
+//                    {
+//                        date: '2016-05-03',
+//                        name: '王小虎',
+//                        province: '上海',
+//                        city: '普陀区',
+//                        address: '上海市普陀区金沙江路 1518 弄',
+//                        zip: 200333
+//                    }, {
+//                        date: '2016-05-02',
+//                        name: '王小虎',
+//                        province: '上海',
+//                        city: '普陀区',
+//                        address: '上海市普陀区金沙江路 1518 弄',
+//                        zip: 200333
+//                    }, {
+//                        date: '2016-05-04',
+//                        name: '王小虎',
+//                        province: '上海',
+//                        city: '普陀区',
+//                        address: '上海市普陀区金沙江路 1518 弄',
+//                        zip: 200333
+//                    }, {
+//                        date: '2016-05-01',
+//                        name: '王小虎',
+//                        province: '上海',
+//                        city: '普陀区',
+//                        address: '上海市普陀区金沙江路 1518 弄',
+//                        zip: 200333
+//                    }, {
+//                        date: '2016-05-08',
+//                        name: '王小虎',
+//                        province: '上海',
+//                        city: '普陀区',
+//                        address: '上海市普陀区金沙江路 1518 弄',
+//                        zip: 200333
+//                    }, {
+//                        date: '2016-05-06',
+//                        name: '王小虎',
+//                        province: '上海',
+//                        city: '普陀区',
+//                        address: '上海市普陀区金沙江路 1518 弄',
+//                        zip: 200333
+//                    }, {
+//                        date: '2016-05-07',
+//                        name: '王小虎',
+//                        province: '上海',
+//                        city: '普陀区',
+//                        address: '上海市普陀区金沙江路 1518 弄',
+//                        zip: 200333
+//                    }
+                ],
+                columnSmallWidth: 83,
+                columnLargeWidth: 166,
+                columnXLargeWidth: 183,
             }
         }
     }
@@ -972,5 +1033,15 @@
     #runningResult {
         border: solid red 3px;
         padding: 10px;
+    }
+
+    section.section--center {
+        max-width: 83.0%;
+    }
+
+    @media screen and (max-width: 1024px) {
+        section.section--center {
+            max-width: 97%;
+        }
     }
 </style>
