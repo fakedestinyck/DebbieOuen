@@ -166,7 +166,7 @@
             </section>
 
             <section class="mdl-layout__tab-panel is-active" id="scroll-tab-2">
-                <section class="mdl-grid mdl-grid--no-spacing">
+                <section class="page-content demo-layout mdl-layout mdl-layout--fixed-header mdl-color--grey-100">
                     <div class="demo-ribbon"></div>
                     <main class="demo-main mdl-layout__content">
                         <div class="demo-container mdl-grid">
