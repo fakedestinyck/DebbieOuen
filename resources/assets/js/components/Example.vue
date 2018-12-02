@@ -573,6 +573,9 @@
                             snap: true
                         }
                     },
+                    grid: {
+                        y2: 70
+                    },
                     title: {
                         left: 'center',
                         text: '千年排名分数变化',
@@ -677,6 +680,14 @@
                             snap: true
                         }
                     },
+                    grid: {
+                        y: 100,
+                      y2: 100
+                    },
+                    legend: {
+                        type: 'scroll',
+                        top: 40
+                    },
                     title: {
                         left: 'center',
                         text: '前后几名分数变化',
@@ -688,7 +699,7 @@
                     }],
                     yAxis: [{
                         name: '分数',
-                        nameLocation: 'start',
+                        nameLocation: 'end',
                         type: 'value',
                         scale: true,
 //                        minInterval: 1,
@@ -703,7 +714,8 @@
                     dataZoom: {
                         type: 'slider',
                         show: true,
-                        start : 0
+                        start : 0,
+                        bottom: 30
                     },
                     series: that.youniOtherRanks
                 };
@@ -956,6 +968,7 @@
                 youniAllTimes: [],
                 youniAllPoints: [],
                 youniOtherRanks: [],
+                youniOtherRanksLegends: [],
                 getOthersProgress: 0,
                 lowerBound: "",
                 upperBound: "",
