@@ -138,7 +138,8 @@ class YouniController extends Controller
                     if (in_array($datum["songId"],$idArray)) {
 //                        $allRanksData[$datum["songId"]]["r"][] = ["t"=>$updateTime,"r"=>$datum["rank"]];
 //                        $allRanksData[$datum["songId"]]["n"] = $datum["songName"];
-                        $allRanksData[$datum["songName"]][] = ["t"=>$updateTime,"r"=>$datum["rank"]];
+//                        $allRanksData[$datum["songName"]][] = ["t"=>$updateTime,"r"=>$datum["rank"]];
+                        $allRanksData[$datum["songName"]][] = ["t"=>$updateTime,"r"=>$datum["uniIndex"]];
                     }
                 }
             } else {

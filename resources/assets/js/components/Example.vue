@@ -530,12 +530,11 @@
                                             let d = [];
                                             let len = 0;
                                             let value;
-                                            while (len < data[key].length) {
+                                            for (len = data[key].length-1; len>=0; --len) {
                                                 d.push([
                                                     that.convertTimeString(data[key][len]["t"]),
                                                     data[key][len]["r"]
                                                 ]);
-                                                len++;
                                             }
                                             return d;
                                         })()
@@ -606,7 +605,7 @@
                     dataZoom: {
                         type: 'slider',
                         show: true,
-                        start : 70,
+                        start : 0,
                         bottom: 0
                     },
                     series: [
@@ -670,10 +669,17 @@
                 var option = {
                     tooltip: {
                         trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            label: {
+                                backgroundColor: '#6a7985'
+                            },
+                            snap: true
+                        }
                     },
                     title: {
                         left: 'center',
-                        text: '前后几名排名变化',
+                        text: '前后几名分数变化',
                     },
                     xAxis: [{
                         type: 'time',
@@ -681,24 +687,23 @@
                         splitNumber:10
                     }],
                     yAxis: [{
-                        name: '排名',
+                        name: '分数',
                         nameLocation: 'start',
                         type: 'value',
-                        inverse: true,
                         scale: true,
-                        minInterval: 1,
-                        splitNumber: 5,
-                        min: function(value) {
-                            return value.min - 2;
-                        },
-                        max: function(value) {
-                            return value.max + 2;
-                        }
+//                        minInterval: 1,
+//                        splitNumber: 5,
+//                        min: function(value) {
+//                            return value.min - 2;
+//                        },
+//                        max: function(value) {
+//                            return value.max + 2;
+//                        }
                     }],
                     dataZoom: {
                         type: 'slider',
                         show: true,
-                        start : 70
+                        start : 0
                     },
                     series: that.youniOtherRanks
                 };
