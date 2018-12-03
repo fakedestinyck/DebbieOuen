@@ -124,7 +124,7 @@
 </head>
 <div id="loading_all">
     <div>
-        <img src="http://wx3.sinaimg.cn/mw690/0077Moerly1fxqdyq7i71g3050050t9t.gif" class="img-responsive">
+        <img src="https://wx3.sinaimg.cn/mw690/0077Moerly1fxqdyq7i71g3050050t9t.gif" class="img-responsive">
     </div>
 </div>
 <body class="scoll_dis">
