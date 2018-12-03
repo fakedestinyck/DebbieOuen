@@ -22,6 +22,6 @@ Route::get('/ranks/ranking', function () {
 Route::post('/ranks/30', 'YouniController@getSomeRanks');
 
 
-//Auth::routes();
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
