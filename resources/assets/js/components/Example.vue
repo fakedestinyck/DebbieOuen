@@ -35,6 +35,10 @@
                                 </el-table-column>
                                 <el-table-column prop="myTotalRank" label="排名" :width="columnSmallWidth">
                                 </el-table-column>
+                                <el-table-column prop="firstName" label="第一名" :width="columnSmallWidth">
+                                </el-table-column>
+                                <el-table-column prop="firstScore" label="得分" :width="columnSmallWidth">
+                                </el-table-column>
                                 <el-table-column prop="beforeName" label="前一位" :width="columnSmallWidth">
                                 </el-table-column>
                                 <el-table-column prop="beforeScore" label="得分" :width="columnSmallWidth">
@@ -55,9 +59,9 @@
                                 <el-table-column prop="tweetsNumber" label="发博" :width="columnSmallWidth">
                                 </el-table-column>
                                 <el-table-column label="第一名">
-                                    <el-table-column prop="readingBeforeName" label="姓名" :width="columnSmallWidth">
+                                    <el-table-column prop="readingFirstName" label="姓名" :width="columnSmallWidth">
                                     </el-table-column>
-                                    <el-table-column prop="readingBeforeValue" label="阅读数" :width="columnLargeWidth">
+                                    <el-table-column prop="readingFirstValue" label="阅读数" :width="columnLargeWidth">
                                     </el-table-column>
                                 </el-table-column>
                             </el-table-column>
@@ -76,9 +80,9 @@
                                 <el-table-column prop="interactionStoryCount" label="微博故事被互动" :width="columnSmallWidth">
                                 </el-table-column>
                                 <el-table-column label="第一名">
-                                    <el-table-column prop="interactionBeforeName" label="姓名" :width="columnSmallWidth">
+                                    <el-table-column prop="interactionFirstName" label="姓名" :width="columnSmallWidth">
                                     </el-table-column>
-                                    <el-table-column prop="interactionBeforeValue" label="互动数" :width="columnLargeWidth">
+                                    <el-table-column prop="interactionFirstValue" label="互动数" :width="columnLargeWidth">
                                     </el-table-column>
                                 </el-table-column>
                             </el-table-column>
@@ -92,12 +96,12 @@
                                 </el-table-column>
                                 <el-table-column prop="impactSearchCount" label="搜索量" :width="columnSmallWidth">
                                 </el-table-column>
-                                <el-table-column prop="impactMentionCount" label="提到次数" :width="columnSmallWidth">
+                                <el-table-column prop="impactMentionCount" label="提及她的微博阅读数" :width="columnSmallWidth">
                                 </el-table-column>
                                 <el-table-column label="第一名">
-                                    <el-table-column prop="impactBeforeName" label="姓名" :width="columnSmallWidth">
+                                    <el-table-column prop="impactFirstName" label="姓名" :width="columnSmallWidth">
                                     </el-table-column>
-                                    <el-table-column prop="impactBeforeValue" label="影响力" :width="columnLargeWidth">
+                                    <el-table-column prop="impactFirstValue" label="影响力" :width="columnLargeWidth">
                                     </el-table-column>
                                 </el-table-column>
                             </el-table-column>
@@ -114,9 +118,9 @@
                                 <el-table-column prop="flowerTotalNumCount" label="送花次数" :width="columnSmallWidth">
                                 </el-table-column>
                                 <el-table-column label="第一名">
-                                    <el-table-column prop="flowerBeforeName" label="姓名" :width="columnSmallWidth">
+                                    <el-table-column prop="flowerFirstName" label="姓名" :width="columnSmallWidth">
                                     </el-table-column>
-                                    <el-table-column prop="flowerBeforeValue" label="爱慕值" :width="columnLargeWidth">
+                                    <el-table-column prop="flowerFirstValue" label="爱慕值" :width="columnLargeWidth">
                                     </el-table-column>
                                 </el-table-column>
                             </el-table-column>
@@ -146,9 +150,9 @@
                                 </el-table-column>
 
                                 <el-table-column label="第一名">
-                                    <el-table-column prop="energyBeforeName" label="姓名" :width="columnSmallWidth">
+                                    <el-table-column prop="energyFirstName" label="姓名" :width="columnSmallWidth">
                                     </el-table-column>
-                                    <el-table-column prop="energyBeforeValue" label="正能量" :width="columnLargeWidth">
+                                    <el-table-column prop="energyFirstValue" label="正能量" :width="columnLargeWidth">
                                     </el-table-column>
                                 </el-table-column>
                             </el-table-column>
