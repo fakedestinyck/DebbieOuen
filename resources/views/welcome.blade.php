@@ -184,25 +184,25 @@
         {{--</dialog>--}}
 
         {{--<script src="{{ asset('js/app.js') }}"></script>--}}
-        <script>
-            var dialog = document.querySelector('dialog');
-//            var showDialogButton = document.querySelector('#show-dialog');
-            var showDialogButton = document.querySelectorAll('.show-dialog');
-            if (! dialog.showModal) {
-                dialogPolyfill.registerDialog(dialog);
-            }
-            for (var i = 0; i < showDialogButton.length; ++i) {
-                showDialogButton[i].addEventListener('click', function() {
-                    dialog.showModal();
-                });
-            }
-//            showDialogButton.addEventListener('click', function() {
-//                dialog.showModal();
-//            });
-            dialog.querySelector('.close').addEventListener('click', function() {
-                dialog.close();
-            });
-        </script>
+        {{--<script>--}}
+            {{--var dialog = document.querySelector('dialog');--}}
+{{--//            var showDialogButton = document.querySelector('#show-dialog');--}}
+            {{--var showDialogButton = document.querySelectorAll('.show-dialog');--}}
+            {{--if (! dialog.showModal) {--}}
+                {{--dialogPolyfill.registerDialog(dialog);--}}
+            {{--}--}}
+            {{--for (var i = 0; i < showDialogButton.length; ++i) {--}}
+                {{--showDialogButton[i].addEventListener('click', function() {--}}
+                    {{--dialog.showModal();--}}
+                {{--});--}}
+            {{--}--}}
+{{--//            showDialogButton.addEventListener('click', function() {--}}
+{{--//                dialog.showModal();--}}
+{{--//            });--}}
+            {{--dialog.querySelector('.close').addEventListener('click', function() {--}}
+                {{--dialog.close();--}}
+            {{--});--}}
+        {{--</script>--}}
         <script src="https://cdn.bootcss.com/material-design-lite/1.3.0/material.min.js"></script>
     </body>
 </html>
