@@ -32,7 +32,7 @@
     {{--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">--}}
     <link href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet">
     {{--<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />--}}
-    <link href="https://cdn.bootcss.com/material-design-lite/1.3.0/material.indigo-pink.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/material-design-lite/1.3.0/material.blue-pink.min.css" rel="stylesheet">
     {{--<link rel="stylesheet" href="{{ asset('css/material.indigo-pink.min.css') }}" />--}}
     {{--<!-- Styles -->--}}
     {{--<link rel="stylesheet" href="{{ asset('css/codemirror.css') }}"/>--}}
@@ -122,11 +122,11 @@
 
     </style>
 </head>
-<div id="loading_all">
-    <div>
-        <img src="https://wx3.sinaimg.cn/mw690/0077Moerly1fxqdyq7i71g3050050t9t.gif" class="img-responsive">
-    </div>
-</div>
+{{--<div id="loading_all">--}}
+    {{--<div>--}}
+        {{--<img src="https://wx3.sinaimg.cn/mw690/0077Moerly1fxqdyq7i71g3050050t9t.gif" class="img-responsive">--}}
+    {{--</div>--}}
+{{--</div>--}}
 <body class="scoll_dis">
 
 <div id="app">
@@ -143,7 +143,7 @@
 
 
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
 <script src="https://unpkg.com/element-ui@2.4.11/lib/index.js"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 {{--<dialog class="mdl-dialog" id="dialogDismiss">--}}

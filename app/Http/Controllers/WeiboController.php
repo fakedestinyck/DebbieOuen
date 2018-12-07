@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\WeiboDailyRank;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WeiboController extends Controller
 {
@@ -97,6 +99,24 @@ class WeiboController extends Controller
             return response("all.txt",200);
         } else {
             return response($a,500);
+        }
+    }
+
+    public function isAdmin()
+    {
+        if (Auth::check()) {
+            return 'true';
+        } else {
+            return 'false';
+        }
+    }
+
+    public function getRankData(){
+        if (Auth::check()) {
+            $allData = WeiboDailyRank::orderBy('id','desc')->get();
+            return $allData;
+        } else {
+            return abort(403);
         }
     }
 }

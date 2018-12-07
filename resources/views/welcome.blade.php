@@ -33,7 +33,7 @@
         {{--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">--}}
         <link href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet">
         {{--<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />--}}
-        <link href="https://cdn.bootcss.com/material-design-lite/1.3.0/material.indigo-pink.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcss.com/material-design-lite/1.3.0/material.blue-pink.min.css" rel="stylesheet">
         {{--<!-- Styles -->--}}
         <style>
             html, body {
@@ -127,7 +127,7 @@
 
         <!-- Optional JavaScript -->
         {{--<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>--}}
-        <script src="https://cdn.bootcss.com/material-design-lite/1.3.0/material.min.js"></script>
+
 
         <!-- Always shows a header, even in smaller screens. -->
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -139,16 +139,21 @@
                     <div class="mdl-layout-spacer"></div>
                     <!-- Navigation. We hide it in small screens. -->
                     <nav class="mdl-navigation mdl-layout--large-screen-only">
-                        <a class="mdl-navigation__link" href="#" onclick="alert('功能正在施工')">管理员登陆</a>
+                        <a class="mdl-navigation__link" href="{{ url('/login') }}">管理员登陆</a>
                     </nav>
                 </div>
             </header>
             <div class="mdl-layout__drawer">
                 <span class="mdl-layout-title">导航</span>
+
+
                 <nav class="mdl-navigation">
-                    <a class="mdl-navigation__link show-dialog" href="#">敬请期待</a>
+                    <span class="mdl-layout-title mdl-layout--small-screen-only">
+                        <a class="mdl-navigation__link" href="{{ url('/login') }}">管理员登陆</a>
+                    </span>
+                    {{--<a class="mdl-navigation__link show-dialog" href="#">敬请期待</a>--}}
                     <a class="mdl-navigation__link" href="{{ url('ranks/ranking') }}">打榜数据</a>
-                    <a class="mdl-navigation__link show-dialog" href="#">敬请期待</a>
+                    <a class="mdl-navigation__link" href="#">敬请期待</a>
                 </nav>
             </div>
             <main class="mdl-layout__content">
@@ -198,5 +203,6 @@
                 dialog.close();
             });
         </script>
+        <script src="https://cdn.bootcss.com/material-design-lite/1.3.0/material.min.js"></script>
     </body>
 </html>

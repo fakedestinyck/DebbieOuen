@@ -24,6 +24,7 @@ mix.styles([
 
     // 'resources/assets/css/codemirror.css',
     'resources/assets/css/styles.css',
+    'resources/assets/css/main.css',
     // 'resources/assets/css/mdn-like.css'
 
 ], 'public/css/libs.css');
