@@ -113,7 +113,7 @@ class WeiboController extends Controller
 
     public function getRankData(){
         if (Auth::check()) {
-            $allData = WeiboDailyRank::orderBy('id','desc')->get();
+            $allData = WeiboDailyRank::all()->get();
             return $allData;
         } else {
             return abort(403);
