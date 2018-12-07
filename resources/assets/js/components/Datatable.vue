@@ -68,7 +68,7 @@
             </el-table-column>
             <el-table-column align="center" prop="impactSearchCount" label="搜索量" :width="columnSmallWidth">
             </el-table-column>
-            <el-table-column align="center" prop="impactMentionCount" label="提及她的微博阅读数" :width="columnSmallWidth">
+            <el-table-column align="center" prop="impactMentionCount" label="提及她的微博阅读数" :width="columnLargeWidth">
             </el-table-column>
             <el-table-column align="center" label="第一名">
                 <el-table-column align="center" prop="impactFirstName" label="姓名" :width="columnLargeWidth">
@@ -113,7 +113,7 @@
                 </el-table-column>
             </el-table-column>
             <el-table-column align="center" label="被动影响正能量">
-                <el-table-column align="center" prop="energyPassiveValue" label="值" :width="columnSmallWidth">
+                <el-table-column align="center" prop="energyPassiveValue" label="值" :width="columnLargeWidth">
                 </el-table-column>
                 <el-table-column align="center" prop="energyPassiveScore" label="得分" :width="columnSmallWidth">
                 </el-table-column>
