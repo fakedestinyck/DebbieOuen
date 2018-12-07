@@ -31,6 +31,16 @@ Route::prefix('youni')->group(function () {
 
 
 
+//Route::group(['middleware' => ['web']], function(){
+    Route::prefix('weibo')->group(function () {
+        Route::get('/',function (){
+            return abort(404);
+        });
+        Route::post('attendance','WeiboController@storeAttendanceData');
+    });
+//});
+
+
 
 //Route::post('/saveCode', "CodesController@storeCode");
 //

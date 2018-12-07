@@ -104,6 +104,7 @@ class WeiboController extends Controller
 
     public function isAdmin()
     {
+        var_dump( Auth::user());
         if (Auth::check()) {
             return 'true';
         } else {
@@ -118,5 +119,13 @@ class WeiboController extends Controller
         } else {
             return abort(403);
         }
+    }
+
+    public function storeAttendanceData(Request $request)
+    {
+        $content = $request->all();
+        $number = $content["number"];
+
+        return response('Success!', 200);
     }
 }

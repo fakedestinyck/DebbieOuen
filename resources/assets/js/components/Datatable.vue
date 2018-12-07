@@ -173,7 +173,11 @@
 </script>
 
 <style>
-    .el-table td, .el-table th {
+    .el-table td{
+        padding: 6px 0;
+    }
+
+    .el-table th {
         padding: 0;
     }
 </style>

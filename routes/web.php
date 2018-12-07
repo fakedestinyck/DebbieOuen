@@ -27,4 +27,5 @@ Auth::routes();
 Route::post('api/isAdmin','WeiboController@isAdmin');
 Route::get('api/weibo/getRankData','WeiboController@getRankData');
 
+
 //Route::get('/home', 'HomeController@index')->name('home');

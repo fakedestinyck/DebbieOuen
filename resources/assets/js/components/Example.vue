@@ -59,10 +59,15 @@
                                 </div>
                                 <div class="self-wrapper" v-show="!projectInfoLocked">
                                     <h4>可视化数据</h4>
-                                    <h5>千年数据</h5>
+                                    <h5>千年排名/分数数据</h5>
                                     <!-- MDL Spinner Component -->
                                     <div class="mdl-spinner mdl-js-spinner is-active" v-show="youniRankPointLoading"></div>
                                     <div id="chart-rank" style="height: 400px; width: 100%;" v-on-echart-resize></div>
+                                    <div><br></div>
+                                    <h5>千年单位分数涨幅数据</h5>
+                                    <!-- MDL Spinner Component -->
+                                    <div class="mdl-spinner mdl-js-spinner is-active" v-show="youniUniChangeLoading"></div>
+                                    <div id="chart-uni-change" style="height: 400px; width: 100%;" v-on-echart-resize></div>
                                     <div><br></div>
                                     <h5>前后几名的数据</h5>
                                     <p>输入区间过大可能导致浏览器卡死或报错！</p>
@@ -83,49 +88,6 @@
                                             mdl-js-ripple-effect mdl-button--colored" @click="searchRank"
                                        v-show="!loadingOthersRank">查找</a>
                                     <div id="chart-compare" style="height: 400px; width: 100%;" v-on-echart-resize></div>
-                                </div>
-                                <div class="self-wrapper" v-show="projectInfoLocked">
-                                    <h3>Project Files</h3>
-                                    <p>
-                                        请根据提示上传相关附件。代码可以在网页中直接编辑，将文件拖入编辑框，或者选择上传。
-                                    </p>
-                                    <p>Please upload all required files. You can either edit code on this page,
-                                        drag-and-drop a file into the input-box, or upload directly.
-                                        Don't forget to upload the assignment description.
-                                        Uploading zip files is currently not supported.
-                                    </p>
-                                    <form>
-                                        <h4>Your code</h4>
-                                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                            <input class="mdl-textfield__input" type="text" id="codeFileName" v-model="codeFileName" required>
-                                            <label class="mdl-textfield__label" for="codeFileName">File Name</label>
-                                        </div>
-                                        <!--<div id="codeTextArea"></div>-->
-                                        <br>
-                                        <pre>{{ compileError }}</pre>
-                                        <pre id="runningResult" v-show="runningResult !== ''">{{ runningResult }}</pre>
-                                        <div class="mdl-grid mdl-grid--no-spacing">
-                                            <div class="mdl-cell mdl-cell--4-col">
-                                                <a class="mdl-button mdl-js-button mdl-button--raised
-                                            mdl-js-ripple-effect mdl-button--accent" @click="saveCode"
-                                                   v-show="!compiling">Save and add another file</a>
-                                            </div>
-                                            <div class="mdl-cell mdl-cell--4-col">
-                                                <a class="mdl-button mdl-js-button mdl-button--raised
-                                            mdl-js-ripple-effect mdl-button--colored" @click="submitCode"
-                                                   v-show="!compiling">Compile all submitted files</a>
-                                            </div>
-                                            <!-- Add spacer, to align navigation to the right -->
-                                            <div class="mdl-layout-spacer"></div>
-                                            <div class="mdl-cell mdl-cell--1-col">
-                                                <a class="mdl-button mdl-js-button mdl-button--raised
-                                            mdl-js-ripple-effect mdl-button--colored show-dialog-input" @click="runButton"
-                                                   v-show="!compiling">Run</a>
-                                            </div>
-                                        </div>
-                                        <!-- MDL Spinner Component -->
-                                        <div class="mdl-spinner mdl-js-spinner is-active" v-show="compiling"></div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -365,11 +327,13 @@
                                 that.youniAllRanks.push(rankData[i].charts.rank);
                                 that.youniAllTimes.push(rankData[i].updateTime);
                                 that.youniAllPoints.push(rankData[i].charts.uniIndex);
+                                that.youniAllUniChange.push(rankData[i].charts.uniChange);
                             }
                             let waitForLibsJs = setInterval(function(){
                                 if (that.libsJsLoadComplete) {
                                     clearInterval(waitForLibsJs);
                                     that.createChartRank();
+                                    that.createChartUniChange();
                                 } else {
                                     console.log("wait for js");
                                 }
@@ -547,6 +511,87 @@
                 if (option && typeof option === "object") {
                     myChart.setOption(option, true);
                     that.youniRankPointLoading = false;
+                }
+
+            },
+            createChartUniChange: function() {
+                let that = this;
+                var dom = document.getElementById("chart-uni-change");
+                var myChart = echarts.init(dom, 'debbie');
+                var app = {};
+
+                var option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            label: {
+                                backgroundColor: '#6a7985'
+                            },
+                            snap: true
+                        }
+                    },
+                    grid: {
+                        y2: 70
+                    },
+                    title: {
+                        left: 'center',
+                        text: '千年单位分数涨幅数据',
+                    },
+                    xAxis: [{
+                        type: 'time',
+                        boundaryGap: false,
+                        splitNumber:10
+                    }],
+                    yAxis: [{
+                        name: '分数变化',
+                        nameLocation: 'end',
+                        type: 'value',
+                        inverse: false,
+                        scale: true,
+//                        minInterval: 1,
+                        splitNumber: 7,
+                        min: function(value) {
+                            return value.min;
+                        },
+                        max: function(value) {
+                            return value.max + 0.02;
+                        }
+                    }],
+                    dataZoom: {
+                        type: 'slider',
+                        show: true,
+                        start : 0,
+                        bottom: 0
+                    },
+                    series: [
+                        {
+                            name:'分数变化',
+                            type:'line',
+                            smooth:false,
+                            showAllSymbol: true,
+                            symbolSize: 5,
+                            sampling: 'average',
+                            data: (function () {
+                                var d = [];
+                                var len = 0;
+                                var now = new Date();
+                                var value;
+                                while (len < that.youniAllTimes.length) {
+                                    d.push([
+                                        that.convertTimeString(that.youniAllTimes[len]),
+                                        that.youniAllUniChange[len]
+                                    ]);
+                                    len++;
+                                }
+                                return d;
+                            })()
+                        },
+                    ]
+                };
+                if (option && typeof option === "object") {
+                    myChart.setOption(option, true);
+                    that.youniUniChangeLoading = false;
                 }
 
             },
@@ -851,7 +896,9 @@
                 youniCurrentRank: "",
                 isYouniGraphLoaded: false,
                 youniAllRanks: [],
+                youniAllUniChange: [],
                 youniRankPointLoading: true,
+                youniUniChangeLoading: true,
                 youniAllTimes: [],
                 youniAllPoints: [],
                 youniOtherRanks: [],
