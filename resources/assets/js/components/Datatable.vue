@@ -22,7 +22,7 @@
         </el-table-column>
 
         <el-table-column align="center" label="阅读数">
-            <el-table-column align="center" prop="readingValue" label="阅读数" :width="columnXLargeWidth">
+            <el-table-column align="center" prop="readingValue" label="阅读数" :width="columnLargeWidth">
             </el-table-column>
             <el-table-column align="center" prop="readingScore" label="得分" :width="columnSmallWidth">
             </el-table-column>
@@ -39,7 +39,7 @@
         </el-table-column>
 
         <el-table-column align="center" label="互动数">
-            <el-table-column align="center" prop="interactionValue" label="互动数" :width="columnXLargeWidth">
+            <el-table-column align="center" prop="interactionValue" label="互动数" :width="columnLargeWidth">
             </el-table-column>
             <el-table-column align="center" prop="interactionScore" label="得分" :width="columnSmallWidth">
             </el-table-column>
@@ -60,7 +60,7 @@
         </el-table-column>
 
         <el-table-column align="center" label="社会影响力">
-            <el-table-column align="center" prop="impactValue" label="影响力" :width="columnXLargeWidth">
+            <el-table-column align="center" prop="impactValue" label="影响力" :width="columnLargeWidth">
             </el-table-column>
             <el-table-column align="center" prop="impactScore" label="得分" :width="columnSmallWidth">
             </el-table-column>
@@ -79,7 +79,7 @@
         </el-table-column>
 
         <el-table-column align="center" label="爱慕值">
-            <el-table-column align="center" prop="flowerValue" label="爱慕值" :width="columnXLargeWidth">
+            <el-table-column align="center" prop="flowerValue" label="爱慕值" :width="columnLargeWidth">
             </el-table-column>
             <el-table-column align="center" prop="flowerScore" label="得分" :width="columnSmallWidth">
             </el-table-column>
@@ -98,7 +98,7 @@
         </el-table-column>
 
         <el-table-column align="center" label="正能量值">
-            <el-table-column align="center" prop="energyValue" label="正能量" :width="columnXLargeWidth">
+            <el-table-column align="center" prop="energyValue" label="正能量" :width="columnLargeWidth">
             </el-table-column>
             <el-table-column align="center" prop="energyScore" label="得分" :width="columnSmallWidth">
             </el-table-column>
@@ -164,7 +164,7 @@
         data() {
             return {
                 columnSmallWidth: 83,
-                columnLargeWidth: 166,
+                columnLargeWidth: 120,
                 columnXLargeWidth: 183,
                 weiboRankData:[],
             }
