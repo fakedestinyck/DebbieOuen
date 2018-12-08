@@ -60,6 +60,11 @@
                                 <div class="self-wrapper" v-show="!projectInfoLocked">
                                     <h4>可视化数据</h4>
                                     <h5>千年排名/分数数据</h5>
+                                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-show-mark-point">
+                                        <input type="checkbox" id="switch-show-mark-point" class="mdl-switch__input"
+                                               checked @change="onShowMarkPointSwitchChanged" v-model="youniIsShowMarkPoint">
+                                        <span class="mdl-switch__label">显示每小时分数标记</span>
+                                    </label>
                                     <!-- MDL Spinner Component -->
                                     <div class="mdl-spinner mdl-js-spinner is-active" v-show="youniRankPointLoading"></div>
                                     <div id="chart-rank" style="height: 400px; width: 100%;" v-on-echart-resize></div>
@@ -470,7 +475,8 @@
                     dataZoom: {
                         type: 'slider',
                         show: true,
-                        start : 0,
+                        start : that.youniPointDataZoom.start,
+                        end: that.youniPointDataZoom.end,
                         bottom: 0
                     },
                     series: [
@@ -521,6 +527,7 @@
 //                                itemStyle: {
 //                                    color: '#7200FF'
 //                                },
+                                symbol: that.youniIsShowMarkPoint ? 'pin' : 'none',
                                 symbolSize: 30,
                                 label: {
                                     fontSize: 12,
@@ -535,7 +542,16 @@
                 if (option && typeof option === "object") {
                     myChart.setOption(option, true);
                     that.youniRankPointLoading = false;
-                    console.log(that.youniPointsMarkPointArray);
+                    myChart.on('datazoom', function (params){
+                        //可以通过params获取缩放的起止百分比，但是鼠标滚轮和伸缩条拖动触发的params格式不同，所以用另一种方法
+                        //获得图表数据数组下标
+//                        console.log(params);
+//                        var startValue = myChart.getModel().option.dataZoom[0].startValue;
+//                        var endValue = myChart.getModel().option.dataZoom[0].endValue;
+                        //获得起止位置百分比
+                        that.youniPointDataZoom.start = myChart.getModel().option.dataZoom[0].start;
+                        that.youniPointDataZoom.end = myChart.getModel().option.dataZoom[0].end;
+                    });
                 }
 
             },
@@ -693,6 +709,9 @@
                 let hour = timeString.substring(space+1,colon);
                 let minute = timeString.substring(colon+1);
                 return new Date(year,month,day,hour,minute);
+            },
+            onShowMarkPointSwitchChanged: function () {
+                this.createChartRank();
             },
             downloadFile: function (filetype) {
                 axios.post('../api/downloadFile', {
@@ -927,6 +946,8 @@
                 youniAllTimes: [],
                 youniAllPoints: [],
                 youniPointsMarkPointArray: [],
+                youniIsShowMarkPoint: true,
+                youniPointDataZoom: {start:0,end:100},
                 youniOtherRanks: [],
                 youniOtherRanksLegends: [],
                 getOthersProgress: 0,
