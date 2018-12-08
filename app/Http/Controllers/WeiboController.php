@@ -104,7 +104,6 @@ class WeiboController extends Controller
 
     public function isAdmin()
     {
-        var_dump( Auth::user());
         if (Auth::check()) {
             return 'true';
         } else {
@@ -117,7 +116,7 @@ class WeiboController extends Controller
             $allData = WeiboDailyRank::all();
             return $allData;
         } else {
-            return abort(403);
+            return response('客户端身份校验失败！请尝试重新登录！',403);
         }
     }
 
