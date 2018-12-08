@@ -323,11 +323,22 @@
                             let rankData = response.data;
                             console.log(response.data);
                             for (let i = rankData.length-1; i >=0 ; --i) {
-
+                                let timeString = rankData[i].updateTime;
+                                let lastTwoDigits = timeString.substring(timeString.length-2,timeString.length);
+                                let updateTimeDateTime = that.convertTimeString(timeString);
                                 that.youniAllRanks.push(rankData[i].charts.rank);
-                                that.youniAllTimes.push(rankData[i].updateTime);
+                                that.youniAllTimes.push(updateTimeDateTime);
                                 that.youniAllPoints.push(rankData[i].charts.uniIndex);
                                 that.youniAllUniChange.push(rankData[i].charts.uniChange);
+
+                                if (lastTwoDigits === "00") {
+                                    let coord = [updateTimeDateTime,rankData[i].charts.uniIndex];
+                                    let value = rankData[i].charts.uniIndex;
+                                    that.youniPointsMarkPointArray.push({
+                                        coord: coord,
+                                        value: value,
+                                    });
+                                }
                             }
                             let waitForLibsJs = setInterval(function(){
                                 if (that.libsJsLoadComplete) {
@@ -477,7 +488,7 @@
                                 var value;
                                 while (len < that.youniAllTimes.length) {
                                     d.push([
-                                        that.convertTimeString(that.youniAllTimes[len]),
+                                        that.youniAllTimes[len],
                                         that.youniAllRanks[len]
                                     ]);
                                     len++;
@@ -498,19 +509,33 @@
                                 var value;
                                 while (len < that.youniAllTimes.length) {
                                     d.push([
-                                        that.convertTimeString(that.youniAllTimes[len]),
+                                        that.youniAllTimes[len],
                                         that.youniAllPoints[len]
                                     ]);
                                     len++;
                                 }
+                                console.log(d);
                                 return d;
-                            })()
+                            })(),
+                            markPoint: {
+//                                itemStyle: {
+//                                    color: '#7200FF'
+//                                },
+                                symbolSize: 30,
+                                label: {
+                                    fontSize: 12,
+                                    fontWeight: 'bold',
+
+                                },
+                                data: that.youniPointsMarkPointArray
+                            },
                         }
                     ]
                 };
                 if (option && typeof option === "object") {
                     myChart.setOption(option, true);
                     that.youniRankPointLoading = false;
+                    console.log(that.youniPointsMarkPointArray);
                 }
 
             },
@@ -579,7 +604,7 @@
                                 var value;
                                 while (len < that.youniAllTimes.length) {
                                     d.push([
-                                        that.convertTimeString(that.youniAllTimes[len]),
+                                        that.youniAllTimes[len],
                                         that.youniAllUniChange[len]
                                     ]);
                                     len++;
@@ -901,6 +926,7 @@
                 youniUniChangeLoading: true,
                 youniAllTimes: [],
                 youniAllPoints: [],
+                youniPointsMarkPointArray: [],
                 youniOtherRanks: [],
                 youniOtherRanksLegends: [],
                 getOthersProgress: 0,
