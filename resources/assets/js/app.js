@@ -17,6 +17,7 @@ require('./bootstrap');
 // window.Vue = require('vue');
 
 Vue.component('example', require('./components/Example.vue'));
+// Vue.component('weibo',require('./components/Weibo.vue'));
 import ElementUI from 'element-ui';
 Vue.use(require('vue-cookies'));
 Vue.use(ElementUI);
@@ -27,4 +28,5 @@ import './echartResizeHelper.js';
 // Vue.use(ElementUI);
 const app = new Vue({
     el: '#app',
+    template: '<example/>',
 });

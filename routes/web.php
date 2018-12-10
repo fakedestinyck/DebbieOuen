@@ -19,6 +19,10 @@ Route::get('/ranks/ranking', function () {
     return view('ranks/ranking');
 });
 
+Route::get('/weibo', function () {
+    return view('weibo/index');
+});
+
 Route::post('/ranks/30', 'YouniController@getSomeRanks');
 
 

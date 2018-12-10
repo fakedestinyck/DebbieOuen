@@ -15,9 +15,9 @@
         <div class="mdl-layout__drawer">
             <span class="mdl-layout-title"><a href="..">主页</a></span>
             <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href="#">敬请期待</a>
+                <!--<a class="mdl-navigation__link" href="#">敬请期待</a>-->
                 <a class="mdl-navigation__link" href="#">打榜数据</a>
-                <a class="mdl-navigation__link" href="#">敬请期待</a>
+                <a class="mdl-navigation__link" href="/weibo">微博相关</a>
             </nav>
         </div>
         <main class="mdl-layout__content mdl-demo">

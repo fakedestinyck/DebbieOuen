@@ -1,15 +1,15 @@
 @extends('layout.app')
 
 @section('title')
-    打榜数据
+    微博相关
 @endsection
 
 @section('content')
-    <div id="app">
-        <example></example>
+    <div id="weibo">
+        <weibo></weibo>
     </div>
 @endsection
 
 @section('Vue-script')
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/weibo.js') }}"></script>
 @endsection

@@ -153,7 +153,7 @@
                     </span>
                     {{--<a class="mdl-navigation__link show-dialog" href="#">敬请期待</a>--}}
                     <a class="mdl-navigation__link" href="{{ url('ranks/ranking') }}">打榜数据</a>
-                    <a class="mdl-navigation__link" href="#">敬请期待</a>
+                    <a class="mdl-navigation__link" href="{{ url('weibo') }}">微博相关</a>
                 </nav>
             </div>
             <main class="mdl-layout__content">
