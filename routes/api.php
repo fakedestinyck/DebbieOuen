@@ -37,7 +37,6 @@ Route::prefix('youni')->group(function () {
             return abort(404);
         });
         Route::post('attendance','WeiboController@storeAttendanceData');
-        Route::get('getRecent/all','WeiboController@getRecentAll');
     });
 //});
 

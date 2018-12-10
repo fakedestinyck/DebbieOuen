@@ -21,15 +21,17 @@ Route::get('/ranks/ranking', function () {
 
 Route::get('/weibo', function () {
     return view('weibo/index');
-});
+})->middleware('admin');
 
 Route::post('/ranks/30', 'YouniController@getSomeRanks');
 
 
 Auth::routes();
 
-Route::post('api/isAdmin','WeiboController@isAdmin');
-Route::get('api/weibo/getRankData','WeiboController@getRankData');
-
+Route::prefix('api')->group(function () {
+    Route::post('isAdmin','WeiboController@isAdmin');
+    Route::get('weibo/getRankData','WeiboController@getRankData');
+    Route::get('weibo/getRecent/all','WeiboController@getRecentAll')->middleware('admin');
+});
 
 //Route::get('/home', 'HomeController@index')->name('home');
