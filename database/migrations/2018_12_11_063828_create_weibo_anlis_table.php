@@ -17,7 +17,7 @@ class CreateWeiboAnlisTable extends Migration
             $table->increments('id');
             $table->string('username');
             $table->string('user_id');
-            $table->timestamp('tweets_time')->default('1970-01-01 00:00:01');
+            $table->timestamp('tweets_time')->default('2000-01-01 00:00:01');
             $table->text('tags')->nullable();
             $table->text('text');
             $table->boolean('has_day_num');
@@ -27,7 +27,7 @@ class CreateWeiboAnlisTable extends Migration
             $table->integer('comment');
             $table->integer('like');
             $table->string('tweets_id');
-            $table->timestamp('user_reg_time')->default('1970-01-01 00:00:01');
+            $table->timestamp('user_reg_time')->default('2000-01-01 00:00:01');
             $table->timestamps();
         });
     }
