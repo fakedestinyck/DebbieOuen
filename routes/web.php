@@ -19,9 +19,22 @@ Route::get('/ranks/ranking', function () {
     return view('ranks/ranking');
 });
 
-Route::get('/weibo', function () {
-    return view('weibo/index');
-})->middleware('admin');
+Route::group(['middleware' => ['admin']], function(){
+    Route::prefix('weibo')->group(function () {
+        Route::get('/', function () {
+            return view('weibo/index');
+        });
+
+        Route::get('/nextThirtyDays','WeiboController@nextThirty');
+        Route::post('/sendDayX','WeiboController@sendDayX');
+        Route::get('anli/day/{day}','WeiboController@getAnliByDay');
+    });
+});
+
+
+
+
+
 
 Route::post('/ranks/30', 'YouniController@getSomeRanks');
 

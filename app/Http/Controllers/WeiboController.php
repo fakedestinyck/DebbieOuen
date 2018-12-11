@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\WeiboAnli;
 use App\WeiboDailyRank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -140,5 +141,68 @@ class WeiboController extends Controller
         $a =  shell_exec($prefix.$dir."getAllWeibo.py 2>&1");
 
         return $a;
+    }
+
+    public function nextThirty() {
+        return WeiboAnli::where('is_anli','1')->where('has_day_num',0)->whereNull('day_num')->orderBy('id')
+            ->select('id','text','tweets_time','tweets_id')->first();
+    }
+
+    public function sendDayX(Request $request) {
+        $content = $request->all();
+        $id = $content["id"];
+        $day_x = $content["day_x"];
+        $this_tweets = WeiboAnli::find($id);
+        if ($day_x != 0) {
+            $this_tweets->has_day_num = true;
+        }
+        $this_tweets->day_num = $day_x;
+        $this_tweets->save();
+
+        return response('success',200);
+    }
+
+    public function getAnliByDay($day){
+        $tweets = WeiboAnli::whereDay('tweets_time',$day)->orderBy('tweets_time')->get();
+        $user_count = 0;
+        $max_zzp = 0;
+        $tag_anli = 0;
+        $tag_shiny = 0;
+        $shiny_url = array();
+        $user_id_array = array();
+        $tag_user_id_array = array();
+        foreach ($tweets as $tweet) {
+            if (!in_array($tweet->user_id,$user_id_array)) {
+                $user_count ++;
+                $user_id_array[] = $tweet->user_id;
+            }
+            if ($tweet->is_anli) {
+                if (!in_array($tweet->user_id,$tag_user_id_array)) {
+                    $tag_anli++;
+                    $tag_user_id_array[] = $tweet->user_id;
+                }
+                $zzp = $tweet->repost + $tweet->comment + $tweet->like;
+                if ($max_zzp < $zzp) {
+                    $max_zzp = $zzp;
+                    $top_tweet = $tweet;
+                }
+            }
+            $tags = json_decode($tweet->tags,true);
+            if (in_array('爱心时刻',$tags)) {
+                $shiny_url[] = "https://m.weibo.cn/$tweet->user_id/$tweet->tweets_id";
+                $tag_shiny++;
+            }
+        }
+
+        return [
+            'user_count' => $user_count,
+            'total' => count($tweets),
+            'tag_anli' => $tag_anli,
+            'tag_shiny' => $tag_shiny,
+            'earliest' => $tweets[0],
+            'max_zzp' => $max_zzp,
+            'shiny_url' => $shiny_url,
+            'top_tweet' => $top_tweet
+        ];
     }
 }
