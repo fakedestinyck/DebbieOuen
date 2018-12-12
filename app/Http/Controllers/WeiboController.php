@@ -211,4 +211,31 @@ class WeiboController extends Controller
             'top_tweet' => $top_tweet
         ];
     }
+
+    public function statsByDay($day) {
+        $tweets = WeiboAnli::where('day_num',$day)->select('username','user_id','tweets_time','text',
+            'repost','comment','like','tweets_id')->orderBy('tweets_time')->get();
+        return $tweets;
+    }
+
+    public function statsByCompleteness($endDay = null) {
+        if ($endDay != null) {
+            $tweets = WeiboAnli::where('has_day_num',1)->where('day_num','<=',$endDay)->select('username','user_id','tweets_time','text','day_num',
+                'repost','comment','like','tweets_id','user_reg_time')->orderBy('id')->get();
+        } else {
+            $tweets = WeiboAnli::where('has_day_num',1)->select('username','user_id','tweets_time','text','day_num',
+                'repost','comment','like','tweets_id','user_reg_time')->orderBy('id')->get();
+        }
+        $users = array();
+        foreach ($tweets as $tweet) {
+            $users[$tweet->user_id][$tweet->day_num][] = $tweet;
+        }
+
+        $completeness = array();
+        foreach ($users as $user) {
+            $completeness[count($user)][] = $user;
+        }
+        return $completeness;
+
+    }
 }
