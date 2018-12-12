@@ -26,6 +26,7 @@ Route::group(['middleware' => ['admin']], function(){
         });
 
         Route::get('/nextThirtyDays','WeiboController@nextThirty');
+        Route::get('/nextThirtyDays/bad','WeiboController@nextThirtyBad');
         Route::post('/sendDayX','WeiboController@sendDayX');
         Route::get('anli/day/{day}','WeiboController@getAnliByDay');
     });

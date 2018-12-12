@@ -148,6 +148,11 @@ class WeiboController extends Controller
             ->select('id','text','tweets_time','tweets_id')->first();
     }
 
+    public function nextThirtyBad() {
+        return WeiboAnli::where('is_anli','0')->where('has_day_num',0)->whereNull('day_num')->orderBy('id')
+            ->select('id','text','tweets_time','tweets_id')->first();
+    }
+
     public function sendDayX(Request $request) {
         $content = $request->all();
         $id = $content["id"];
@@ -155,6 +160,7 @@ class WeiboController extends Controller
         $this_tweets = WeiboAnli::find($id);
         if ($day_x != 0) {
             $this_tweets->has_day_num = true;
+            $this_tweets->is_anli = true;
         }
         $this_tweets->day_num = $day_x;
         $this_tweets->save();

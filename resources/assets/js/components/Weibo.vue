@@ -8,6 +8,7 @@
                 <a href="#scroll-tab-1" class="mdl-layout__tab is-active">呆呆近30天微博链接</a>
                 <a href="#scroll-tab-2" class="mdl-layout__tab">30天安利蒋申</a>
                 <a href="#scroll-tab-3" class="mdl-layout__tab">补录数据</a>
+                <a href="#scroll-tab-4" class="mdl-layout__tab">补录数据 - 无法识别</a>
                 <!--<a href="#scroll-tab-3" class="mdl-layout__tab">View uploaded Projects</a>-->
                 <!--<a href="#scroll-tab-4" class="mdl-layout__tab">Miscellaneous Tools</a>-->
             </div>
@@ -93,15 +94,45 @@
 
 
                 </section>
-                <!--<div class="page-content">-->
-                <!--<div class="flex-center position-ref full-height">-->
-                <!--<div class="content">-->
-                <!--<div class="title m-b-md">-->
-                <!--敬请期待...-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
+            </section>
+
+
+            <section class="mdl-layout__tab-panel" id="scroll-tab-4">
+                <section class="page-content demo-layout mdl-layout mdl-layout--fixed-header mdl-color--grey-100">
+                    <div class="demo-ribbon" style="background-color: white"></div>
+                    <main class="demo-main mdl-layout__content">
+                        <div class="demo-container mdl-grid">
+                            <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                            <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+                                <!--<div class="demo-crumbs mdl-color-text--grey-500">-->
+                                <!--Google &gt; Material Design Lite &gt; How to install MDL-->
+                                <!--</div>-->
+                                <div class="self-wrapper">
+                                    <h3>30天安利蒋申 - 人工补录DayX - 无法识别</h3>
+                                    <h5 v-html="thirtyDaysTweetsTextBad"></h5>
+                                    <h5 v-show="!loadingNextTweetsBad">{{ thirtyDaysTweetsDateBad }}</h5>
+                                    <a :href="'https://m.weibo.cn/detail/'+thirtyDaysTweetsTweetIdBad" target="_blank"
+                                       v-show="!loadingNextTweetsBad">链接</a>
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                         ref="thirtyDaysDayXInputBad">
+                                        <input class="mdl-textfield__input" type="text" id="thirtyDaysDayXInputBad"
+                                               v-model="thirtyDaysDayXInputBad" required @keyup.enter="onSubmitDayXBad">
+                                        <label class="mdl-textfield__label" for="thirtyDaysDayXInputBad">天数</label>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <a class="mdl-button mdl-js-button mdl-button--raised
+                                        mdl-js-ripple-effect mdl-button--colored" @click="onSubmitDayXBad"
+                                       v-show="!loadingNextTweetsBad">确定</a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </main>
+
+
+                </section>
             </section>
 
             <footer class="demo-footer mdl-mini-footer">
@@ -129,6 +160,7 @@
             this.hideLoading();
             this.getRecentWeibo();
             this.loadNextThirtyDaysTweets();
+            this.loadNextThirtyDaysTweetsBad();
         },
         updated: function () {
 
@@ -197,7 +229,7 @@
                 })
                     .then(function (response) {
                         let data = response.data;
-                        console.log(response);
+//                        console.log(response);
                         if (data === "") {
                             that.thirtyDaysTweetsText = "没有更新的了";
                             that.thirtyDaysTweetsId = null;
@@ -237,6 +269,54 @@
                         alert(error);
                     });
             },
+
+            loadNextThirtyDaysTweetsBad: function () {
+                let that = this;
+                axios.get('/weibo/nextThirtyDays/bad', {
+                    //
+                })
+                    .then(function (response) {
+                        let data = response.data;
+                        console.log(response);
+                        if (data === "") {
+                            that.thirtyDaysTweetsTextBad = "没有更新的了";
+                            that.thirtyDaysTweetsIdBad = null;
+                            that.$refs.thirtyDaysDayXInputBad.style.display = 'none';
+                            return;
+                        }
+                        that.thirtyDaysTweetsTextBad = data.text.replace(/\n/g, "<br>");
+                        that.thirtyDaysTweetsDateBad = data.tweets_time;
+                        that.thirtyDaysTweetsIdBad = data.id;
+                        that.thirtyDaysTweetsTweetIdBad = data.tweets_id;
+                        that.loadingNextTweetsBad = false;
+                        that.$refs.thirtyDaysDayXInputBad.focus();
+                    })
+                    .catch(function (error) {
+                        alert(error);
+                    });
+            },
+
+            onSubmitDayXBad: function () {
+                if (this.thirtyDaysTweetsIdBad === null) {
+                    return;
+                }
+                this.loadingNextTweetsBad = true;
+                let that = this;
+                axios.post('/weibo/sendDayX', {
+                    id: this.thirtyDaysTweetsIdBad,
+                    day_x: this.thirtyDaysDayXInputBad,
+                })
+                    .then(function (response) {
+                        console.log(response);
+                        if (response.data === "success") {
+                            that.loadingNextTweetsBad = true;
+                            that.loadNextThirtyDaysTweetsBad();
+                        }
+                    })
+                    .catch(function (error) {
+                        alert(error);
+                    });
+            },
         },
         data() {
             return {
@@ -247,9 +327,13 @@
                 thirtyDaysTweetsText: "",
                 thirtyDaysTweetsDate: "",
                 thirtyDaysDayXInput: "",
-                thirtyDaysTweetsId: "",
-                thirtyDaysTweetsTweetId: "",
-                loadingNextTweets: true
+                thirtyDaysDayXInputBad: "",
+                thirtyDaysTweetsTextBad: "",
+                thirtyDaysTweetsDateBad: "",
+                thirtyDaysTweetsIdBad: "",
+                thirtyDaysTweetsTweetIdBad: "",
+                loadingNextTweets: true,
+                loadingNextTweetsBad: true
             }
         }
     }
