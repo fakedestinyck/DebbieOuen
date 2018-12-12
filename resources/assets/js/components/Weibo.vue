@@ -70,14 +70,14 @@
                                 <!--</div>-->
                                 <div class="self-wrapper">
                                     <h3>30天安利蒋申 - 人工补录DayX</h3>
-                                    <h5 v-html="thirtyDaysTweetsText"></h5>
+                                    <h5 v-html="thirtyDaysTweetsText" v-show="!loadingNextTweets"></h5>
                                     <h5 v-show="!loadingNextTweets">{{ thirtyDaysTweetsDate }}</h5>
                                     <a :href="'https://m.weibo.cn/detail/'+thirtyDaysTweetsTweetId" target="_blank"
                                        v-show="!loadingNextTweets">链接</a>
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
-                                         ref="thirtyDaysDayXInput">
+                                         v-show="!loadingNextTweets">
                                         <input class="mdl-textfield__input" type="text" id="thirtyDaysDayXInput"
-                                               v-model="thirtyDaysDayXInput" required @keyup.enter="onSubmitDayX">
+                                               v-model="thirtyDaysDayXInput" required @keyup.enter="onSubmitDayX" ref="thirtyDaysDayXInput">
                                         <label class="mdl-textfield__label" for="thirtyDaysDayXInput">天数</label>
                                     </div>
                                     <br>
@@ -109,14 +109,13 @@
                                 <!--</div>-->
                                 <div class="self-wrapper">
                                     <h3>30天安利蒋申 - 人工补录DayX - 无法识别</h3>
-                                    <h5 v-html="thirtyDaysTweetsTextBad"></h5>
+                                    <h5 v-html="thirtyDaysTweetsTextBad" v-show="!loadingNextTweetsBad"></h5>
                                     <h5 v-show="!loadingNextTweetsBad">{{ thirtyDaysTweetsDateBad }}</h5>
                                     <a :href="'https://m.weibo.cn/detail/'+thirtyDaysTweetsTweetIdBad" target="_blank"
                                        v-show="!loadingNextTweetsBad">链接</a>
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
-                                         ref="thirtyDaysDayXInputBad">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" v-show="!loadingNextTweetsBad">
                                         <input class="mdl-textfield__input" type="text" id="thirtyDaysDayXInputBad"
-                                               v-model="thirtyDaysDayXInputBad" required @keyup.enter="onSubmitDayXBad">
+                                               v-model="thirtyDaysDayXInputBad" required @keyup.enter="onSubmitDayXBad" ref="thirtyDaysDayXInputBad">
                                         <label class="mdl-textfield__label" for="thirtyDaysDayXInputBad">天数</label>
                                     </div>
                                     <br>
@@ -241,7 +240,9 @@
                         that.thirtyDaysTweetsId = data.id;
                         that.thirtyDaysTweetsTweetId = data.tweets_id;
                         that.loadingNextTweets = false;
-                        that.$refs.thirtyDaysDayXInput.focus();
+                        setTimeout(function(){
+                            that.$refs.thirtyDaysDayXInput.focus();
+                        }, 1);
                     })
                     .catch(function (error) {
                         alert(error);
@@ -289,7 +290,10 @@
                         that.thirtyDaysTweetsIdBad = data.id;
                         that.thirtyDaysTweetsTweetIdBad = data.tweets_id;
                         that.loadingNextTweetsBad = false;
-                        that.$refs.thirtyDaysDayXInputBad.focus();
+                        setTimeout(function(){
+                            that.$refs.thirtyDaysDayXInputBad.focus();
+                        }, 1);
+
                     })
                     .catch(function (error) {
                         alert(error);
@@ -330,6 +334,8 @@
                 thirtyDaysDayXInputBad: "",
                 thirtyDaysTweetsTextBad: "",
                 thirtyDaysTweetsDateBad: "",
+                thirtyDaysTweetsId: "",
+                thirtyDaysTweetsTweetId: "",
                 thirtyDaysTweetsIdBad: "",
                 thirtyDaysTweetsTweetIdBad: "",
                 loadingNextTweets: true,
