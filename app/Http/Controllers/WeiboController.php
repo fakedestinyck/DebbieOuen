@@ -228,12 +228,22 @@ class WeiboController extends Controller
         }
         $users = array();
         foreach ($tweets as $tweet) {
-            $users[$tweet->user_id][$tweet->day_num][] = $tweet;
+            $users[$tweet->user_id]["tweets"][$tweet->day_num][] = [
+                'comment' => $tweet->comment,
+                'day_num' => $tweet->day_num,
+                'like' =>$tweet->like,
+                'repost' => $tweet->repost,
+                'text' => $tweet->text,
+                'tweets_id' => $tweet->tweets_id,
+                'tweets_time' => $tweet->tweets_time,
+            ];
+            $users[$tweet->user_id]["username"] = $tweet->username;
+            $users[$tweet->user_id]["user_reg_time"] = $tweet->user_reg_time;
         }
 
         $completeness = array();
         foreach ($users as $user) {
-            $completeness[count($user)][] = $user;
+            $completeness[count($user["tweets"])][] = $user;
         }
         return $completeness;
 
