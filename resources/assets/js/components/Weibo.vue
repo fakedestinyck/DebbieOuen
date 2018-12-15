@@ -70,7 +70,7 @@
                                 <!--</div>-->
                                 <div class="self-wrapper">
                                     <h3>30天安利蒋申 - 人工补录DayX</h3>
-                                    <h5 v-html="thirtyDaysTweetsText" v-show="!loadingNextTweets"></h5>
+                                    <h5 v-html="thirtyDaysTweetsText"></h5>
                                     <h5 v-show="!loadingNextTweets">{{ thirtyDaysTweetsDate }}</h5>
                                     <a :href="'https://m.weibo.cn/detail/'+thirtyDaysTweetsTweetId" target="_blank"
                                        v-show="!loadingNextTweets">链接</a>
@@ -109,7 +109,7 @@
                                 <!--</div>-->
                                 <div class="self-wrapper">
                                     <h3>30天安利蒋申 - 人工补录DayX - 无法识别</h3>
-                                    <h5 v-html="thirtyDaysTweetsTextBad" v-show="!loadingNextTweetsBad"></h5>
+                                    <h5 v-html="thirtyDaysTweetsTextBad"></h5>
                                     <h5 v-show="!loadingNextTweetsBad">{{ thirtyDaysTweetsDateBad }}</h5>
                                     <a :href="'https://m.weibo.cn/detail/'+thirtyDaysTweetsTweetIdBad" target="_blank"
                                        v-show="!loadingNextTweetsBad">链接</a>
@@ -254,6 +254,7 @@
                     return;
                 }
                 this.loadingNextTweets = true;
+                this.thirtyDaysTweetsText = "";
                 let that = this;
                 axios.post('/weibo/sendDayX', {
                     id: this.thirtyDaysTweetsId,
@@ -305,6 +306,7 @@
                     return;
                 }
                 this.loadingNextTweetsBad = true;
+                this.thirtyDaysTweetsTextBad = "";
                 let that = this;
                 axios.post('/weibo/sendDayX', {
                     id: this.thirtyDaysTweetsIdBad,
