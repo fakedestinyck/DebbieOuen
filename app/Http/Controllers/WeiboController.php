@@ -247,7 +247,15 @@ class WeiboController extends Controller
         foreach ($users as $user) {
             $completeness[count($user["tweets"])][] = $user;
         }
-        return $completeness;
+
+
+        if ($endDay == 15) {
+            foreach ($completeness[$endDay] as $user_array) {
+                echo $user_array["username"] . "，";
+            }
+        } else {
+            return $completeness;
+        }
 
     }
 }

@@ -220,6 +220,37 @@
                         alert(error);
                     });
             },
+
+
+            getCompletenessData: function () {
+                let that = this;
+                axios.get('/weibo/anli/stats/completeness', {
+                    //
+                })
+                    .then(function (response) {
+                        let data = response.data;
+//                        console.log(response);
+                        if (data === "") {
+                            that.thirtyDaysTweetsText = "没有更新的了";
+                            that.thirtyDaysTweetsId = null;
+                            that.$refs.thirtyDaysDayXInput.style.display = 'none';
+                            return;
+                        }
+                        that.thirtyDaysTweetsText = data.text.replace(/\n/g, "<br>");
+                        that.thirtyDaysTweetsDate = data.tweets_time;
+                        that.thirtyDaysTweetsId = data.id;
+                        that.thirtyDaysTweetsTweetId = data.tweets_id;
+                        that.loadingNextTweets = false;
+                        setTimeout(function(){
+                            that.$refs.thirtyDaysDayXInput.focus();
+                        }, 1);
+                    })
+                    .catch(function (error) {
+                        alert(error);
+                    });
+            },
+
+
             loadNextThirtyDaysTweets: function () {
                 let that = this;
                 axios.get('/weibo/nextThirtyDays', {
