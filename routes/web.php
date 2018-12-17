@@ -28,7 +28,7 @@ Route::group(['middleware' => ['admin']], function(){
         Route::get('/nextThirtyDays','WeiboController@nextThirty');
         Route::get('/nextThirtyDays/bad','WeiboController@nextThirtyBad');
         Route::post('/sendDayX','WeiboController@sendDayX');
-        Route::get('anli/day/{day}','WeiboController@getAnliByDay'); // 获得某一天的安利总数据
+        Route::get('anli/day','WeiboController@getAnliByDay'); // 获得某一天的安利总数据
         Route::get('anli/stats/day/{day}','WeiboController@statsByDay'); // 获得某一天的安利统计数据
         Route::get('anli/stats/completeness/{endDay?}','WeiboController@statsByCompleteness'); // 获得每个人的完成情况
     });

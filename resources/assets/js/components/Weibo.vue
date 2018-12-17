@@ -196,9 +196,8 @@
             getAnliDay: function () {
                 this.loadingAnliData = true;
                 let that = this;
-                let yesterday = new Date().getDate()-1;
                 this.anliYesturdayData = "";
-                axios.get('/weibo/anli/day/' + yesterday, {
+                axios.get('/weibo/anli/day', {
                     //
                 })
                     .then(function (response) {
@@ -211,7 +210,7 @@
                         that.anliYesturdayData += `@${data.top_tweet.username} 发的微博最具有真情实感，获得了最多的${data.max_zzp}个转赞评\n`;
                         that.anliYesturdayData += `膜拜链接：https://m.weibo.cn/${data.top_tweet.user_id}/${data.top_tweet.tweets_id}\n\n`;
 
-                        that.anliYesturdayData += `12月${yesterday}日 暖心时刻链接汇总\n`;
+                        that.anliYesturdayData += `12月${data.day}日 暖心时刻链接汇总\n`;
                         for (let i = 0; i<data.shiny_url.length; ++i) {
                             that.anliYesturdayData += `${i+1}.\t${data.shiny_url[i]}\n`;
                         }
