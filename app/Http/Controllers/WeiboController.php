@@ -169,6 +169,7 @@ class WeiboController extends Controller
     }
 
     public function getAnliByDay($day){
+        $day = date("d")-1;
         $tweets = WeiboAnli::whereDay('tweets_time',$day)->orderBy('tweets_time')->get();
         $user_count = 0;
         $max_zzp = 0;
