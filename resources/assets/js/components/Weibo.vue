@@ -205,12 +205,12 @@
                         console.log(data);
                         that.anliYesturdayData += `昨天共有${data.user_count}名护申符在#sing蒋申[超话]#里发了${data.total}条微博\n`;
                         that.anliYesturdayData += `参与了 #30天安利蒋申# 的微博有${data.tag_anli}条\n`;
-                        that.anliYesturdayData += `带有#暖心时刻#的微博有${data.tag_shiny}条\n`;
+                        that.anliYesturdayData += `带有#祝福时刻#的微博有${data.tag_shiny}条\n`;
                         that.anliYesturdayData += `最早发帖的符符是 @${data.earliest.username} ，发帖时间：${data.earliest.tweets_time}\n`;
                         that.anliYesturdayData += `@${data.top_tweet.username} 发的微博最具有真情实感，获得了最多的${data.max_zzp}个转赞评\n`;
                         that.anliYesturdayData += `膜拜链接：https://m.weibo.cn/${data.top_tweet.user_id}/${data.top_tweet.tweets_id}\n\n`;
 
-                        that.anliYesturdayData += `12月${data.day}日 暖心时刻链接汇总\n`;
+                        that.anliYesturdayData += `12月${data.day}日 祝福时刻链接汇总\n`;
                         for (let i = 0; i<data.shiny_url.length; ++i) {
                             that.anliYesturdayData += `${i+1}.\t${data.shiny_url[i]}\n`;
                         }

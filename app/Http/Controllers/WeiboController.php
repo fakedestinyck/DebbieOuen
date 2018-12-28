@@ -195,7 +195,7 @@ class WeiboController extends Controller
                 }
             }
             $tags = json_decode($tweet->tags,true);
-            if (in_array('暖心时刻',$tags)) {
+            if (in_array('祝福时刻',$tags)) {
                 $shiny_url[] = "https://m.weibo.cn/$tweet->user_id/$tweet->tweets_id";
                 $tag_shiny++;
             }
