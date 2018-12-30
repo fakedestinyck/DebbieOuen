@@ -29,6 +29,18 @@ Route::prefix('youni')->group(function () {
 
 });
 
+Route::prefix('wyscw')->group(function () {
+    Route::get('/',function (){
+        return abort(404);
+    });
+//    Route::get('/get', 'YouniController@get');
+    Route::get('/getLatest', 'WyscwController@getLatest');
+    Route::get('/get/all', 'WyscwController@getAll');
+//    Route::get('/get/{timestamp}', 'YouniController@getSpecific');
+//    Route::post('/getOthers', 'YouniController@getSomeRanks')->middleware(['addHeader']);
+
+});
+
 
 
 //Route::group(['middleware' => ['web']], function(){
