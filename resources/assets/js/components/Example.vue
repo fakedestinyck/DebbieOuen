@@ -487,8 +487,8 @@
                                 }
 
                                 if (lastTwoDigits === "00") {
-                                    let coord = [updateTimeDateTime,rankData[i].charts.uniIndex];
-                                    let value = rankData[i].charts.uniIndex;
+                                    let coord = [updateTimeDateTime,rankData[i].charts.v];
+                                    let value = rankData[i].charts.v;
                                     that.wyscwPointsMarkPointArray.push({
                                         coord: coord,
                                         value: value,
