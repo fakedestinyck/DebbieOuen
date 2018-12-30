@@ -217,7 +217,11 @@
                         that.loadingAnliData = false;
                     })
                     .catch(function (error) {
-                        alert(error);
+                        if (error.response.status === 403) {
+                            alert(error.response.data);
+                        } else {
+                            alert(error);
+                        }
                     });
             },
 

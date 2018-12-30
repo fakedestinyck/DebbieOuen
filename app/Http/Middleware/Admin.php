@@ -19,7 +19,7 @@ class Admin
         if (Auth::check()) {
             return $next($request);
         } else {
-            return abort(403);
+            return response("403 Forbidden 身份校验失败！如果你是管理员，请尝试重新登录！",403);
         }
 
     }
