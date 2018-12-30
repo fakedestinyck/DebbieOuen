@@ -463,6 +463,7 @@
                 this.wyscwAllTimes = [];
                 this.wyscwAllPoints = [];
                 this.wyscwAllUniChange = [];
+                this.wyscwPointsMarkPointArray = [];
                 console.log("Graph loaded");
                 let that = this;
                 axios.get('/api/wyscw/get/all', {
