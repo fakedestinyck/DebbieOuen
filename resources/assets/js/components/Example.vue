@@ -891,10 +891,10 @@
 //                                    color: '#7200FF'
 //                                },
                                 symbol: that.wyscwIsShowMarkPoint ? 'pin' : 'none',
-                                symbolSize: 30,
+                                symbolSize: 40,
                                 label: {
-                                    fontSize: 12,
-                                    fontWeight: 'bold',
+                                    fontSize: 11,
+                                    fontWeight: '400',
 
                                 },
                                 data: that.wyscwPointsMarkPointArray
