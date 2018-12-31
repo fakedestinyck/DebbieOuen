@@ -250,51 +250,18 @@ class WeiboController extends Controller
 
 
         if ($endDay == 29) {
-            echo ($endDay-1)."天：";
-            foreach ($completeness[$endDay-1] as $user_array) {
-                echo $user_array["username"] . "，";
+            for ($tmpi = 1; $tmpi < 29; ++$tmpi) {
+                if (array_key_exists($endDay-$tmpi,$completeness)) {
+                    echo ($endDay-$tmpi)."天：";
+                    foreach ($completeness[$endDay-$tmpi] as $user_array) {
+                        echo "@".$user_array["username"] . "，";
+                    }
+                    echo "<br>";
+                }
             }
-            echo "<br>";
-            echo ($endDay-2)."天：";
-            foreach ($completeness[$endDay-2] as $user_array) {
-                echo $user_array["username"] . "，";
-            }
-            echo "<br>";
-            echo ($endDay-3)."天：";
-            foreach ($completeness[$endDay-3] as $user_array) {
-                echo $user_array["username"] . "，";
-            }
-            echo "<br>";
-            echo ($endDay-4)."天：";
-            foreach ($completeness[$endDay-4] as $user_array) {
-                echo $user_array["username"] . "，";
-            }
-            echo "<br>";
-            echo ($endDay-5)."天：";
-            foreach ($completeness[$endDay-5] as $user_array) {
-                echo $user_array["username"] . "，";
-            }
-            echo "<br>";
-            echo ($endDay-6)."天：";
-            foreach ($completeness[$endDay-6] as $user_array) {
-                echo $user_array["username"] . "，";
-            }
-            echo "<br>";
-            echo ($endDay-7)."天：";
-            foreach ($completeness[$endDay-7] as $user_array) {
-                echo $user_array["username"] . "，";
-            }
-            echo "<br>";
-            echo ($endDay-8)."天：";
-            foreach ($completeness[$endDay-8] as $user_array) {
-                echo $user_array["username"] . "，";
-            }
-            echo "<br>";
-            echo ($endDay-9)."天：";
-            foreach ($completeness[$endDay-9] as $user_array) {
-                echo $user_array["username"] . "，";
-            }
-            echo "<br>";
+
+
+
         } else {
             return $completeness;
         }
