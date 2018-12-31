@@ -249,8 +249,8 @@ class WeiboController extends Controller
         }
 
 
-        if ($endDay == 29) {
-            for ($tmpi = 1; $tmpi < 29; ++$tmpi) {
+        if ($endDay == 30) {
+            for ($tmpi = 1; $tmpi < 30; ++$tmpi) {
                 if (array_key_exists($endDay-$tmpi,$completeness)) {
                     echo ($endDay-$tmpi)."天：";
                     foreach ($completeness[$endDay-$tmpi] as $user_array) {
