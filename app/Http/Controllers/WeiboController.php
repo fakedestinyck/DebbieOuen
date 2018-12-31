@@ -262,6 +262,11 @@ class WeiboController extends Controller
                     echo "<br>";
                 }
             }
+            echo "<br><br>";
+            echo ($endDay)."天：";
+            foreach ($completeness[$endDay] as $user_array) {
+                echo "@".$user_array["username"] . "，";
+            }
 
 
 
