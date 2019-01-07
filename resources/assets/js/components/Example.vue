@@ -381,7 +381,7 @@
             getRank: function (rankingData) {
                 for (var i = 0; i<rankingData.length; ++i) {
                     let eachItem = rankingData[i];
-                    if (eachItem.songId === "221452950") {
+                    if (eachItem.songId === "226817072") {
                         return eachItem.rank;
                     }
                 }
@@ -389,7 +389,7 @@
             getPoint: function (rankingData) {
                 for (var i = 0; i<rankingData.length; ++i) {
                     let eachItem = rankingData[i];
-                    if (eachItem.songId === "221452950") {
+                    if (eachItem.songId === "226817072") {
                         return eachItem.uniIndex;
                     }
                 }
