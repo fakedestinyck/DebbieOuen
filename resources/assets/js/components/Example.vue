@@ -7,8 +7,8 @@
             </div>
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
                 <a href="#scroll-tab-1" class="mdl-layout__tab">微博榜单</a>
-                <a href="#scroll-tab-2" class="mdl-layout__tab" v-on:click="onSwitchTabs(1)">由你音乐榜</a>
-                <a href="#scroll-tab-3" class="mdl-layout__tab is-active">我要上春晚 - 点赞</a>
+                <a href="#scroll-tab-2" class="mdl-layout__tab is-active" v-on:click="onSwitchTabs(1)">由你音乐榜</a>
+                <a href="#scroll-tab-3" class="mdl-layout__tab">我要上春晚 - 点赞</a>
                 <!--<a href="#scroll-tab-4" class="mdl-layout__tab">Miscellaneous Tools</a>-->
             </div>
         </header>
@@ -34,95 +34,102 @@
                 </section>
             </section>
 
-            <section class="mdl-layout__tab-panel" id="scroll-tab-2">
+            <section class="mdl-layout__tab-panel is-active" id="scroll-tab-2">
                 <section class="page-content demo-layout mdl-layout mdl-layout--fixed-header mdl-color--grey-100">
+                    <!--<el-alert-->
+                            <!--title="数据暂停更新"-->
+                            <!--type="error"-->
+                            <!--description="当前时间为由你音乐榜打榜时间外，实时榜单数据及图表暂停更新"-->
+                            <!--show-icon-->
+                            <!--center-->
+                            <!--:closable="false">-->
+                    <!--</el-alert>-->
                     <el-alert
-                            title="数据暂停更新"
-                            type="error"
-                            description="当前时间为由你音乐榜打榜时间外，实时榜单数据及图表暂停更新"
+                            title="数据每十分钟更新一次"
+                            type="warning"
                             show-icon
                             center
                             :closable="false">
                     </el-alert>
-                    <!--<div class="demo-ribbon" style="background-color: white"></div>-->
-                    <!--<main class="demo-main mdl-layout__content">-->
-                        <!--<div class="demo-container mdl-grid">-->
-                            <!--<div class="mdl-cell mdl-cell&#45;&#45;2-col mdl-cell&#45;&#45;hide-tablet mdl-cell&#45;&#45;hide-phone"></div>-->
-                            <!--<div class="demo-content mdl-color&#45;&#45;white mdl-shadow&#45;&#45;4dp content mdl-color-text&#45;&#45;grey-800 mdl-cell mdl-cell&#45;&#45;8-col">-->
+                    <div class="demo-ribbon" style="background-color: white"></div>
+                    <main class="demo-main mdl-layout__content">
+                        <div class="demo-container mdl-grid">
+                            <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                            <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
 
-                                <!--&lt;!&ndash;<div class="demo-crumbs mdl-color-text&#45;&#45;grey-500">&ndash;&gt;-->
-                                <!--&lt;!&ndash;Google &gt; Material Design Lite &gt; How to install MDL&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                <!--<div class="self-wrapper" v-show="!projectInfoLocked">-->
-                                    <!--<h3>打榜歌曲：SING-千年</h3>-->
-                                    <!--<p>当前排行：第<span style="font-size: 3em;">{{ youniCurrentRank }}</span>名 <a v-on:click="loadRankingData">刷新数据</a></p>-->
-                                    <!--<h5>榜单名：{{ youniIssueTitle }}</h5>-->
-                                    <!--<p>榜单开始时间：{{ youniStartTime }}</p>-->
-                                    <!--<p>榜单结束时间：{{ youniEndTime }}</p>-->
-                                    <!--<h5>更新时间：{{ youniUpdateTime }}</h5>-->
-                                    <!--<br>-->
-                                    <!--&lt;!&ndash;<a class="mdl-button mdl-js-button mdl-button&#45;&#45;raised&ndash;&gt;-->
-                                    <!--&lt;!&ndash;mdl-js-ripple-effect mdl-button&#45;&#45;colored" @click="saveInfo"&ndash;&gt;-->
-                                    <!--&lt;!&ndash;v-show="!compiling">Save project info</a>&ndash;&gt;-->
+                                <!--<div class="demo-crumbs mdl-color-text--grey-500">-->
+                                <!--Google &gt; Material Design Lite &gt; How to install MDL-->
+                                <!--</div>-->
+                                <div class="self-wrapper" v-show="!projectInfoLocked">
+                                    <h3>打榜歌曲：SING蒋申 - Mermaid</h3>
+                                    <p>当前排行：第<span style="font-size: 3em;">{{ youniCurrentRank }}</span>名 <a v-on:click="loadRankingData">刷新数据</a></p>
+                                    <h5>榜单名：{{ youniIssueTitle }}</h5>
+                                    <p>榜单开始时间：{{ youniStartTime }}</p>
+                                    <p>榜单结束时间：{{ youniEndTime }}</p>
+                                    <h5>更新时间：{{ youniUpdateTime }}</h5>
+                                    <br>
+                                    <!--<a class="mdl-button mdl-js-button mdl-button--raised-->
+                                    <!--mdl-js-ripple-effect mdl-button--colored" @click="saveInfo"-->
+                                    <!--v-show="!compiling">Save project info</a>-->
 
-                                <!--</div>-->
-                                <!--<div class="self-wrapper" v-show="!projectInfoLocked">-->
-                                    <!--<h4>可视化数据</h4>-->
-                                    <!--<h5>千年排名/分数数据</h5>-->
-                                    <!--<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-show-mark-point">-->
-                                        <!--<input type="checkbox" id="switch-show-mark-point" class="mdl-switch__input"-->
-                                               <!--checked @change="onShowMarkPointSwitchChanged" v-model="youniIsShowMarkPoint">-->
-                                        <!--<span class="mdl-switch__label">显示每小时分数标记</span>-->
-                                    <!--</label>-->
-                                    <!--&lt;!&ndash; MDL Spinner Component &ndash;&gt;-->
-                                    <!--<div class="mdl-spinner mdl-js-spinner is-active" v-show="youniRankPointLoading"></div>-->
-                                    <!--<div id="chart-rank" style="height: 400px; width: 100%;" v-on-echart-resize></div>-->
-                                    <!--<div><br></div>-->
-                                    <!--<h5>千年单位分数涨幅数据</h5>-->
-                                    <!--&lt;!&ndash; MDL Spinner Component &ndash;&gt;-->
-                                    <!--<div class="mdl-spinner mdl-js-spinner is-active" v-show="youniUniChangeLoading"></div>-->
-                                    <!--<div id="chart-uni-change" style="height: 400px; width: 100%;" v-on-echart-resize></div>-->
-                                    <!--<div><br></div>-->
-                                    <!--<h5>前后几名的数据</h5>-->
-                                    <!--<p>输入区间过大可能导致浏览器卡死或报错！</p>-->
-                                    <!--<div class="mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label">-->
-                                        <!--<input class="mdl-textfield__input" type="text" id="lowerBound" v-model="lowerBound" required>-->
-                                        <!--<label class="mdl-textfield__label" for="lowerBound">查找的排名上限</label>-->
-                                    <!--</div>-->
-                                    <!--<br>-->
-                                    <!--<div class="mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label">-->
-                                        <!--<input class="mdl-textfield__input" type="text" id="upperBound" v-model="upperBound" required>-->
-                                        <!--<label class="mdl-textfield__label" for="lowerBound">查找的排名下限</label>-->
-                                    <!--</div>-->
-                                    <!--<br>-->
-                                    <!--&lt;!&ndash; MDL Spinner Component &ndash;&gt;-->
-                                    <!--<div class="mdl-spinner mdl-js-spinner is-active" v-show="loadingOthersRank"></div>-->
-                                    <!--<div v-show="loadingOthersRank">{{ getOthersProgress }}%获取完成</div>-->
-                                    <!--<a class="mdl-button mdl-js-button mdl-button&#45;&#45;raised-->
-                                            <!--mdl-js-ripple-effect mdl-button&#45;&#45;colored" @click="searchRank"-->
-                                       <!--v-show="!loadingOthersRank">查找</a>-->
-                                    <!--<div id="chart-compare" style="height: 400px; width: 100%;" v-on-echart-resize></div>-->
-                                <!--</div>-->
-                            <!--</div>-->
+                                </div>
+                                <div class="self-wrapper" v-show="!projectInfoLocked">
+                                    <h4>可视化数据</h4>
+                                    <h5>Mermaid排名/分数数据</h5>
+                                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-show-mark-point">
+                                        <input type="checkbox" id="switch-show-mark-point" class="mdl-switch__input"
+                                               checked @change="onShowMarkPointSwitchChanged" v-model="youniIsShowMarkPoint">
+                                        <span class="mdl-switch__label">显示每小时分数标记</span>
+                                    </label>
+                                    <!-- MDL Spinner Component -->
+                                    <div class="mdl-spinner mdl-js-spinner is-active" v-show="youniRankPointLoading"></div>
+                                    <div id="chart-rank" style="height: 400px; width: 100%;" v-on-echart-resize></div>
+                                    <div><br></div>
+                                    <h5>Mermaid单位分数涨幅数据</h5>
+                                    <!-- MDL Spinner Component -->
+                                    <div class="mdl-spinner mdl-js-spinner is-active" v-show="youniUniChangeLoading"></div>
+                                    <div id="chart-uni-change" style="height: 400px; width: 100%;" v-on-echart-resize></div>
+                                    <div><br></div>
+                                    <h5>前后几名的数据</h5>
+                                    <p>输入区间过大可能导致浏览器卡死或报错！</p>
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="lowerBound" v-model="lowerBound" required>
+                                        <label class="mdl-textfield__label" for="lowerBound">查找的排名上限</label>
+                                    </div>
+                                    <br>
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                        <input class="mdl-textfield__input" type="text" id="upperBound" v-model="upperBound" required>
+                                        <label class="mdl-textfield__label" for="lowerBound">查找的排名下限</label>
+                                    </div>
+                                    <br>
+                                    <!-- MDL Spinner Component -->
+                                    <div class="mdl-spinner mdl-js-spinner is-active" v-show="loadingOthersRank"></div>
+                                    <div v-show="loadingOthersRank">{{ getOthersProgress }}%获取完成</div>
+                                    <a class="mdl-button mdl-js-button mdl-button--raised
+                                            mdl-js-ripple-effect mdl-button--colored" @click="searchRank"
+                                       v-show="!loadingOthersRank">查找</a>
+                                    <div id="chart-compare" style="height: 400px; width: 100%;" v-on-echart-resize></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<footer class="demo-footer mdl-mini-footer">-->
+                        <!--<div class="mdl-mini-footer--left-section">-->
+                        <!--<ul class="mdl-mini-footer--link-list">-->
+                        <!--<li><a href="#">帮助</a></li>-->
+                        <!--<li><a href="#">隐私政策</a></li>-->
+                        <!--<li><a href="#">用户协议</a></li>-->
+                        <!--<li><a href="http://www.miibeian.gov.cn/">沪ICP备16029354号-2</a></li>-->
+                        <!--</ul>-->
                         <!--</div>-->
-                        <!--&lt;!&ndash;<footer class="demo-footer mdl-mini-footer">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<div class="mdl-mini-footer&#45;&#45;left-section">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<ul class="mdl-mini-footer&#45;&#45;link-list">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li><a href="#">帮助</a></li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li><a href="#">隐私政策</a></li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li><a href="#">用户协议</a></li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li><a href="http://www.miibeian.gov.cn/">沪ICP备16029354号-2</a></li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</footer>&ndash;&gt;-->
-                    <!--</main>-->
+                        <!--</footer>-->
+                    </main>
 
 
                 </section>
             </section>
 
             <!--我要上春晚-->
-            <section class="mdl-layout__tab-panel is-active" id="scroll-tab-3">
+            <section class="mdl-layout__tab-panel" id="scroll-tab-3">
                 <section class="page-content demo-layout mdl-layout mdl-layout--fixed-header mdl-color--grey-100">
                     <el-alert
                             title="数据每五分钟更新一次"
@@ -153,8 +160,8 @@
                     <div class="self-wrapper">
                     <h4>可视化数据</h4>
                     <h5>排名/分数数据</h5>
-                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-show-mark-point">
-                    <input type="checkbox" id="switch-show-mark-point" class="mdl-switch__input"
+                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-show-mark-point2">
+                    <input type="checkbox" id="switch-show-mark-point2" class="mdl-switch__input"
                     checked @change="onWyscwShowMarkPointSwitchChanged" v-model="wyscwIsShowMarkPoint">
                     <span class="mdl-switch__label">显示每小时分数标记</span>
                     </label>
@@ -313,9 +320,9 @@
             this.projectName = (this.$cookies.get("projectName") === null ? "" : this.$cookies.get("projectName"));
             this.projectDdl = (this.$cookies.get("projectDdl") === null ? "" : this.$cookies.get("projectDdl"));
             this.projectType = (this.$cookies.get("projectType") === null ? "" : this.$cookies.get("projectType"));
-//            this.loadRankingData();
+            this.loadRankingData();
             this.loadJs('https://cdn.bootcss.com/echarts/4.2.0-rc.2/echarts.common.min.js',this.echartsLoaded);
-//            this.loadYouniGraph();
+            this.loadYouniGraph();
             this.loadWyscwGraph();
             this.isAdmin();
 //            this.hideLoading();
@@ -596,7 +603,7 @@
                     },
                     title: {
                         left: 'center',
-                        text: '千年排名分数变化',
+                        text: 'Mermain排名分数变化',
                     },
                     xAxis: [{
                         type: 'time',
@@ -728,7 +735,7 @@
                     },
                     title: {
                         left: 'center',
-                        text: '千年单位分数涨幅数据',
+                        text: 'Mermaid单位分数涨幅数据',
                     },
                     xAxis: [{
                         type: 'time',

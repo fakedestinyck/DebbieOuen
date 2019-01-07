@@ -136,7 +136,7 @@ class YouniController extends Controller
             if ($data["status"] == "200") {
                 $fileArray = json_decode(json_encode($data['data']),true);
                 foreach ($fileArray['chartsList']  as $datum) {
-                    if ($datum["songId"] == "221452950") {
+                    if ($datum["songId"] == "226817072") {
                         $dataArray[] = [
                             "updateTime"=>$fileArray['updateTime'],
                             "charts"=>$datum,
