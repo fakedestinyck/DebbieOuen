@@ -97,13 +97,13 @@ class YzxgbController extends Controller
             $mySign = strtolower($md5qqid[8].$md5qqid[30].$md5qqid[0].$md5qqid[7].$md5qqid[14].$md5qqid[28]);
             if ($sign != $mySign) {
                 return array(
-                    "status" => "-1",
+                    "status" => -1,
                     "errmsg" => "签名校验错误"
                 );
             } else {
                 YzxgbPunch::create($request->except("sign"));
                 return array(
-                    "status" => "1",
+                    "status" => 1,
                 );
             }
         }
