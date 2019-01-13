@@ -52,6 +52,15 @@ Route::prefix('wyscw')->group(function () {
     });
 //});
 
+Route::prefix('yzxgb')->group(function () {
+    Route::get('/',function (){
+        return abort(404);
+    });
+    Route::post('/punch', 'YzxgbController@punch');
+//    Route::get('/get/all', 'WyscwController@getAll');
+
+});
+
 
 
 //Route::post('/saveCode', "CodesController@storeCode");
