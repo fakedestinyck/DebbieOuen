@@ -57,6 +57,7 @@ Route::prefix('yzxgb')->group(function () {
         return abort(404);
     });
     Route::post('/punch', 'YzxgbController@punch');
+    Route::get('/punchData/{day}', 'YzxgbController@getPunchDataByDay');
 //    Route::get('/get/all', 'WyscwController@getAll');
 
 });

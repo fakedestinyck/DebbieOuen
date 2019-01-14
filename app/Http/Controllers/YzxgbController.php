@@ -108,4 +108,27 @@ class YzxgbController extends Controller
             }
         }
     }
+
+    public function getPunchDataByDay($day) {
+        $punches = YzxgbPunch::whereDay('created_at',$day)->get();
+        if (count($punches) == 0) {
+            return array(
+                "status"=>0
+            );
+        } else {
+            $users = array();
+            foreach ($punches as $punch) {
+                if (array_key_exists($punch->qqid,$users)) {
+                    $users[$punch->qqid] += 1;
+                } else {
+                    $users[$punch->qqid] = 1;
+                }
+            }
+            arsort($users);
+            return array(
+                "status" => 1,
+                "qqids" => $users
+            );
+        }
+    }
 }
