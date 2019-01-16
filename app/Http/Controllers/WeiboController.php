@@ -303,4 +303,30 @@ class WeiboController extends Controller
             }
         }
     }
+
+    public function getFlowerByDay($day) {
+        $flowers = WeiboFlower::whereDay('created_at',$day)->get();
+        if (count($flowers) == 0) {
+            return array(
+                "status"=>0
+            );
+        } else {
+            $users = array();
+            $total = 0;
+            foreach ($flowers as $flower) {
+                if (array_key_exists($flower->qqid,$users)) {
+                    $users[$flower->qqid] += $flower->num;
+                } else {
+                    $users[$flower->qqid] = $flower->num;
+                }
+                $total += $flower->num;
+            }
+            arsort($users);
+            return array(
+                "status" => 1,
+                "qqids" => $users,
+                "total" => $total
+            );
+        }
+    }
 }
