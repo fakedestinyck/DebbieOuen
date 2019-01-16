@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\WeiboAnli;
 use App\WeiboDailyRank;
+use App\WeiboFlower;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -274,5 +275,32 @@ class WeiboController extends Controller
             return $completeness;
         }
 
+    }
+
+    public function sendFlower(Request $request) {
+        $data = $request->all();
+        if (!isset($data["qqid"]) || !isset($data["sign"]) || !isset($data["num"])) {
+            return array(
+                "status" => "-1",
+                "errmsg" => "参数错误"
+            );
+        } else {
+            $qqid = $data["qqid"];
+            $num = $data["num"];
+            $sign = $data["sign"];
+            $md5qqid = md5(strtolower(md5($qqid)).strtolower(md5($num)));
+            $mySign = strtolower($md5qqid[8].$md5qqid[30].$md5qqid[0].$md5qqid[7].$md5qqid[14].$md5qqid[28]);
+            if ($sign != $mySign) {
+                return array(
+                    "status" => -1,
+                    "errmsg" => "签名校验错误"
+                );
+            } else {
+                WeiboFlower::create($request->except("sign"));
+                return array(
+                    "status" => 1,
+                );
+            }
+        }
     }
 }

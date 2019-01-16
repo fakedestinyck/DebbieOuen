@@ -49,6 +49,7 @@ Route::prefix('wyscw')->group(function () {
             return abort(404);
         });
         Route::post('attendance','WeiboController@storeAttendanceData');
+        Route::post('flower/send','WeiboController@sendFlower');
     });
 //});
 
