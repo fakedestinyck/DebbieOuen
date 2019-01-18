@@ -6,9 +6,9 @@
             </div>
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
                 <a href="#scroll-tab-1" class="mdl-layout__tab is-active">呆呆近30天微博链接</a>
-                <a href="#scroll-tab-2" class="mdl-layout__tab">30天安利蒋申</a>
-                <a href="#scroll-tab-3" class="mdl-layout__tab">补录数据</a>
-                <a href="#scroll-tab-4" class="mdl-layout__tab">补录数据 - 无法识别</a>
+                <!--<a href="#scroll-tab-2" class="mdl-layout__tab">30天安利蒋申</a>-->
+                <!--<a href="#scroll-tab-3" class="mdl-layout__tab">补录数据</a>-->
+                <!--<a href="#scroll-tab-4" class="mdl-layout__tab">补录数据 - 无法识别</a>-->
                 <!--<a href="#scroll-tab-3" class="mdl-layout__tab">View uploaded Projects</a>-->
                 <!--<a href="#scroll-tab-4" class="mdl-layout__tab">Miscellaneous Tools</a>-->
             </div>
@@ -33,106 +33,106 @@
                 </section>
             </section>
 
-            <section class="mdl-layout__tab-panel" id="scroll-tab-2">
-                <section class="page-content demo-layout mdl-layout mdl-layout--fixed-header mdl-color--grey-100">
-                    <div class="demo-ribbon" style="background-color: white"></div>
-                    <main class="demo-main mdl-layout__content">
-                        <div class="demo-container mdl-grid">
-                            <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-                            <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
-                                <!--<div class="demo-crumbs mdl-color-text--grey-500">-->
-                                <!--Google &gt; Material Design Lite &gt; How to install MDL-->
+            <!--<section class="mdl-layout__tab-panel" id="scroll-tab-2">-->
+                <!--<section class="page-content demo-layout mdl-layout mdl-layout&#45;&#45;fixed-header mdl-color&#45;&#45;grey-100">-->
+                    <!--<div class="demo-ribbon" style="background-color: white"></div>-->
+                    <!--<main class="demo-main mdl-layout__content">-->
+                        <!--<div class="demo-container mdl-grid">-->
+                            <!--<div class="mdl-cell mdl-cell&#45;&#45;2-col mdl-cell&#45;&#45;hide-tablet mdl-cell&#45;&#45;hide-phone"></div>-->
+                            <!--<div class="demo-content mdl-color&#45;&#45;white mdl-shadow&#45;&#45;4dp content mdl-color-text&#45;&#45;grey-800 mdl-cell mdl-cell&#45;&#45;8-col">-->
+                                <!--&lt;!&ndash;<div class="demo-crumbs mdl-color-text&#45;&#45;grey-500">&ndash;&gt;-->
+                                <!--&lt;!&ndash;Google &gt; Material Design Lite &gt; How to install MDL&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--<div class="self-wrapper">-->
+                                    <!--<h3>30天安利蒋申 - 数据</h3>-->
+                                    <!--&lt;!&ndash; MDL Spinner Component &ndash;&gt;-->
+                                    <!--<div class="mdl-spinner mdl-js-spinner is-active" v-show="loadingAnliData"></div>-->
+                                    <!--<pre>{{anliYesturdayData}}</pre>-->
+                                    <!--<a class="mdl-button mdl-js-button mdl-button&#45;&#45;raised-->
+                                        <!--mdl-js-ripple-effect mdl-button&#45;&#45;colored" @click="getAnliDay"-->
+                                       <!--v-show="!loadingAnliData">获取昨天的数据</a>-->
                                 <!--</div>-->
-                                <div class="self-wrapper">
-                                    <h3>30天安利蒋申 - 数据</h3>
-                                    <!-- MDL Spinner Component -->
-                                    <div class="mdl-spinner mdl-js-spinner is-active" v-show="loadingAnliData"></div>
-                                    <pre>{{anliYesturdayData}}</pre>
-                                    <a class="mdl-button mdl-js-button mdl-button--raised
-                                        mdl-js-ripple-effect mdl-button--colored" @click="getAnliDay"
-                                       v-show="!loadingAnliData">获取昨天的数据</a>
-                                </div>
-                            </div>
-                        </div>
-                    </main>
-                </section>
-            </section>
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</main>-->
+                <!--</section>-->
+            <!--</section>-->
 
-            <section class="mdl-layout__tab-panel" id="scroll-tab-3">
-                <section class="page-content demo-layout mdl-layout mdl-layout--fixed-header mdl-color--grey-100">
-                    <div class="demo-ribbon" style="background-color: white"></div>
-                    <main class="demo-main mdl-layout__content">
-                        <div class="demo-container mdl-grid">
-                            <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-                            <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
-                                <!--<div class="demo-crumbs mdl-color-text--grey-500">-->
-                                <!--Google &gt; Material Design Lite &gt; How to install MDL-->
+            <!--<section class="mdl-layout__tab-panel" id="scroll-tab-3">-->
+                <!--<section class="page-content demo-layout mdl-layout mdl-layout&#45;&#45;fixed-header mdl-color&#45;&#45;grey-100">-->
+                    <!--<div class="demo-ribbon" style="background-color: white"></div>-->
+                    <!--<main class="demo-main mdl-layout__content">-->
+                        <!--<div class="demo-container mdl-grid">-->
+                            <!--<div class="mdl-cell mdl-cell&#45;&#45;2-col mdl-cell&#45;&#45;hide-tablet mdl-cell&#45;&#45;hide-phone"></div>-->
+                            <!--<div class="demo-content mdl-color&#45;&#45;white mdl-shadow&#45;&#45;4dp content mdl-color-text&#45;&#45;grey-800 mdl-cell mdl-cell&#45;&#45;8-col">-->
+                                <!--&lt;!&ndash;<div class="demo-crumbs mdl-color-text&#45;&#45;grey-500">&ndash;&gt;-->
+                                <!--&lt;!&ndash;Google &gt; Material Design Lite &gt; How to install MDL&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--<div class="self-wrapper">-->
+                                    <!--<h3>30天安利蒋申 - 人工补录DayX</h3>-->
+                                    <!--<h5 v-html="thirtyDaysTweetsText"></h5>-->
+                                    <!--<h5 v-show="!loadingNextTweets">{{ thirtyDaysTweetsDate }}</h5>-->
+                                    <!--<a :href="'https://m.weibo.cn/detail/'+thirtyDaysTweetsTweetId" target="_blank"-->
+                                       <!--v-show="!loadingNextTweets">链接</a>-->
+                                    <!--<div class="mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label"-->
+                                         <!--v-show="!loadingNextTweets">-->
+                                        <!--<input class="mdl-textfield__input" type="text" id="thirtyDaysDayXInput"-->
+                                               <!--v-model="thirtyDaysDayXInput" required @keyup.enter="onSubmitDayX" ref="thirtyDaysDayXInput">-->
+                                        <!--<label class="mdl-textfield__label" for="thirtyDaysDayXInput">天数</label>-->
+                                    <!--</div>-->
+                                    <!--<br>-->
+                                    <!--<br>-->
+                                    <!--<a class="mdl-button mdl-js-button mdl-button&#45;&#45;raised-->
+                                        <!--mdl-js-ripple-effect mdl-button&#45;&#45;colored" @click="onSubmitDayX"-->
+                                       <!--v-show="!loadingNextTweets">确定</a>-->
+
                                 <!--</div>-->
-                                <div class="self-wrapper">
-                                    <h3>30天安利蒋申 - 人工补录DayX</h3>
-                                    <h5 v-html="thirtyDaysTweetsText"></h5>
-                                    <h5 v-show="!loadingNextTweets">{{ thirtyDaysTweetsDate }}</h5>
-                                    <a :href="'https://m.weibo.cn/detail/'+thirtyDaysTweetsTweetId" target="_blank"
-                                       v-show="!loadingNextTweets">链接</a>
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
-                                         v-show="!loadingNextTweets">
-                                        <input class="mdl-textfield__input" type="text" id="thirtyDaysDayXInput"
-                                               v-model="thirtyDaysDayXInput" required @keyup.enter="onSubmitDayX" ref="thirtyDaysDayXInput">
-                                        <label class="mdl-textfield__label" for="thirtyDaysDayXInput">天数</label>
-                                    </div>
-                                    <br>
-                                    <br>
-                                    <a class="mdl-button mdl-js-button mdl-button--raised
-                                        mdl-js-ripple-effect mdl-button--colored" @click="onSubmitDayX"
-                                       v-show="!loadingNextTweets">确定</a>
+                            <!--</div>-->
+                        <!--</div>-->
 
-                                </div>
-                            </div>
-                        </div>
-
-                    </main>
+                    <!--</main>-->
 
 
-                </section>
-            </section>
+                <!--</section>-->
+            <!--</section>-->
 
 
-            <section class="mdl-layout__tab-panel" id="scroll-tab-4">
-                <section class="page-content demo-layout mdl-layout mdl-layout--fixed-header mdl-color--grey-100">
-                    <div class="demo-ribbon" style="background-color: white"></div>
-                    <main class="demo-main mdl-layout__content">
-                        <div class="demo-container mdl-grid">
-                            <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-                            <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
-                                <!--<div class="demo-crumbs mdl-color-text--grey-500">-->
-                                <!--Google &gt; Material Design Lite &gt; How to install MDL-->
+            <!--<section class="mdl-layout__tab-panel" id="scroll-tab-4">-->
+                <!--<section class="page-content demo-layout mdl-layout mdl-layout&#45;&#45;fixed-header mdl-color&#45;&#45;grey-100">-->
+                    <!--<div class="demo-ribbon" style="background-color: white"></div>-->
+                    <!--<main class="demo-main mdl-layout__content">-->
+                        <!--<div class="demo-container mdl-grid">-->
+                            <!--<div class="mdl-cell mdl-cell&#45;&#45;2-col mdl-cell&#45;&#45;hide-tablet mdl-cell&#45;&#45;hide-phone"></div>-->
+                            <!--<div class="demo-content mdl-color&#45;&#45;white mdl-shadow&#45;&#45;4dp content mdl-color-text&#45;&#45;grey-800 mdl-cell mdl-cell&#45;&#45;8-col">-->
+                                <!--&lt;!&ndash;<div class="demo-crumbs mdl-color-text&#45;&#45;grey-500">&ndash;&gt;-->
+                                <!--&lt;!&ndash;Google &gt; Material Design Lite &gt; How to install MDL&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--<div class="self-wrapper">-->
+                                    <!--<h3>30天安利蒋申 - 人工补录DayX - 无法识别</h3>-->
+                                    <!--<h5 v-html="thirtyDaysTweetsTextBad"></h5>-->
+                                    <!--<h5 v-show="!loadingNextTweetsBad">{{ thirtyDaysTweetsDateBad }}</h5>-->
+                                    <!--<a :href="'https://m.weibo.cn/detail/'+thirtyDaysTweetsTweetIdBad" target="_blank"-->
+                                       <!--v-show="!loadingNextTweetsBad">链接</a>-->
+                                    <!--<div class="mdl-textfield mdl-js-textfield mdl-textfield&#45;&#45;floating-label" v-show="!loadingNextTweetsBad">-->
+                                        <!--<input class="mdl-textfield__input" type="text" id="thirtyDaysDayXInputBad"-->
+                                               <!--v-model="thirtyDaysDayXInputBad" required @keyup.enter="onSubmitDayXBad" ref="thirtyDaysDayXInputBad">-->
+                                        <!--<label class="mdl-textfield__label" for="thirtyDaysDayXInputBad">天数</label>-->
+                                    <!--</div>-->
+                                    <!--<br>-->
+                                    <!--<br>-->
+                                    <!--<a class="mdl-button mdl-js-button mdl-button&#45;&#45;raised-->
+                                        <!--mdl-js-ripple-effect mdl-button&#45;&#45;colored" @click="onSubmitDayXBad"-->
+                                       <!--v-show="!loadingNextTweetsBad">确定</a>-->
+
                                 <!--</div>-->
-                                <div class="self-wrapper">
-                                    <h3>30天安利蒋申 - 人工补录DayX - 无法识别</h3>
-                                    <h5 v-html="thirtyDaysTweetsTextBad"></h5>
-                                    <h5 v-show="!loadingNextTweetsBad">{{ thirtyDaysTweetsDateBad }}</h5>
-                                    <a :href="'https://m.weibo.cn/detail/'+thirtyDaysTweetsTweetIdBad" target="_blank"
-                                       v-show="!loadingNextTweetsBad">链接</a>
-                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" v-show="!loadingNextTweetsBad">
-                                        <input class="mdl-textfield__input" type="text" id="thirtyDaysDayXInputBad"
-                                               v-model="thirtyDaysDayXInputBad" required @keyup.enter="onSubmitDayXBad" ref="thirtyDaysDayXInputBad">
-                                        <label class="mdl-textfield__label" for="thirtyDaysDayXInputBad">天数</label>
-                                    </div>
-                                    <br>
-                                    <br>
-                                    <a class="mdl-button mdl-js-button mdl-button--raised
-                                        mdl-js-ripple-effect mdl-button--colored" @click="onSubmitDayXBad"
-                                       v-show="!loadingNextTweetsBad">确定</a>
+                            <!--</div>-->
+                        <!--</div>-->
 
-                                </div>
-                            </div>
-                        </div>
-
-                    </main>
+                    <!--</main>-->
 
 
-                </section>
-            </section>
+                <!--</section>-->
+            <!--</section>-->
 
             <footer class="demo-footer mdl-mini-footer">
                 <div class="mdl-mini-footer--left-section">

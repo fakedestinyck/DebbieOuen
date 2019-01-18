@@ -160,7 +160,7 @@
                 <div class="flex-center position-ref full-height">
                     <div class="content">
                         <div class="title m-b-md">
-                            银河以北，<span style="color: deepskyblue;">蒋申</span>最美<br>SING Fighting!
+                            <span style="color: deepskyblue;">蒋</span>心独具，不负此<span style="color: deepskyblue;">申</span><br>SING Fighting!
                         </div>
                     </div>
                 </div>
