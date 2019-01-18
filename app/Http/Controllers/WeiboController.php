@@ -331,6 +331,6 @@ class WeiboController extends Controller
     }
 
     public function showIp() {
-        echo $_SERVER['REMOTE_ADDR'];
+        echo '<h1>'.$_SERVER['REMOTE_ADDR'].'</h1>';
     }
 }
