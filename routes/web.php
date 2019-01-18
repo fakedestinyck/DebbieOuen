@@ -12,6 +12,10 @@
 */
 
 Route::get('/', function () {
+    return redirect('/data');
+});
+
+Route::get('/data', function () {
     return view('welcome');
 });
 

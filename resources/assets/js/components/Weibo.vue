@@ -14,7 +14,7 @@
             </div>
         </header>
         <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title"><a href="..">主页</a></span>
+            <span class="mdl-layout-title"><a href="../data">主页</a></span>
             <nav class="mdl-navigation">
                 <!--<a class="mdl-navigation__link" href="#">敬请期待</a>-->
                 <a class="mdl-navigation__link" href="/ranks/ranking">打榜数据</a>
