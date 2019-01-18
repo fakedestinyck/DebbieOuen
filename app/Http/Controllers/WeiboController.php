@@ -329,4 +329,8 @@ class WeiboController extends Controller
             );
         }
     }
+
+    public function showIp() {
+        echo $_SERVER['REMOTE_ADDR'];
+    }
 }

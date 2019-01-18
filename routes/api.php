@@ -64,7 +64,7 @@ Route::prefix('yzxgb')->group(function () {
 
 });
 
-
+Route::get('ip',"WeiboController@showIp");
 
 //Route::post('/saveCode', "CodesController@storeCode");
 //
