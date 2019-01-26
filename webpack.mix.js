@@ -26,6 +26,11 @@ mix.styles([
     // 'resources/assets/css/codemirror.css',
     'resources/assets/css/styles.css',
     'resources/assets/css/main.css',
+    'resources/assets/css/custom.css',
+    'resources/assets/css/mobirise-icons.css',
+    'resources/assets/css/socicon.css',
+    'resources/assets/theme/css/style.css',
+    'resources/assets/css/mbr-additional.css',
     // 'resources/assets/css/mdn-like.css'
 
 ], 'public/css/libs.css');
@@ -35,7 +40,8 @@ mix.scripts([
     // 'resources/assets/js/clike.js',
     // 'resources/assets/js/echarts.js',
     // 'resources/assets/js/echarts.min.js',
-    'resources/assets/js/echartsdebbietheme.js'
+    'resources/assets/js/echartsdebbietheme.js',
+    'resources/assets/theme/js/script.js'
 
 ], 'public/js/libs.js');
 

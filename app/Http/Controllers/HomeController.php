@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //
     }
 
     /**
@@ -23,6 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $response = file_get_contents("https://space.bilibili.com/ajax/member/getSubmitVideos?mid=295679074&page=1&pagesize=3");
+        $data = json_decode($response,true)["data"];
+        $vlist = $data["vlist"];
+
+        return view('home', compact('vlist'));
     }
 }

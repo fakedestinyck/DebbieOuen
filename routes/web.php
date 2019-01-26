@@ -15,6 +15,8 @@ Route::get('/', function () {
     return redirect('/data');
 });
 
+Route::get('/home', 'HomeController@index');
+
 Route::get('/data', function () {
     return view('welcome');
 });

@@ -1,0 +1,12 @@
+.mdl-textfield.has-error .mdl-textfield__input {
+    border-color: #d50000;
+    box-shadow: none;
+}
+
+.mdl-textfield.has-error .mdl-textfield__label {
+    color: #d50000;
+}
+
+.mdl-textfield.has-error .mdl-textfield__error {
+    visibility: visible;
+}

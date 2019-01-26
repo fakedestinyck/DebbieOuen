@@ -37,7 +37,7 @@
     {{--<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />--}}
     <link href="https://cdn.bootcss.com/material-design-lite/1.3.0/material.blue-pink.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/libs.css">
-    <link rel="stylesheet" href="css/main.css">
+    {{--<link rel="stylesheet" href="css/main.css">--}}
 </head>
 <body id="top">
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
