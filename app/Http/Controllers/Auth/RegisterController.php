@@ -27,11 +27,11 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/home';
 
     protected function redirectTo()
     {
-        return '/data';
+        return '/home';
     }
 
     /**

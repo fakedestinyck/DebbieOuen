@@ -11,11 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect('/data');
-});
+//Route::get('/', function () {
+//    return redirect('/data');
+//});
 
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
+
+Route::get('/home', function () {
+    return redirect('/');
+});
 
 Route::get('/data', function () {
     return view('welcome');

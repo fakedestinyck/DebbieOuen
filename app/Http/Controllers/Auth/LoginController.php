@@ -25,11 +25,11 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/data';
+    protected $redirectTo = '/home';
 
     protected function redirectTo()
     {
-        return '/data';
+        return '/home';
     }
 
     /**

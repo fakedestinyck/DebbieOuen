@@ -36,7 +36,7 @@
                     <h1 class="mbr-section-title align-center mbr-bold pb-3 mbr-fonts-style display-1">蒋申的非官方应援站</h1>
 
                     <p class="mbr-text align-center pb-3 mbr-fonts-style display-5"><strong>蒋心独具，不负此申</strong></p>
-                    <div class="mbr-section-btn align-center"><a class="btn btn-md btn-secondary display-7" href="https://mobirise.com"><span class="mbri-login mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 255, 255);"></span>
+                    <div class="mbr-section-btn align-center"><a class="btn btn-md btn-secondary display-7" href="{{ url('/login') }}"><span class="mbri-login mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 255, 255);"></span>
                             护申符登陆</a></div>
                 </div>
             </div>
@@ -59,15 +59,20 @@
                             <div class="card-wrapper ">
                                 <div class="card-img">
                                     <div class="mbr-overlay"></div>
-                                    <div class="mbr-section-btn text-center"><a href="https://mobirise.com" class="btn btn-danger display-4">前往观看</a></div>
+                                    <div class="mbr-section-btn text-center">
+                                        <a href="https://www.bilibili.com/video/av{{ $veach["aid"] }}" target="_blank" class="btn btn-danger display-4">前往观看</a>
+                                    </div>
                                     <img src="{{ "https:".$veach["pic"] }}" alt="封面图" media-simple="true">
                                 </div>
                                 <div class="card-box">
                                     <h4 class="card-title mbr-fonts-style display-7">
-                                        {{ $veach["title"] }}
+                                        {{ $veach["description"] }}
                                     </h4>
                                     <p class="mbr-text mbr-fonts-style align-left display-7">
-                                        {{ $veach["description"] }}
+                                        发布时间：{{ date("Y-m-d H:i:s", $veach["created"]) }}<br>
+                                        时长：{{ $veach["length"] }}<br>
+                                        播放量：{{ $veach["play"] }}<br>
+                                        弹幕数：{{ $veach["video_review"] }}
                                     </p>
                                 </div>
                             </div>
@@ -307,13 +312,18 @@
                         网站功能
                     </h5>
                     <p class="mbr-text">
-                        进入数据站<br></p>
+                        <a href="{{ url('/data') }}">进入数据站</a>
+                    </p>
                 </div>
                 <div class="col-12 col-md-3 mbr-fonts-style display-7">
                     <h5 class="pb-3">
                         友情链接
                     </h5>
-                    <p class="mbr-text">SING-蒋申微博<br>后援会微博<br></p>
+                    <p class="mbr-text">
+                        <a href="https://www.weibo.com/u/2583858490">SING-蒋申微博</a><br>
+                        <a href="https://www.weibo.com/u/6123063147">蒋申后援会微博</a><br>
+                        <a href="https://www.weibo.com/u/6534389849">JJC微博</a>
+                    </p>
                 </div>
             </div>
             <div class="footer-lower">
