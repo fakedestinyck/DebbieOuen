@@ -60,7 +60,7 @@
                                 <div class="card-img">
                                     <div class="mbr-overlay"></div>
                                     <div class="mbr-section-btn text-center"><a href="https://mobirise.com" class="btn btn-danger display-4">前往观看</a></div>
-                                    <img src="{{ "http:".$veach["pic"] }}" alt="封面图" media-simple="true">
+                                    <img src="{{ "https:".$veach["pic"] }}" alt="封面图" media-simple="true">
                                 </div>
                                 <div class="card-box">
                                     <h4 class="card-title mbr-fonts-style display-7">
