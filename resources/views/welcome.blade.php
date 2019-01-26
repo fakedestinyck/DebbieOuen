@@ -138,9 +138,9 @@
                     <!-- Add spacer, to align navigation to the right -->
                     <div class="mdl-layout-spacer"></div>
                     <!-- Navigation. We hide it in small screens. -->
-                    <nav class="mdl-navigation mdl-layout--large-screen-only">
-                        <a class="mdl-navigation__link" href="{{ url('/login') }}">管理员登陆</a>
-                    </nav>
+                    {{--<nav class="mdl-navigation mdl-layout--large-screen-only">--}}
+                        {{--<a class="mdl-navigation__link" href="{{ url('/login') }}">管理员登陆</a>--}}
+                    {{--</nav>--}}
                 </div>
             </header>
             <div class="mdl-layout__drawer">
@@ -148,9 +148,9 @@
 
 
                 <nav class="mdl-navigation">
-                    <span class="mdl-layout-title mdl-layout--small-screen-only">
-                        <a class="mdl-navigation__link" href="{{ url('/login') }}">管理员登陆</a>
-                    </span>
+                    {{--<span class="mdl-layout-title mdl-layout--small-screen-only">--}}
+                        {{--<a class="mdl-navigation__link" href="{{ url('/login') }}">管理员登陆</a>--}}
+                    {{--</span>--}}
                     {{--<a class="mdl-navigation__link show-dialog" href="#">敬请期待</a>--}}
                     <a class="mdl-navigation__link" href="{{ url('ranks/ranking') }}">打榜数据</a>
                     <a class="mdl-navigation__link" href="{{ url('weibo') }}">微博相关</a>
