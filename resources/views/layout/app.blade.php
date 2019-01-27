@@ -213,5 +213,5 @@
 //}());
 </script>
 </body>
-<script src="https://cdn.bootcss.com/echarts/4.2.0-rc.2/echarts.common.min.js"></script>
+{{--<script src="https://cdn.bootcss.com/echarts/4.2.0-rc.2/echarts.common.min.js"></script>--}}
 </html>
