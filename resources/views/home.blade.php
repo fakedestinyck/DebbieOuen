@@ -4,10 +4,10 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="shortcut icon" href="http://debbie.xiaogongju.xyz/favicon/ms-icon-310x310.png" type="image/x-icon">
+        <link rel="shortcut icon" href="assets/images/logo-128x128.png" type="image/x-icon">
         <meta name="description" content="SING-蒋申的非官方应援站">
         <meta itemprop="name" content="SING-蒋申的非官方应援站"/>
-        <meta itemprop="image" content="http://imgcache.qq.com/qqshow/ac/v4/global/logo.png" />
+        <meta itemprop="image" content="http://debbie.xiaogongju.xyz/favicon/ms-icon-310x310.png" />
         <meta name="description" itemprop="description" content="蒋心独具，不负此申" />
         <title>SING-蒋申的非官方应援站</title>
         <!--<link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">-->
