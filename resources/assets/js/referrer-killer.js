@@ -136,7 +136,7 @@ var ReferrerKiller = (function () {
                         first  = document.body.firstChild,\
                         elem;\
                     if (first.offsetHeight && first.offsetWidth) {\
-                        width = '+document.getElementsByClassName('mbr-overlay')[1].offsetWidth+';\
+                        width = window.parent.document.getElementsByClassName(\\\'mbr-overlay\\\')[1].offsetWidth;\
                         height = width*first.offsetHeight/first.offsetWidth;\
                     } else {\
                         for (var i in elems) {\
@@ -152,6 +152,9 @@ var ReferrerKiller = (function () {
 					ifr.height = height;\
 					ifr.width  = width;\
 				}\
+				window.parent.addEventListener(\\\'resize\\\', function(event){\
+                    resizeWindow();\
+                });\
 			</script>' +
 			'<body onload=\\\'resizeWindow()\\\'>\' + decodeURIComponent(\'' +
 			/*-- Content --*/

@@ -1403,6 +1403,8 @@ body {
   margin: auto;
 }
 .cid-rgiNlgWInX .card-wrapper .card-box {
+  position: relative;
+  top: -7px;
   background-color: #ffffff;
   padding: 0 2rem 2rem 2rem;
   border-bottom-left-radius: 0;
