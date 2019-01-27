@@ -41,7 +41,8 @@ mix.scripts([
     // 'resources/assets/js/echarts.js',
     // 'resources/assets/js/echarts.min.js',
     'resources/assets/js/echartsdebbietheme.js',
-    'resources/assets/theme/js/script.js'
+    'resources/assets/theme/js/script.js',
+    'resources/assets/js/referrer-killer.js'
 
 ], 'public/js/libs.js');
 

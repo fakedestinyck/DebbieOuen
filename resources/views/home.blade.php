@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Site made with Mobirise Website Builder v4.3.0, https://mobirise.com -->
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="generator" content="Mobirise v4.3.0, mobirise.com">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="assets/images/logo-128x128.png" type="image/x-icon">
         <meta name="description" content="">
@@ -62,7 +60,8 @@
                                     <div class="mbr-section-btn text-center">
                                         <a href="https://www.bilibili.com/video/av{{ $veach["aid"] }}" target="_blank" class="btn btn-danger display-4">前往观看</a>
                                     </div>
-                                    <img src="{{ "https:".$veach["pic"] }}" alt="封面图" media-simple="true">
+                                    <span class="image_kill_referrer"></span>
+{{--                                    <img src="{{ "https:".$veach["pic"] }}" alt="封面图" media-simple="true">--}}
                                 </div>
                                 <div class="card-box">
                                     <h4 class="card-title mbr-fonts-style display-7">
@@ -79,6 +78,8 @@
                         </div>
                     @endforeach
                 @endif
+
+
                 {{--<div class="card p-3 col-12 col-md-6 col-lg-4">--}}
                     {{--<div class="card-wrapper">--}}
                         {{--<div class="card-img">--}}
@@ -300,7 +301,7 @@
             <div class="media-container-row content text-white">
                 <div class="col-12 col-md-3">
                     <div class="media-wrap">
-                        <img src="assets/images/images-259x194.png" alt="Mobirise" title="" media-simple="true">
+                        <img src="assets/images/images-259x194.png" alt="" title="" media-simple="true">
                     </div>
                 </div>
                 {{--<div class="col-12 col-md-3 mbr-fonts-style display-7">--}}
@@ -376,7 +377,11 @@
     <!--<script src="assets/theme/js/script.js"></script>-->
     <script src="js/libs.js"></script>
 
-
+    @for($i=0;$i<3;++$i)
+        <script>
+            document.getElementsByClassName('image_kill_referrer')[{{ $i }}].innerHTML = ReferrerKiller.imageHtml('{{ "https:".$vlist[$i]["pic"] }}');
+        </script>
+    @endfor
 
     </body>
 </html>
