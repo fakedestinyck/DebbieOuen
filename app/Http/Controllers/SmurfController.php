@@ -125,7 +125,7 @@ class SmurfController extends Controller
         $nowtime = time();
         $delta_time= $nowtime - $timestamp;
         if ($delta_time > 60 || $delta_time < 0) {
-            return "链接已经过期，请重新向机器人获取链接";
+            return "链接已经过期，请重新获取链接";
         }
 
         // 成功校验，开始返回账号密码
