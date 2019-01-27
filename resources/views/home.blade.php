@@ -37,8 +37,14 @@
                     <h1 class="mbr-section-title align-center mbr-bold pb-3 mbr-fonts-style display-1">蒋申的非官方应援站</h1>
 
                     <p class="mbr-text align-center pb-3 mbr-fonts-style display-5"><strong>蒋心独具，不负此申</strong></p>
-                    <div class="mbr-section-btn align-center"><a class="btn btn-md btn-secondary display-7" href="{{ url('/login') }}"><span class="mbri-login mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 255, 255);"></span>
-                            护申符登陆</a></div>
+                    @if (Auth::check())
+                        <div class="mbr-section-btn align-center"><a class="btn btn-md btn-secondary display-7" href="#"><span class="mbri-login mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 255, 255);"></span>
+                                我的个人中心</a></div>
+                    @else
+                        <div class="mbr-section-btn align-center"><a class="btn btn-md btn-secondary display-7" href="{{ url('/login') }}"><span class="mbri-login mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 255, 255);"></span>
+                                护申符登陆</a></div>
+                    @endif
+
                 </div>
             </div>
         </div>

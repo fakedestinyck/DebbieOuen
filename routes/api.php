@@ -85,3 +85,12 @@ Route::post('/downloadFile',"WeiboController@downloadFile");
 //    echo "<br><br>";
 //    echo $code;
 //});
+
+Route::prefix('smurf')->group(function () {
+    Route::get('/',function (){
+        return abort(404);
+    });
+    Route::get('/get', 'SmurfController@get');
+//    Route::get('/punchData/{day}', 'YzxgbController@getPunchDataByDay');
+
+});
