@@ -155,6 +155,11 @@
                     {{--<a class="mdl-navigation__link show-dialog" href="#">敬请期待</a>--}}
                     <a class="mdl-navigation__link" href="{{ url('ranks/ranking') }}">打榜数据</a>
                     <a class="mdl-navigation__link" href="{{ url('weibo') }}">微博相关</a>
+                    @if (Auth::check())
+                        @if (Auth::User()->isAdmin())
+                            <a class="mdl-navigation__link" href="{{ url('smurf') }}">小号管理</a>
+                        @endif
+                    @endif
                 </nav>
             </div>
             <main class="mdl-layout__content">

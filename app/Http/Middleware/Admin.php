@@ -17,9 +17,13 @@ class Admin
     public function handle($request, Closure $next)
     {
         if (Auth::check()) {
-            return $next($request);
+            if (Auth::user()->isAdmin()){
+                return $next($request);
+            } else {
+                return response("403 Forbidden 身份校验失败！如果你是管理员，请尝试重新登录！",403);
+            }
         } else {
-            return response("403 Forbidden 身份校验失败！如果你是管理员，请尝试重新登录！",403);
+            return response("401 Unauthorized 身份校验失败！请先登录！",401);
         }
 
     }

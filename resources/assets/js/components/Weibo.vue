@@ -19,6 +19,7 @@
                 <!--<a class="mdl-navigation__link" href="#">敬请期待</a>-->
                 <a class="mdl-navigation__link" href="/ranks/ranking">打榜数据</a>
                 <a class="mdl-navigation__link" href="#">微博相关</a>
+                <a class="mdl-navigation__link" href="/smurf">小号管理</a>
             </nav>
         </div>
         <main class="mdl-layout__content mdl-demo">

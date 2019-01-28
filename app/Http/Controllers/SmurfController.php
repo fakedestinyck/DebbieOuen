@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\RsaUtil;
 use App\Smurf;
 use App\SmurfEvent;
 use App\SmurfTicket;
@@ -83,6 +84,62 @@ class SmurfController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private static function rsa_decode($data){
+        return urldecode(
+            RsaUtil::privateDecrypt(
+                $data ,
+                file_get_contents( base_path('keys/private.pem') )
+            )
+        );
+    }
+
+    public function PostRsa($someword){
+        $username = $someword;
+        $user_name = self::rsa_decode($username);
+        if ($user_name == null) {
+            return "NULL!";
+        } else {
+            return $user_name;
+        }
+
+    }
+
+    public function upload(Request $request) {
+        $success_num = 0;
+        $fail_num = 0;
+        $uaps_list = array();
+        $wholeString = $request["wholeString"];
+        if (strlen($wholeString) % 172 == 0) {
+            while (strlen($wholeString) > 0) {
+                $this_part = substr($wholeString,0,172);
+                $wholeString = substr($wholeString,172);
+                $this_decrypted = self::rsa_decode($this_part);
+                if ($this_decrypted == null) {
+                    $fail_num += 1;
+                } else {
+                    $test_length = strlen($this_decrypted); //算上||||的字符串长度
+                    $this_modified = str_replace("||||","",$this_decrypted);
+                    if (strlen($this_modified) != $test_length-4) { // 如果去掉||||之后的字符串长度 不等于算上||||的字符串长度+4，说明有问题
+                        $fail_num += 1;
+                    } else {
+                        Smurf::create([
+                            "uap" => $this_modified,
+                            "item" => "weibo"
+                        ]);
+                        $success_num += 1;
+                        $uaps_list[] = $this_modified;
+                    }
+                }
+            }
+            return response(array(
+                "status" => 1,
+                "msg" => "成功上传".$success_num."个账号数据，失败".$fail_num."个"
+            ),200);
+        } else {
+            return response("提交的数据有误，请检查后重新提交", 500);
+        }
     }
 
     public function getSmurf($item, $qqid, $count, $timestamp) {

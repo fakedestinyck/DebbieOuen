@@ -13,13 +13,15 @@ const { mix } = require('laravel-mix');
 mix.webpackConfig({
     externals: {
         "vue": "Vue",
-        "element-ui": "ELEMENT"
+        "element-ui": "ELEMENT",
+        "jsencrypt": "JSEncrypt"
     }
 });
 
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
-    .js('resources/assets/js/weibo.js','public/js');
+    .js('resources/assets/js/weibo.js','public/js')
+    .js('resources/assets/js/smurf.js','public/js');
 
 mix.styles([
 
