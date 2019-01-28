@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Smurf;
+use App\SmurfEvent;
+use App\SmurfTicket;
 use Illuminate\Http\Request;
 
 class SmurfController extends Controller
@@ -82,6 +85,42 @@ class SmurfController extends Controller
         //
     }
 
+    public function getSmurf($item, $qqid, $count, $timestamp) {
+        $duplicate = SmurfTicket::where('timestamp',date('Y-m-d H:i:s', $timestamp))->count();
+        if ($duplicate >= 1) {
+            $msg = "获取失败，你已经使用该链接获取过一次了";
+        } else {
+            $uaps = Smurf::where('item',$item)->whereNull('last_operation')->orWhere('last_operation','<>','get')->limit($count)->get();
+            if (count($uaps) < $count) {
+                $msg = "获取失败，请联系管理员。\n错误代码 -001".count($uaps);
+            } else {
+                $msg = "获取成功：\n";
+                $new_ticket=SmurfTicket::create([
+                    "qqid" => $qqid,
+                    "operation" => "get",
+                    "count" => $count,
+                    "timestamp" => date('Y-m-d H:i:s', $timestamp)
+                ]);
+                $new_ticket_id = $new_ticket->id;
+                foreach ($uaps as $uap) {
+                    $uap->last_operation = "get";
+                    $uap->last_qqid = $qqid;
+                    $uap->save();
+                    $msg .= $uap->uap."\n";
+
+                    SmurfEvent::create([
+                        "smurf_id" => $uap->id,
+                        "operation" => "get",
+                        "ticket_id" => $new_ticket_id
+                    ]);
+                }
+
+            }
+        }
+
+        return $msg;
+    }
+
     public function get() {
         if (!isset($_GET["i"]) || $_GET["i"] == null) {
             return "不合法的请求！";
@@ -129,7 +168,7 @@ class SmurfController extends Controller
         }
 
         // 成功校验，开始返回账号密码
-        return "假装这里有".$count."个，提供给qq号".$qqid."的微博账号";
+        return "<pre>".$this->getSmurf($item,$qqid,$count,$timestamp)."</pre>";
 
     }
 }
