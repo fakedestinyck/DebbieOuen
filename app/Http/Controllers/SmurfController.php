@@ -156,32 +156,39 @@ class SmurfController extends Controller
                 }
             }
         } else {
-            $uaps = Smurf::where('item',$item)->whereNull('last_operation')->orWhere('last_operation','<>','get')->limit($count)->get();
-            if (count($uaps) < $count) {
-                $msg = "获取失败，请联系管理员。\n错误代码 -001".count($uaps);
+            $nowtime = time();
+            $delta_time= $nowtime - $timestamp;
+            if ($delta_time > 60 || $delta_time < 0) {
+                $msg = "链接已经过期，请重新获取链接";
             } else {
-                $msg = "获取成功：\n";
-                $new_ticket=SmurfTicket::create([
-                    "qqid" => $qqid,
-                    "operation" => "get",
-                    "count" => $count,
-                    "timestamp" => date('Y-m-d H:i:s', $timestamp)
-                ]);
-                $new_ticket_id = $new_ticket->id;
-                foreach ($uaps as $uap) {
-                    $uap->last_operation = "get";
-                    $uap->last_qqid = $qqid;
-                    $uap->save();
-                    $msg .= $uap->uap."\n";
-
-                    SmurfEvent::create([
-                        "smurf_id" => $uap->id,
+                $uaps = Smurf::where('item',$item)->whereNull('last_operation')->orWhere('last_operation','<>','get')->limit($count)->get();
+                if (count($uaps) < $count) {
+                    $msg = "获取失败，请联系管理员。\n错误代码 -001".count($uaps);
+                } else {
+                    $msg = "获取成功：\n";
+                    $new_ticket=SmurfTicket::create([
+                        "qqid" => $qqid,
                         "operation" => "get",
-                        "ticket_id" => $new_ticket_id
+                        "count" => $count,
+                        "timestamp" => date('Y-m-d H:i:s', $timestamp)
                     ]);
-                }
+                    $new_ticket_id = $new_ticket->id;
+                    foreach ($uaps as $uap) {
+                        $uap->last_operation = "get";
+                        $uap->last_qqid = $qqid;
+                        $uap->save();
+                        $msg .= $uap->uap."\n";
 
+                        SmurfEvent::create([
+                            "smurf_id" => $uap->id,
+                            "operation" => "get",
+                            "ticket_id" => $new_ticket_id
+                        ]);
+                    }
+
+                }
             }
+
         }
 
         return $msg;
@@ -225,12 +232,6 @@ class SmurfController extends Controller
 
         if ($mysignature != $signature) {
             return "参数校验失败！";
-        }
-
-        $nowtime = time();
-        $delta_time= $nowtime - $timestamp;
-        if ($delta_time > 60 || $delta_time < 0) {
-            return "链接已经过期，请重新获取链接";
         }
 
         // 成功校验，开始返回账号密码
