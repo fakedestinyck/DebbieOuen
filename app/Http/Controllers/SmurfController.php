@@ -163,7 +163,7 @@ class SmurfController extends Controller
             } else {
                 $uaps = Smurf::where('item',$item)->whereNull('last_operation')->orWhere('last_operation','<>','get')->limit($count)->get();
                 if (count($uaps) < $count) {
-                    $msg = "获取失败，请联系管理员。\n错误代码 -001".count($uaps);
+                    $msg = "获取失败，请联系管理员。\n错误代码： -001";
                 } else {
                     $msg = "获取成功：\n";
                     $new_ticket=SmurfTicket::create([
