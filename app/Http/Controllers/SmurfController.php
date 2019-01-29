@@ -143,9 +143,18 @@ class SmurfController extends Controller
     }
 
     public function getSmurf($item, $qqid, $count, $timestamp) {
-        $duplicate = SmurfTicket::where('timestamp',date('Y-m-d H:i:s', $timestamp))->count();
-        if ($duplicate >= 1) {
-            $msg = "获取失败，你已经使用该链接获取过一次了";
+        $duplicate = SmurfTicket::where('qqid',$qqid)->where('timestamp',date('Y-m-d H:i:s', $timestamp))->where('operation','get')->get();
+        if (count($duplicate) >= 1) {
+            $ticket_id = $duplicate[0]->id;
+            $uaps = Smurf::join('smurf_events','smurves.id','=','smurf_events.smurf_id')->where('ticket_id',$ticket_id)->get();
+            if (count($uaps) == 0) {
+                $msg = "系统内部错误，请稍后再试或联系管理员";
+            } else {
+                $msg = "获取成功：\n";
+                foreach ($uaps as $uap) {
+                    $msg .= $uap->uap."\n";
+                }
+            }
         } else {
             $uaps = Smurf::where('item',$item)->whereNull('last_operation')->orWhere('last_operation','<>','get')->limit($count)->get();
             if (count($uaps) < $count) {
