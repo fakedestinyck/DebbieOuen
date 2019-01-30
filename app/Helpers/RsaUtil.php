@@ -21,7 +21,7 @@ class RsaUtil {
         if(!is_string($data)){
             return null;
         }
-        return openssl_private_encrypt($data,$encrypted,self::getPrivateKey($privateKey))? base64_encode($encrypted) : null;
+        return openssl_private_encrypt($data,$encrypted,self::getPrivateKey($privateKey),OPENSSL_PKCS1_PADDING)? base64_encode($encrypted) : null;
     }
 
     /**

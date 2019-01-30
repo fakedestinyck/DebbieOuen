@@ -72,6 +72,12 @@ Route::prefix('api')->group(function () {
     Route::post('isAdmin','WeiboController@isAdmin');
     Route::get('weibo/getRankData','WeiboController@getRankData');
     Route::get('weibo/getRecent/all','WeiboController@getRecentAll')->middleware('admin');
+    Route::group(['middleware' => ['auth','admin']], function(){
+        Route::prefix('smurf/admin')->group(function () {
+            Route::get('getSmurf','SmurfController@getAll');
+            Route::post('delete','SmurfController@delete');
+        });
+    });
 });
 
 //Route::get('/home', 'HomeController@index')->name('home');

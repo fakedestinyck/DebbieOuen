@@ -6,7 +6,7 @@
             </div>
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
                 <a href="#scroll-tab-1" class="mdl-layout__tab is-active">添加账号数据</a>
-                <a href="#scroll-tab-2" class="mdl-layout__tab">查看小号状态</a>
+                <a href="#scroll-tab-2" class="mdl-layout__tab">查看账号数据状态</a>
                 <a href="#scroll-tab-3" class="mdl-layout__tab">查看人员状态</a>
                 <!--<a href="#scroll-tab-4" class="mdl-layout__tab">补录数据 - 无法识别</a>-->
                 <!--<a href="#scroll-tab-3" class="mdl-layout__tab">View uploaded Projects</a>-->
@@ -42,30 +42,22 @@
                 </section>
             </section>
 
-            <!--<section class="mdl-layout__tab-panel" id="scroll-tab-2">-->
-            <!--<section class="page-content demo-layout mdl-layout mdl-layout&#45;&#45;fixed-header mdl-color&#45;&#45;grey-100">-->
-            <!--<div class="demo-ribbon" style="background-color: white"></div>-->
-            <!--<main class="demo-main mdl-layout__content">-->
-            <!--<div class="demo-container mdl-grid">-->
-            <!--<div class="mdl-cell mdl-cell&#45;&#45;2-col mdl-cell&#45;&#45;hide-tablet mdl-cell&#45;&#45;hide-phone"></div>-->
-            <!--<div class="demo-content mdl-color&#45;&#45;white mdl-shadow&#45;&#45;4dp content mdl-color-text&#45;&#45;grey-800 mdl-cell mdl-cell&#45;&#45;8-col">-->
-            <!--&lt;!&ndash;<div class="demo-crumbs mdl-color-text&#45;&#45;grey-500">&ndash;&gt;-->
-            <!--&lt;!&ndash;Google &gt; Material Design Lite &gt; How to install MDL&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--<div class="self-wrapper">-->
-            <!--<h3>30天安利蒋申 - 数据</h3>-->
-            <!--&lt;!&ndash; MDL Spinner Component &ndash;&gt;-->
-            <!--<div class="mdl-spinner mdl-js-spinner is-active" v-show="loadingAnliData"></div>-->
-            <!--<pre>{{anliYesturdayData}}</pre>-->
-            <!--<a class="mdl-button mdl-js-button mdl-button&#45;&#45;raised-->
-            <!--mdl-js-ripple-effect mdl-button&#45;&#45;colored" @click="getAnliDay"-->
-            <!--v-show="!loadingAnliData">获取昨天的数据</a>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</main>-->
-            <!--</section>-->
-            <!--</section>-->
+            <section class="mdl-layout__tab-panel" id="scroll-tab-2">
+                <section class="section--center mdl-grid mdl-grid--no-spacing">
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <h4>账号数据状态</h4>
+                        <!--&lt;!&ndash; MDL Spinner Component &ndash;&gt;-->
+                        <!--<div class="mdl-spinner mdl-js-spinner is-active" v-show="loadingAnliData"></div>-->
+                        <!--<pre>{{anliYesturdayData}}</pre>-->
+                        <!--<a class="mdl-button mdl-js-button mdl-button&#45;&#45;raised-->
+                        <!--mdl-js-ripple-effect mdl-button&#45;&#45;colored" @click="getAnliDay"-->
+                        <!--v-show="!loadingAnliData">获取昨天的数据</a>-->
+                        <div id="smurftable">
+                            <smurftable></smurftable>
+                        </div>
+                    </div>
+                </section>
+            </section>
 
             <!--<section class="mdl-layout__tab-panel" id="scroll-tab-3">-->
             <!--<section class="page-content demo-layout mdl-layout mdl-layout&#45;&#45;fixed-header mdl-color&#45;&#45;grey-100">-->
@@ -160,9 +152,12 @@
 </template>
 
 <script>
+    import Smurftable from './Smurftable.vue';
     export default {
 
-        components: {},
+        components: {
+            'smurftable':Smurftable
+        },
 
         mounted: function () {
             this.hideLoading();
@@ -191,7 +186,15 @@
                 this.openUploadConfirm();
             },
             openUploadConfirm: function() {
-                this.uaps = this.uaps.replace(/ /g,"").replace(/[\n]+/g,"\n");
+                this.uaps = this.uaps.replace(/ /g,"").replace(/[\n]+/g,"\n").replace(/^[\n]+/g,"").replace(/[\n]+$/g,"");
+                if (this.uaps.replace(/[\n]/g,"") === "") {
+                    this.$message({
+                        type: 'warning',
+                        message: "请不要提交空白"
+                    });
+                    this.loading = false;
+                    return false;
+                }
                 let uaps_list = this.uaps.split("\n");
                 let uaps_num = uaps_list.length;
 
@@ -237,7 +240,7 @@
                 var wholeString = "";
                 var success_num = 0;
                 var fail_num = 0;
-                for (let i = 0; i<uaps_list.length; ++i) {
+                for (let i = 0; i < uaps_list.length; ++i) {
                     let encrypted = this.encryptRsa(uaps_list[i]+"||||");
                     if (encrypted !== false) {
                         success_num += 1;

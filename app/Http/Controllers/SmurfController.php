@@ -7,83 +7,18 @@ use App\Smurf;
 use App\SmurfEvent;
 use App\SmurfTicket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SmurfController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    private static function rsa_encode($data){
+        return urldecode(
+            RsaUtil::privateEncrypt(
+                $data ,
+                file_get_contents( base_path('keys/private.pem') )
+            )
+        );
     }
 
     private static function rsa_decode($data){
@@ -93,17 +28,6 @@ class SmurfController extends Controller
                 file_get_contents( base_path('keys/private.pem') )
             )
         );
-    }
-
-    public function PostRsa($someword){
-        $username = $someword;
-        $user_name = self::rsa_decode($username);
-        if ($user_name == null) {
-            return "NULL!";
-        } else {
-            return $user_name;
-        }
-
     }
 
     public function upload(Request $request) {
@@ -161,7 +85,9 @@ class SmurfController extends Controller
             if ($delta_time > 60 || $delta_time < 0) {
                 $msg = "链接已经过期，请重新获取链接";
             } else {
-                $uaps = Smurf::where('item',$item)->whereNull('last_operation')->orWhere('last_operation','<>','get')->limit($count)->get();
+                $uaps = Smurf::where('item',$item)->whereNull('last_operation')->orWhere(function($query){
+                    $query->where('last_operation','<>','get')->where('last_operation','<>','delete');
+                })->limit($count)->get();
                 if (count($uaps) < $count) {
                     $msg = "获取失败，请联系管理员。\n错误代码： -001";
                 } else {
@@ -237,5 +163,37 @@ class SmurfController extends Controller
         // 成功校验，开始返回账号密码
         return "<pre>".$this->getSmurf($item,$qqid,$count,$timestamp)."</pre>";
 
+    }
+
+    public function getAll() {
+        $uaps = Smurf::whereNull('last_operation')->orWhere('last_operation','<>','delete')->get();
+//        foreach ($uaps as $uap) {
+//            $this_encrypted = self::rsa_encode($uap["uap"]);
+//            if ($this_encrypted == null) {
+//                return response('账号数据异常，请联系你们的大宝贝数据符',500);
+//            } else {
+//                $uap["uap"] = $this_encrypted;
+//            }
+//        }
+        return response($uaps,200);
+    }
+
+    public function delete(Request $request) {
+        $ids = $request->delete_ids;
+        $uaps = Smurf::whereIn('id',$ids)->get();
+        foreach ($uaps as $uap) {
+            if ($uap->last_operation == "get") {
+                return response("不能删除&nbsp;<i>最后一次操作</i>&nbsp;为&nbsp;<b><i>获取</i></b>&nbsp;的账号数据<br>请重新选择",400);
+            }
+        }
+        foreach ($uaps as $uap) {
+            $uap->last_operation = "delete";
+            $uap->last_qqid = Auth::User()->id;
+            $uap->save();
+        }
+        return response(array(
+            "status" => 1,
+            "msg" => "成功删除账号数据"
+        ),200);
     }
 }

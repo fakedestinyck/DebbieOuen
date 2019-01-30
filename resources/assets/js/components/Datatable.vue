@@ -1,5 +1,5 @@
 <template>
-    <el-table :data="weiboRankData" style="width: 100%; font-size: 13px; font-weight: 400;" :header-row-style="{height:'10px'}"  :row-style="{height:'10px'}">
+    <el-table :data="weiboRankData" style="width: 100%; font-size: 13px; font-weight: 400;" :header-row-style="{height:'10px'}" :row-style="{height:'10px'}">
         <el-table-column align="center" fixed prop="date" label="日期" :width="columnLargeWidth">
         </el-table-column>
         <el-table-column align="center" label="总分">
