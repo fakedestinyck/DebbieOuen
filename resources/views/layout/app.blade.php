@@ -141,8 +141,8 @@
 
 
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
-{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>--}}
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>--}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
 <script src="https://unpkg.com/element-ui@2.4.11/lib/index.js"></script>
 <script src="https://cdn.bootcss.com/jsencrypt/3.0.0-rc.1/jsencrypt.min.js"></script>
 
@@ -196,22 +196,6 @@
         height: '100%'
     });
 
-
-
-//    $(document).ready(function(){
-//        $('#projectDdl').bootstrapMaterialDatePicker({ format : 'dddd DD MMMM YYYY - HH:mm' });
-//    });
-//(function() {
-//    'use strict';
-//    window['counter'] = 0;
-//    var snackbarContainer = document.querySelector('#demo-toast-example');
-//    var showToastButton = document.querySelector('#demo-show-toast');
-//    showToastButton.addEventListener('click', function() {
-//        'use strict';
-//        var data = {message: '还在努力制作网页中……就先给你看着玩玩LOL'};
-//        snackbarContainer.MaterialSnackbar.showSnackbar(data);
-//    });
-//}());
 </script>
 </body>
 {{--<script src="https://cdn.bootcss.com/echarts/4.2.0-rc.2/echarts.common.min.js"></script>--}}

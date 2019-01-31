@@ -92,5 +92,5 @@ Route::prefix('smurf')->group(function () {
     });
     Route::get('/get', 'SmurfController@get');
 //    Route::get('/punchData/{day}', 'YzxgbController@getPunchDataByDay');
-
+    Route::post('/user/return','SmurfController@userReturn');
 });

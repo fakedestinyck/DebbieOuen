@@ -196,4 +196,68 @@ class SmurfController extends Controller
             "msg" => "成功删除账号数据"
         ),200);
     }
+
+    public function getOwnSmurf() {
+        if (!isset($_GET["q"]) || $_GET["q"] == null) {
+            return "不合法的请求！";
+        }
+        if (!isset($_GET["t"]) || $_GET["t"] == null) {
+            return "不合法的请求！";
+        }
+        if (!isset($_GET["token"]) || $_GET["token"] == null) {
+            return "缺少校验参数！";
+        }
+
+        $qqid = $_GET["q"];
+        $timestamp = $_GET["t"];
+        $signature = $_GET["token"];
+
+        $md5qqid = strtoupper(md5(strtolower(md5($qqid))));
+        $md5timestamp = strtolower(md5($timestamp));
+
+        $beforehash = substr($md5qqid,0,16).substr($md5timestamp,16,16).substr($md5qqid,16,16).substr($md5timestamp,0,16);
+        $myhashed = strtolower(hash('sha512', $beforehash));
+        $mysignature = "";
+
+        for ($i=1;$i<128;$i=$i+2) {
+            $mysignature .= $myhashed[$i];
+        }
+
+        if ($mysignature != $signature) {
+            return "参数校验失败！";
+        }
+
+        $nowtime = time();
+        $delta_time= $nowtime - $timestamp;
+        if ($delta_time > 6001 || $delta_time < 0) {
+            return "链接已经过期，请重新获取链接";
+        }
+
+        // 成功校验，开始跳转页面
+        return $this->showOwnSmurf($qqid);
+    }
+
+    public function showOwnSmurf($qqid) {
+        $uaps = Smurf::where('last_qqid',$qqid)->where('last_operation','get')->get();
+        $uaps = json_encode($uaps);
+        return view('smurf/own',compact('uaps'));
+    }
+
+    public function userReturn(Request $request) {
+        $ids = $request->delete_ids;
+        $uaps = Smurf::whereIn('id',$ids)->get();
+        foreach ($uaps as $uap) {
+            if ($uap->last_operation != "get") {
+                return response("不能退你已经退了的账号数据<br>请重新选择",400);
+            }
+        }
+        foreach ($uaps as $uap) {
+            $uap->last_operation = "return";
+            $uap->save();
+        }
+        return response(array(
+            "status" => 1,
+            "msg" => "成功退号"
+        ),200);
+    }
 }

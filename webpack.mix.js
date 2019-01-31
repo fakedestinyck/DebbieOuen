@@ -21,7 +21,8 @@ mix.webpackConfig({
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
     .js('resources/assets/js/weibo.js','public/js')
-    .js('resources/assets/js/smurf.js','public/js');
+    .js('resources/assets/js/smurf.js','public/js')
+    .js('resources/assets/js/ownsmurf.js','public/js');
 
 mix.styles([
 

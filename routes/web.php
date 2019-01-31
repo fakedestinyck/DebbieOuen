@@ -80,4 +80,9 @@ Route::prefix('api')->group(function () {
     });
 });
 
+Route::prefix('smurf')->group(function () {
+    Route::get('/get', 'SmurfController@get');
+    Route::get('/own','SmurfController@getOwnSmurf');
+});
+
 //Route::get('/home', 'HomeController@index')->name('home');

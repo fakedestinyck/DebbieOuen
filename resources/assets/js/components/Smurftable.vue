@@ -14,11 +14,12 @@
             <el-table-column align="center" prop="last_operation" label="最后一次操作" :width="columnLargeWidth"
                              :filters="[{ text: '获取', value: '获取' }, { text: '退号', value: '退号' }, { text: '管理员上传', value: '管理员上传' }]"
                              :filter-method="filterLastOperation"
-                             filter-placement="top-end">
+                             filter-placement="top-end"
+                             v-if="isShowAll">
             </el-table-column>
-            <el-table-column align="center" prop="last_qqid" label="最后一次操作人qq" :width="columnXLargeWidth">
+            <el-table-column align="center" prop="last_qqid" label="最后一次操作人qq" :width="columnXLargeWidth" v-if="isShowAll">
             </el-table-column>
-            <el-table-column align="center" prop="updated_at" label="最后一次操作时间" :width="columnXLargeWidth" sortable>
+            <el-table-column align="center" prop="updated_at" :label="isShowAll ? '最后一次操作时间' : '获取时间'" :width="columnXLargeWidth" sortable>
             </el-table-column>
 
 
@@ -35,18 +36,51 @@
         <div class="mdl-spinner mdl-js-spinner is-active" v-show="deleting"></div>
         <a class="mdl-button mdl-js-button mdl-button--raised
             mdl-js-ripple-effect mdl-button--colored" @click="deleteUaps"
-           v-show="!deleting">删除选中行账号数据</a>
+           v-show="!deleting" v-if="isShowAll">删除选中行账号数据</a>
+        <a class="mdl-button mdl-js-button mdl-button--raised
+            mdl-js-ripple-effect mdl-button--colored" @click="deleteUaps"
+           v-show="!deleting" v-else>退号</a>
     </div>
 
 </template>
 
 <script>
     export default {
+        props: ['ownSmurfData'],
         name: "Smurftable",
         mounted: function() {
-            this.loadData();
+            if (this.ownSmurfData === "admin") {
+                this.isShowAll = true;
+            }
+            if (this.isShowAll) {
+                this.loadData();
+            } else {
+                this.loadOwnData();
+            }
+
         },
         methods: {
+            manageData(uaps) {
+                console.log(uaps);
+                for (let i = 0; i < uaps.length; ++i) {
+                    if (uaps[i]["item"] === "weibo") {
+                        uaps[i]["item"] = "微博";
+                    } else if (uaps[i]["item"] === "qq") {
+                        uaps[i]["item"] = "QQ";
+                    }
+
+                    if (uaps[i]["last_operation"] === "get") {
+                        uaps[i]["last_operation"] = "获取";
+                    } else if (uaps[i]["last_operation"] === "return") {
+                        uaps[i]["last_operation"] = "退号"
+                    } else if (uaps[i]["last_operation"] === null) {
+                        uaps[i]["last_operation"] = "管理员上传";
+                        uaps[i]["last_qqid"] = "-";
+                    }
+                }
+//                        that.smurfData = that.smurfData.concat(response.data);
+                this.smurfData = uaps;
+            },
             loadData: function () {
                 let that = this;
                 axios.get('/api/smurf/admin/getSmurf', {
@@ -54,29 +88,14 @@
                 })
                     .then(function (response) {
                         let uaps = response.data;
-                        console.log(uaps);
-                        for (let i = 0; i < uaps.length; ++i) {
-                            if (uaps[i]["item"] === "weibo") {
-                                uaps[i]["item"] = "微博";
-                            } else if (uaps[i]["item"] === "qq") {
-                                uaps[i]["item"] = "QQ";
-                            }
-
-                            if (uaps[i]["last_operation"] === "get") {
-                                uaps[i]["last_operation"] = "获取";
-                            } else if (uaps[i]["last_operation"] === "return") {
-                                uaps[i]["last_operation"] = "退号"
-                            } else if (uaps[i]["last_operation"] === null) {
-                                uaps[i]["last_operation"] = "管理员上传";
-                                uaps[i]["last_qqid"] = "-";
-                            }
-                        }
-//                        that.smurfData = that.smurfData.concat(response.data);
-                        that.smurfData = uaps;
+                        that.manageData(uaps);
                     })
                     .catch(function (error) {
                         alert(error);
                     });
+            },
+            loadOwnData() {
+                this.manageData(JSON.parse(this.ownSmurfData));
             },
             handleSelectionChange(val) {
                 this.multipleSelection = val;
@@ -98,7 +117,7 @@
                 let msgHtml = "";
                 let delete_ids = [];
                 for (let i = 0; i < uaps_index.length; ++i) {
-                    if (uaps_index[i]["last_operation"] === "获取") {
+                    if (this.isShowAll && uaps_index[i]["last_operation"] === "获取") {
                         msgHtml ="不能删除&nbsp;<i>最后一次操作</i>&nbsp;为&nbsp;<b><i>获取</i></b>&nbsp;的账号数据<br>请重新选择";
                         this.$alert(msgHtml, '失败', {
                             dangerouslyUseHTMLString: true,
@@ -111,7 +130,13 @@
                 }
                 if (msgHtml === "") {
                     let that = this;
-                    axios.post('/api/smurf/admin/delete', {
+                    let postUrl = '';
+                    if (this.isShowAll) {
+                        postUrl = '/api/smurf/admin/delete';
+                    } else {
+                        postUrl = '/api/smurf/user/return'
+                    }
+                    axios.post(postUrl, {
                         delete_ids: delete_ids
                     })
                         .then(function (response) {
@@ -150,7 +175,7 @@
 
             },
             checkboxSelectable(row, index) {
-                if (row.last_operation === "获取") {
+                if (this.isShowAll && row.last_operation === "获取") {
                     return false;
                 } else {
                     return true;
@@ -160,6 +185,7 @@
         },
         data() {
             return {
+                isShowAll: false,
                 columnSmallWidth: 80,
                 columnLargeWidth: 112,
                 columnXLargeWidth: 176,

@@ -2,52 +2,17 @@
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <header class="mdl-layout__header">
             <div class="mdl-layout__header-row">
-                <span class="mdl-layout-title">小号管理</span>
-            </div>
-            <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-                <a href="#scroll-tab-1" class="mdl-layout__tab is-active">添加账号数据</a>
-                <a href="#scroll-tab-2" class="mdl-layout__tab">查看账号数据状态</a>
-                <a href="#scroll-tab-3" class="mdl-layout__tab">查看人员状态</a>
-                <!--<a href="#scroll-tab-4" class="mdl-layout__tab">补录数据 - 无法识别</a>-->
-                <!--<a href="#scroll-tab-3" class="mdl-layout__tab">View uploaded Projects</a>-->
-                <!--<a href="#scroll-tab-4" class="mdl-layout__tab">Miscellaneous Tools</a>-->
+                <span class="mdl-layout-title">我的账号数据</span>
             </div>
         </header>
-        <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title"><a href="../data">主页</a></span>
-            <nav class="mdl-navigation">
-                <!--<a class="mdl-navigation__link" href="#">敬请期待</a>-->
-                <a class="mdl-navigation__link" href="/ranks/ranking">打榜数据</a>
-                <a class="mdl-navigation__link" href="/weibo">微博相关</a>
-                <a class="mdl-navigation__link" href="#">小号管理</a>
-            </nav>
-        </div>
+
         <main class="mdl-layout__content mdl-demo">
             <section class="mdl-layout__tab-panel is-active" id="scroll-tab-1">
                 <section class="section--center mdl-grid mdl-grid--no-spacing">
                     <div class="mdl-cell mdl-cell--12-col">
-                        <h4>添加账号数据</h4>
-                        <!--<pre>{{ recent_weibo }}</pre>-->
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <textarea class="mdl-textfield__input" type="text" rows="20" maxrows="1000"
-                                      id="uaps" v-model="uaps"></textarea>
-                            <label class="mdl-textfield__label" for="uaps">账号密码对（每行一个，最多1000个）</label>
-                        </div>
-                        <!-- MDL Spinner Component -->
-                        <div class="mdl-spinner mdl-js-spinner is-active" v-show="loading"></div>
-                        <a class="mdl-button mdl-js-button mdl-button--raised
-            mdl-js-ripple-effect mdl-button--colored" @click="uploadUaps"
-                           v-show="!loading">上传</a>
-                    </div>
-                </section>
-            </section>
-
-            <section class="mdl-layout__tab-panel" id="scroll-tab-2">
-                <section class="section--center mdl-grid mdl-grid--no-spacing">
-                    <div class="mdl-cell mdl-cell--12-col">
-                        <h4>账号数据状态</h4>
+                        <h4>账号数据列表</h4>
                         <div id="smurftable">
-                            <smurftable :ownSmurfData="'admin'"></smurftable>
+                            <smurftable :ownSmurfData="ownSmurfData"></smurftable>
                         </div>
                     </div>
                 </section>
@@ -148,7 +113,9 @@
 <script>
     import Smurftable from './Smurftable.vue';
     export default {
-
+        props: [
+            'ownSmurfData'
+        ],
         components: {
             'smurftable':Smurftable
         },
