@@ -119,7 +119,7 @@
             },
             deleteUaps() {
                 if (this.multipleSelection.length === 0) {
-                    that.$message({
+                    this.$message({
                         type: 'warning',
                         message: '请至少选择一条账号数据！'
                     });
