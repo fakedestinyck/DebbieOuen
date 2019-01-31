@@ -229,7 +229,7 @@ class SmurfController extends Controller
 
         $nowtime = time();
         $delta_time= $nowtime - $timestamp;
-        if ($delta_time > 6001 || $delta_time < 0) {
+        if ($delta_time > 60 || $delta_time < 0) {
             return "链接已经过期，请重新获取链接";
         }
 

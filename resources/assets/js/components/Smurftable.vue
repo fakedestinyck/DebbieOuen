@@ -118,6 +118,13 @@
                 return '';
             },
             deleteUaps() {
+                if (this.multipleSelection.length === 0) {
+                    that.$message({
+                        type: 'warning',
+                        message: '请至少选择一条账号数据！'
+                    });
+                    return false;
+                }
                 this.deleting = true;
                 let uaps_index = this.multipleSelection;
                 let msgHtml = "";
