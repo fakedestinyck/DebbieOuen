@@ -34,12 +34,17 @@
         </el-table>
         <!-- MDL Spinner Component -->
         <div class="mdl-spinner mdl-js-spinner is-active" v-show="deleting"></div>
-        <a class="mdl-button mdl-js-button mdl-button--raised
+        <template v-if="isShowAll">
+            <a class="mdl-button mdl-js-button mdl-button--raised
             mdl-js-ripple-effect mdl-button--colored" @click="deleteUaps"
-           v-show="!deleting" v-if="isShowAll">删除选中行账号数据</a>
-        <a class="mdl-button mdl-js-button mdl-button--raised
+               v-show="!deleting">删除选中行账号数据</a>
+        </template>
+        <template v-else>
+            <a class="mdl-button mdl-js-button mdl-button--raised
             mdl-js-ripple-effect mdl-button--colored" @click="deleteUaps"
-           v-show="!deleting" v-else>退号</a>
+               v-show="!deleting">退号</a>
+        </template>
+
     </div>
 
 </template>
