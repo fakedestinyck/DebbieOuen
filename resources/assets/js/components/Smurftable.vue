@@ -118,6 +118,7 @@
                 return '';
             },
             deleteUaps() {
+                this.deleting = true;
                 let uaps_index = this.multipleSelection;
                 let msgHtml = "";
                 let delete_ids = [];
@@ -128,6 +129,7 @@
                             dangerouslyUseHTMLString: true,
                             type: 'error'
                         });
+                        this.deleting = false;
                         break;
                     } else {
                         delete_ids.push(uaps_index[i]["id"]);
