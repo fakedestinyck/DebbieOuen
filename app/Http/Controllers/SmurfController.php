@@ -229,7 +229,7 @@ class SmurfController extends Controller
 
         $nowtime = time();
         $delta_time= $nowtime - $timestamp;
-        if ($delta_time > 60 || $delta_time < 0) {
+        if ($delta_time > 120 || $delta_time < 0) {
             return "链接已经过期，请重新获取链接";
         }
 
@@ -258,6 +258,24 @@ class SmurfController extends Controller
         return response(array(
             "status" => 1,
             "msg" => "成功退号"
+        ),200);
+    }
+
+    public function userDelete(Request $request) {
+        $ids = $request->delete_ids;
+        $uaps = Smurf::whereIn('id',$ids)->get();
+        foreach ($uaps as $uap) {
+            if ($uap->last_operation != "get") {
+                return response("不能将你已经退了的账号数据标记为死号<br>请重新选择",400);
+            }
+        }
+        foreach ($uaps as $uap) {
+            $uap->last_operation = "delete";
+            $uap->save();
+        }
+        return response(array(
+            "status" => 1,
+            "msg" => "成功标记异常状态账号数据"
         ),200);
     }
 }

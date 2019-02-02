@@ -36,13 +36,16 @@
         <div class="mdl-spinner mdl-js-spinner is-active" v-show="deleting"></div>
         <template v-if="isShowAll">
             <a class="mdl-button mdl-js-button mdl-button--raised
-            mdl-js-ripple-effect mdl-button--colored" @click="deleteUaps"
+            mdl-js-ripple-effect mdl-button--colored" @click="deleteUaps(false)"
                v-show="!deleting">删除选中行账号数据</a>
         </template>
         <template v-else>
             <a class="mdl-button mdl-js-button mdl-button--raised
-            mdl-js-ripple-effect mdl-button--colored" @click="deleteUaps"
+            mdl-js-ripple-effect mdl-button--colored" @click="deleteUaps(false)"
                v-show="!deleting">退号</a>
+            <a class="mdl-button mdl-js-button mdl-button--raised
+            mdl-js-ripple-effect mdl-button--accent" @click="deleteUaps(true)"
+               v-show="!deleting">标记死号/状态异常</a>
         </template>
 
     </div>
@@ -117,7 +120,7 @@
                 }
                 return '';
             },
-            deleteUaps() {
+            deleteUaps: function(user_delete) {
                 if (this.multipleSelection.length === 0) {
                     this.$message({
                         type: 'warning',
@@ -147,8 +150,10 @@
                     let postUrl = '';
                     if (this.isShowAll) {
                         postUrl = '/api/smurf/admin/delete';
+                    } else if (user_delete){
+                        postUrl = '/api/smurf/user/delete';
                     } else {
-                        postUrl = '/api/smurf/user/return'
+                        postUrl = '/api/smurf/user/return';
                     }
                     axios.post(postUrl, {
                         delete_ids: delete_ids
@@ -213,6 +218,10 @@
 </script>
 
 <style>
+    .el-table {
+        margin-bottom: 10px;
+    }
+
     .el-table td{
         padding: 6px 0;
     }
