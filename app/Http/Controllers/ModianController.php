@@ -20,13 +20,15 @@ class ModianController extends Controller
         if ($higher_count == 0) {
             return array(
                 "myRank" => 1,
-                "moneyToPrev" => 0
+                "moneyToPrev" => 0,
+                "myTotal" => round($my_total,2)
             );
         } else {
             $modian_highers_array = $modian_highers->toArray();
             return array(
                 "myRank" => $higher_count+1,
-                "moneyToPrev" => round(end($modian_highers_array) - $my_total , 2)
+                "moneyToPrev" => round(end($modian_highers_array) - $my_total , 2),
+                "myTotal" => round($my_total,2)
             );
         }
 
