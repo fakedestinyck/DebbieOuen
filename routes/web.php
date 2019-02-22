@@ -85,4 +85,13 @@ Route::prefix('smurf')->group(function () {
     Route::get('/own','SmurfController@getOwnSmurf');
 });
 
+Route::prefix('modian')->group(function () {
+    Route::get('/store', 'ModianController@store');
+//    Route::get('/own','SmurfController@getOwnSmurf');
+});
+
+
+Route::get('/dashboard/{any}', function () {
+    return view('dashboard.index');
+})->where('any', '.*')->middleware('auth');
 //Route::get('/home', 'HomeController@index')->name('home');
