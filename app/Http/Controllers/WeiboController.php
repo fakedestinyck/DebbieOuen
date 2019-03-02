@@ -259,7 +259,7 @@ class WeiboController extends Controller
     }
 
     public function getDailyRank() {
-        $yesterdayString = date("Y-m-d",time() - 60 * 60 * 48);
+        $yesterdayString = date("Y-m-d",time() - 60 * 60 * 24);
         $yesterdayRankData = WeiboDailyRank::whereDate('date', $yesterdayString)->get();
         if (count($yesterdayRankData) == 0) {
             return array(
