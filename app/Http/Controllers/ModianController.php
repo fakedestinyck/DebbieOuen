@@ -12,7 +12,7 @@ class ModianController extends Controller
         $my_total = Modian::where('pro_id',$pro_id)->where('user_id',$user_id)->sum('money');
         $modian_highers = Modian::where('pro_id',$pro_id)
             ->groupBy('user_id')
-            ->selectRaw('sum(money) as sum, user_id')
+            ->selectRaw('ROUND(sum(money),2) as sum, user_id')
             ->havingRaw("sum > $my_total")
             ->orderByRaw('sum DESC')
             ->pluck('sum','user_id');
@@ -31,7 +31,6 @@ class ModianController extends Controller
                 "myTotal" => round($my_total,2)
             );
         }
-
     }
 
     public function storeData($pro_id,$user_id,$money,$timestamp) {
