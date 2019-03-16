@@ -39,17 +39,19 @@ class HomeController extends Controller
 
         $ip = $_SERVER['REMOTE_ADDR'];
         $oldip = Test::where("ca",$ip)->orderBy("created_at","desc")->limit(1)->get();
-        $lasttime =  $oldip[0]->created_at->timestamp;
-        $nowtime = time();
-        $timediff = $nowtime - $lasttime;
-        Test::create([
-            "ca"=>$ip
-        ]);
-        if ($timediff <= 3) {
-            return array(
-                "error_code" => -8,
-                "message" => "请求过于频繁！请再过3秒再试！"
-            );
+        if (count($oldip) != 0) {
+            $lasttime =  $oldip[0]->created_at->timestamp;
+            $nowtime = time();
+            $timediff = $nowtime - $lasttime;
+            Test::create([
+                "ca"=>$ip
+            ]);
+            if ($timediff <= 3) {
+                return array(
+                    "error_code" => -8,
+                    "message" => "请求过于频繁！请再过3秒再试！"
+                );
+            }
         }
 
         $randomNumber = rand(11,20);
