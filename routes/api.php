@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
+Route::post('python/test','HomeController@pythontest');
+
 Route::prefix('youni')->group(function () {
     Route::get('/',function (){
         return abort(404);
