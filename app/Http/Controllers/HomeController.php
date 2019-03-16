@@ -52,6 +52,10 @@ class HomeController extends Controller
                     "message" => "请求过于频繁！请再过3秒再试！"
                 );
             }
+        } else {
+            Test::create([
+                "ca"=>$ip
+            ]);
         }
 
         $randomNumber = rand(11,20);
