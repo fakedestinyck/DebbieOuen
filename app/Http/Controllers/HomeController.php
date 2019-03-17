@@ -34,7 +34,7 @@ class HomeController extends Controller
     public function pythontest(Request $request) {
         $randomNumber = rand(1,10);
         if ($randomNumber <= 5) {
-            return response("请求超时",408);
+            return response("啊呀服务器开小差了（请求超时），请重试",408);
         }
 
         $ip = $_SERVER['REMOTE_ADDR'];
@@ -62,7 +62,7 @@ class HomeController extends Controller
         if ($randomNumber <= 15) {
             return array(
                 "error_code" => -503,
-                "message" => "暂时无法提供服务，请重试"
+                "message" => "啊呀服务器突然崩了，暂时无法提供服务，刷新一下试试？"
             );
         }
 
@@ -70,7 +70,7 @@ class HomeController extends Controller
         if (!isset($request["username"]) || $request["username"] == "" || $request["username"] == null) {
             return array(
                 "error_code"=>-1,
-                "message" => "你是谁啊？"
+                "message" => "你谁啊？"
             );
         }
         $token = $request->header("token");
@@ -85,7 +85,7 @@ class HomeController extends Controller
         if ($request->header("user-agent") == "" || $request->header("user-agent") == null) {
             return array(
                 "error_code"=>-500,
-                "message" => "请不要使用爬虫模拟登陆"
+                "message" => "检测到你使用的是爬虫程序，请用浏览器人工登陆！"
             );
         }
         $ua = $request->header("user-agent");
@@ -93,21 +93,21 @@ class HomeController extends Controller
             strpos($ua,"Mozilla") === false) {
             return array(
                 "error_code"=>-500,
-                "message" => "请不要使用爬虫模拟登陆"
+                "message" => "检测到你使用的是爬虫程序，你使用的是".$ua."。\n请用浏览器人工登陆！哼唧"
             );
         }
 
         if (base64_encode($request["username"]) != $token) {
             return array(
                 "error_code"=> - 10,
-                "message" => "参数校验失败"
+                "message" => "参数校验失败哼唧"
             );
         }
 
         if ($request["username"] != "testuser") {
             return array(
                 "error_code"=>-403,
-                "message" => "你没有权限查看数据"
+                "message" => "你没有权限查看数据哼唧"
             );
         }
 
