@@ -93,7 +93,7 @@ class HomeController extends Controller
             strpos($ua,"Mozilla") === false) {
             return array(
                 "error_code"=>-500,
-                "message" => "检测到你使用的是爬虫程序，你使用的是".$ua."。\n请用浏览器人工登陆！哼唧"
+                "message" => "检测到你使用的是爬虫程序，你使用的是 $ua 。请用浏览器人工登陆！哼唧"
             );
         }
 
