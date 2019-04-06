@@ -69,6 +69,13 @@ Route::prefix('yzxgb')->group(function () {
 
 Route::get('ip',"WeiboController@showIp");
 
+Route::prefix('block')->group(function () {
+    Route::post('/add', 'BlacklistController@parseForm');
+    Route::get('/get', 'BlacklistController@isBlacklisted');
+//    Route::get('/get/all', 'BlacklistController@getAll');
+
+});
+
 Route::get('test',function (){
    return view('test');
 });
