@@ -303,9 +303,13 @@ class WeiboController extends Controller
         if ($my_s != $s) {
             return "<h1>找不到对应页面惹</h1>";
         }
+        if (strpos($_SERVER['HTTP_USER_AGENT'], 'QQ/') !== false) {
+            return "<h1>请点击右上角 选择在浏览器中打开</h1>";
+        }
 
         if ($this->isMobile()) {
             return redirect("sinaweibo://detailbulletincomment?comment_id=$cid&anchor_id=$aid&is_show_bulletin=2");
+//            return redirect("https://m.weibo.cn/detail/$ocid?cid=$cid");
         } else {
             return redirect("https://m.weibo.cn/detail/$ocid?cid=$cid");
         }
