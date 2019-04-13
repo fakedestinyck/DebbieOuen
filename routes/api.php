@@ -54,6 +54,8 @@ Route::prefix('wyscw')->group(function () {
         Route::post('flower/send','WeiboController@sendFlower');
         Route::get('flower/total/{day}','WeiboController@getFlowerByDay');
         Route::get('rank/yesterday','WeiboController@getDailyRank');
+
+        Route::get('comment','WeiboController@gotoComment');
     });
 //});
 
@@ -79,6 +81,7 @@ Route::prefix('block')->group(function () {
 Route::get('test',function (){
    return view('test');
 });
+
 
 //Route::post('/saveCode', "CodesController@storeCode");
 //

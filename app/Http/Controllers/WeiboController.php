@@ -286,4 +286,21 @@ class WeiboController extends Controller
         }
     }
 
+    public function gotoComment() {
+        if (!isset($_GET["cid"]) || !isset($_GET["aid"]) || !isset($_GET["s"])) {
+            return "<h1>页面不存在</h1>";
+        }
+        $cid = $_GET["cid"];
+        $aid = $_GET["aid"];
+        $s = $_GET["s"];
+        $md5aidcid = md5(strtolower(md5($cid)).strtolower(md5($aid)));
+        $my_s = $md5aidcid[1].$md5aidcid[3].$md5aidcid[21].$md5aidcid[6].$md5aidcid[15].$md5aidcid[13].$md5aidcid[19].$md5aidcid[27];
+
+        if ($my_s != $s) {
+            return "<h1>找不到对应页面惹</h1>";
+        }
+
+        return redirect("sinaweibo://detailbulletincomment?comment_id=$cid&anchor_id=$aid&is_show_bulletin=2");
+    }
+
 }
