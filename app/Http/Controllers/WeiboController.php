@@ -287,20 +287,90 @@ class WeiboController extends Controller
     }
 
     public function gotoComment() {
-        if (!isset($_GET["cid"]) || !isset($_GET["aid"]) || !isset($_GET["s"])) {
+        if (!isset($_GET["cid"]) || !isset($_GET["aid"]) || !isset($_GET["s"]) || !isset($_GET["ocid"])) {
             return "<h1>页面不存在</h1>";
         }
         $cid = $_GET["cid"];
         $aid = $_GET["aid"];
+        $ocid = $_GET["ocid"];
         $s = $_GET["s"];
-        $md5aidcid = md5(strtolower(md5($cid)).strtolower(md5($aid)));
-        $my_s = $md5aidcid[1].$md5aidcid[3].$md5aidcid[21].$md5aidcid[6].$md5aidcid[15].$md5aidcid[13].$md5aidcid[19].$md5aidcid[27];
+        $md5cid = strtolower(md5($cid));
+        $md5aid = strtolower(md5($aid));
+        $md5ocid = strtolower(md5($ocid));
+        $md5all = md5($md5cid.$md5aid.$md5ocid);
+        $my_s = $md5all[1].$md5all[3].$md5all[21].$md5all[6].$md5all[15].$md5all[13].$md5all[19].$md5all[27];
 
         if ($my_s != $s) {
             return "<h1>找不到对应页面惹</h1>";
         }
 
-        return redirect("sinaweibo://detailbulletincomment?comment_id=$cid&anchor_id=$aid&is_show_bulletin=2");
+        if ($this->isMobile()) {
+            return redirect("sinaweibo://detailbulletincomment?comment_id=$cid&anchor_id=$aid&is_show_bulletin=2");
+        } else {
+            return redirect("https://m.weibo.cn/detail/$ocid?cid=$cid");
+        }
+
+
     }
 
+    private function isMobile()
+    {
+        // 如果有HTTP_X_WAP_PROFILE则一定是移动设备
+        if (isset ($_SERVER['HTTP_X_WAP_PROFILE'])) {
+            return TRUE;
+        }
+        // 如果via信息含有wap则一定是移动设备,部分服务商会屏蔽该信息
+        if (isset ($_SERVER['HTTP_VIA'])) {
+            return stristr($_SERVER['HTTP_VIA'], "wap") ? TRUE : FALSE;// 找不到为flase,否则为TRUE
+        }
+        // 判断手机发送的客户端标志,兼容性有待提高
+        if (isset ($_SERVER['HTTP_USER_AGENT'])) {
+            $clientkeywords = array(
+                'mobile',
+                'nokia',
+                'sony',
+                'ericsson',
+                'mot',
+                'samsung',
+                'htc',
+                'sgh',
+                'lg',
+                'sharp',
+                'sie-',
+                'philips',
+                'panasonic',
+                'alcatel',
+                'lenovo',
+                'iphone',
+                'ipod',
+                'blackberry',
+                'meizu',
+                'android',
+                'netfront',
+                'symbian',
+                'ucweb',
+                'windowsce',
+                'palm',
+                'operamini',
+                'operamobi',
+                'openwave',
+                'nexusone',
+                'cldc',
+                'midp',
+                'wap'
+            );
+            // 从HTTP_USER_AGENT中查找手机浏览器的关键字
+            if (preg_match("/(" . implode('|', $clientkeywords) . ")/i", strtolower($_SERVER['HTTP_USER_AGENT']))) {
+                return TRUE;
+            }
+        }
+        if (isset ($_SERVER['HTTP_ACCEPT'])) { // 协议法，因为有可能不准确，放到最后判断
+            // 如果只支持wml并且不支持html那一定是移动设备
+            // 如果支持wml和html但是wml在html之前则是移动设备
+            if ((strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') !== FALSE) && (strpos($_SERVER['HTTP_ACCEPT'], 'text/html') === FALSE || (strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') < strpos($_SERVER['HTTP_ACCEPT'], 'text/html')))) {
+                return TRUE;
+            }
+        }
+        return FALSE;
+    }
 }
