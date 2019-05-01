@@ -82,6 +82,10 @@ Route::get('test',function (){
    return view('test');
 });
 
+Route::get('douyin',function (){
+    return redirect("https://qqbot-1251693677.file.myqcloud.com/46b3100f09c99fca8d418aafe9068372/5cc87100/douyin/video_name.mp4");
+});
+
 
 //Route::post('/saveCode', "CodesController@storeCode");
 //
