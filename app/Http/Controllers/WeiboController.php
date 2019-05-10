@@ -229,7 +229,7 @@ class WeiboController extends Controller
     }
 
     public function getFlowerByDay($day) {
-        $flowers = WeiboFlower::whereMonth('created_at',date('n'))->whereDay('created_at',$day)->get();
+        $flowers = WeiboFlower::whereYear('created_at',date('Y'))->whereMonth('created_at',date('n'))->whereDay('created_at',$day)->get();
         if (count($flowers) == 0) {
             return array(
                 "status"=>0
