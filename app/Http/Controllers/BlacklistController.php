@@ -119,7 +119,7 @@ class BlacklistController extends Controller
             if (count($removes_array) >= 3) {
                 return array(
                     "status" => -400,
-                    "err_msg" => "你今天的三次自主解禁已经用完了，无法再次自主解禁。如有疑问请联系管理员。"
+                    "err_msg" => "您今天的三次自助解封已经用完了，无法再次自助解封。如有疑问请联系管理员。"
                 );
             }
         }
