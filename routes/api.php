@@ -78,6 +78,12 @@ Route::prefix('block')->group(function () {
 
 });
 
+Route::prefix('ban')->group(function () {
+    Route::post('/add', 'BlacklistController@parseBan');
+//    Route::get('/get/all', 'BlacklistController@getAll');
+
+});
+
 Route::get('test',function (){
    return view('test');
 });
