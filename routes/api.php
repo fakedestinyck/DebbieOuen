@@ -118,3 +118,5 @@ Route::prefix('smurf')->group(function () {
     Route::post('/user/return','SmurfController@userReturn');
     Route::post('/user/delete','SmurfController@userDelete');
 });
+
+Route::get('sp520', 'SpecialController@upload');
