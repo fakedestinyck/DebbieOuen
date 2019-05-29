@@ -67,14 +67,15 @@ class SmurfController extends Controller
     }
 
     public function getSmurf($item, $qqid, $count, $timestamp) {
+        $msg = "<style>pre{font-size: 3em;}</style>";
         $duplicate = SmurfTicket::where('qqid',$qqid)->where('timestamp',date('Y-m-d H:i:s', $timestamp))->where('operation','get')->get();
         if (count($duplicate) >= 1) {
             $ticket_id = $duplicate[0]->id;
             $uaps = Smurf::join('smurf_events','smurves.id','=','smurf_events.smurf_id')->where('ticket_id',$ticket_id)->get();
             if (count($uaps) == 0) {
-                $msg = "系统内部错误，请稍后再试或联系管理员";
+                $msg .= "系统内部错误，请稍后再试或联系管理员";
             } else {
-                $msg = "获取成功：\n";
+                $msg .= "获取成功：\n";
                 foreach ($uaps as $uap) {
                     $msg .= $uap->uap."\n";
                 }
@@ -83,15 +84,15 @@ class SmurfController extends Controller
             $nowtime = time();
             $delta_time= $nowtime - $timestamp;
             if ($delta_time > 60 || $delta_time < 0) {
-                $msg = "链接已经过期，请重新获取链接";
+                $msg .= "链接已经过期，请重新获取链接";
             } else {
                 $uaps = Smurf::where('item',$item)->whereNull('last_operation')->orWhere(function($query){
                     $query->where('last_operation','<>','get')->where('last_operation','<>','delete');
                 })->limit($count)->get();
                 if (count($uaps) < $count) {
-                    $msg = "获取失败，请联系管理员。\n错误代码： -001";
+                    $msg .= "获取失败，请联系管理员。\n错误代码： -001";
                 } else {
-                    $msg = "获取成功：\n";
+                    $msg .= "获取成功：\n";
                     $new_ticket=SmurfTicket::create([
                         "qqid" => $qqid,
                         "operation" => "get",
