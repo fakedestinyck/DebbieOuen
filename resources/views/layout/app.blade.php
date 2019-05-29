@@ -124,7 +124,7 @@
 </head>
 <div id="loading_all">
     <div>
-        <img src="https://wx3.sinaimg.cn/mw690/0077Moerly1fxqdyq7i71g3050050t9t.gif" class="img-responsive">
+        <img src="https://lg-bus1kzl6-1251693677.file.myqcloud.com/images/0077Moerly1fxqdyq7i71g3050050t9t.gif" class="img-responsive">
     </div>
 </div>
 <body class="scoll_dis">
@@ -143,6 +143,8 @@
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
 {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>--}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+{{--<script src="https://cdn.bootcss.com/vue-router/3.0.2/vue-router.js"></script>--}}
+<script src="https://cdn.bootcss.com/vue-router/3.0.2/vue-router.min.js"></script>
 <script src="https://unpkg.com/element-ui@2.4.11/lib/index.js"></script>
 <script src="https://cdn.bootcss.com/jsencrypt/3.0.0-rc.1/jsencrypt.min.js"></script>
 

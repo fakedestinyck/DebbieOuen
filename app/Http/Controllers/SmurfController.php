@@ -71,7 +71,7 @@ class SmurfController extends Controller
         $duplicate = SmurfTicket::where('qqid',$qqid)->where('timestamp',date('Y-m-d H:i:s', $timestamp))->where('operation','get')->get();
         if (count($duplicate) >= 1) {
             $ticket_id = $duplicate[0]->id;
-            $uaps = Smurf::join('smurf_events','smurves.id','=','smurf_events.smurf_id')->where('ticket_id',$ticket_id)->get();
+            $uaps = Smurf::join('smurf_events','smurves.id','=','smurf_events.smurf_id')->where('ticket_id',$ticket_id)->where('last_operation','get')->get();
             if (count($uaps) == 0) {
                 $msg .= "系统内部错误，请稍后再试或联系管理员";
             } else {
@@ -249,7 +249,7 @@ class SmurfController extends Controller
         $uaps = Smurf::whereIn('id',$ids)->get();
         foreach ($uaps as $uap) {
             if ($uap->last_operation != "get") {
-                return response("不能退你已经退了的账号数据<br>请重新选择",400);
+                return response("不能退你已经退了的账号数据，请重新选择",400);
             }
         }
         foreach ($uaps as $uap) {
@@ -267,7 +267,7 @@ class SmurfController extends Controller
         $uaps = Smurf::whereIn('id',$ids)->get();
         foreach ($uaps as $uap) {
             if ($uap->last_operation != "get") {
-                return response("不能将你已经退了的账号数据标记为死号<br>请重新选择",400);
+                return response("不能将你已经退了的账号数据标记为死号，请重新选择",400);
             }
         }
         foreach ($uaps as $uap) {

@@ -185,7 +185,7 @@
                         .catch(function (error) {
                             that.$message({
                                 type: 'error',
-                                message: error
+                                message: error.response.data
                             });
                             that.deleting = false;
                         });
