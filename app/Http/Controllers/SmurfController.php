@@ -86,8 +86,8 @@ class SmurfController extends Controller
             if ($delta_time > 60 || $delta_time < 0) {
                 $msg .= "链接已经过期，请重新获取链接";
             } else {
-                $uaps = Smurf::where('item',$item)->whereNull('last_operation')->orWhere(function($query){
-                    $query->where('last_operation','<>','get')->where('last_operation','<>','delete');
+                $uaps = Smurf::where('item',$item)->whereNull('last_operation')->orWhere(function($query) use ($item){
+                    $query->where('last_operation','<>','get')->where('last_operation','<>','delete')->where('item',$item);
                 })->limit($count)->get();
                 if (count($uaps) < $count) {
                     $msg .= "获取失败，请联系管理员。\n错误代码： -001";
