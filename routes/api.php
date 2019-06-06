@@ -31,6 +31,18 @@ Route::prefix('youni')->group(function () {
 
 });
 
+Route::prefix('doki')->group(function () {
+    Route::get('/',function (){
+        return abort(404);
+    });
+    Route::get('/get', 'DokiController@getHourData');
+//    Route::get('/getLatest', 'YouniController@getLatest');
+//    Route::get('/get/all', 'YouniController@getAll');
+//    Route::get('/get/{timestamp}', 'YouniController@getSpecific');
+//    Route::post('/getOthers', 'YouniController@getSomeRanks')->middleware(['addHeader']);
+
+});
+
 Route::prefix('wyscw')->group(function () {
     Route::get('/',function (){
         return abort(404);
