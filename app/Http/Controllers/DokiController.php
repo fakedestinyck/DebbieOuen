@@ -71,19 +71,120 @@ class DokiController extends Controller
         return $this->calcDelta($data["first"],$data["front"],$data["debbie"]);
     }
 
+    private function mean($arr) {
+        return array_sum($arr)/count($arr);
+    }
+
+    private function median($arr){
+        $count = count($arr);
+        sort($arr);
+        if ($count % 2 == 1) {
+            return $arr[intval(floor($count/2))];
+        } else {
+            return ($arr[intval(floor($count/2))-1]+$arr[intval(floor($count/2))])/2;
+        }
+    }
+
+    private function stddev($arr,$mean) {
+        $sum_of_square = 0;
+        foreach ($arr as $item) {
+            $sum_of_square += pow(($item-$mean),2);
+        }
+        return sqrt($sum_of_square/count($arr));
+    }
+
+    private function isIn2Delta($num, $median, $stddev) {
+        if ($stddev > 100) {
+            return ($num < $median + 1.5 * $stddev) and ($num > $median - 1.5 * $stddev);
+        } else {
+            return ($num < $median + 2.5 * $stddev) and ($num > $median - 2.5 * $stddev);
+        }
+    }
+
+    private function calcHourDelta($data) {
+        $delta_arr = array();
+        for ($i = 0; $i < 159; ++$i) {
+            $delta_arr[] = $data[$i] - $data[$i+1];
+        }
+        $mean = $this->mean($delta_arr);
+        $median = $this->median($delta_arr);
+        $stddev = $this->stddev($delta_arr,$mean);
+
+        $valid_arr = array();
+        foreach ($delta_arr as $item) {
+            if ($this->isIn2Delta($item,$median,$stddev)) {
+                $valid_arr[] = $item;
+            }
+        }
+
+        return array_sum($valid_arr)*29/count($valid_arr);
+    }
+
+
+    private function getHourDelta($data) {
+        $first_p = array();
+        $first_s = array();
+        $front_p = array();
+        $front_s = array();
+        $debbie_p = array();
+        $debbie_s = array();
+        foreach ($data as $datum) {
+            $first_p[] = $datum["first"]["popularity"];
+            $first_s[] = $datum["first"]["sign_num"];
+            $front_p[] = $datum["front"]["popularity"];
+            $front_s[] = $datum["front"]["sign_num"];
+            $debbie_p[] = $datum["debbie"]["popularity"];
+            $debbie_s[] = $datum["debbie"]["sign_num"];
+        }
+        $first_d_p = $this->calcHourDelta($first_p);
+        $first_d_s = $this->calcHourDelta($first_s);
+        $front_d_p = $this->calcHourDelta($front_p);
+        $front_d_s = $this->calcHourDelta($front_s);
+//        $debbie_d_p = $this->calcHourDelta($debbie_p);
+//        $debbie_d_s = $this->calcHourDelta($debbie_s);
+
+        $first_new_p = $data[0]["first"]["popularity"]+$first_d_p;
+        $first_new_s = $data[0]["first"]["sign_num"]+$first_d_s;
+
+        $front_new_p = $data[0]["front"]["popularity"] + $front_d_p;
+        $front_new_s = $data[0]["front"]["sign_num"] + $front_d_s;
+
+        $front_new_p_score = 50*log($front_new_p)/log($first_new_p);
+        $front_new_s_score = 50*log($front_new_s)/log($first_new_s);
+
+        return array(
+            "delta" => $this->calcDelta(
+                array(
+                    "popularity" => $first_new_p,
+                    "sign_num" => $first_new_s
+                ),
+                array(
+                    "score" => $front_new_p_score + $front_new_s_score
+                ),
+                $data[0]["debbie"]
+            ),
+            "front_self_delta" => array(
+                "popularity" => round($front_d_p,0),
+                "sign" => round($front_d_s,0)
+            )
+        );
+    }
+
     public function getHourData() {
         $all_filenames = $this->getAllFileNames();
         rsort($all_filenames);
-        $timestamps = array_slice($all_filenames,0,60);
+        $timestamps = array_slice($all_filenames,0,160);
         $hour_data = array();
         foreach ($timestamps as $timestamp) {
             $hour_data[] = $this->getEachData($timestamp);
         }
         $instant_delta = $this->getLatest($hour_data[0]);
 
+        $forecast = $this->getHourDelta($hour_data);
 
         return array(
-            "instant_delta" => $instant_delta
+            "instant_delta" => $instant_delta,
+            "forecast" => $forecast
         );
     }
 }
