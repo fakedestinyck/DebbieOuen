@@ -170,19 +170,45 @@ class DokiController extends Controller
         );
     }
 
+    private function getRank($timestamp) {
+        $path = dirname( __FILE__ ).'/../../../../doki/data/';
+        $file_base_name = $path.$timestamp;
+        $file = $file_base_name.'.json';
+        if (file_exists($file)) {
+            $handle = fopen($file, 'r') or die('Cannot open file: '.$timestamp.".json");
+            $data = fread($handle,filesize($file));
+            $data = json_decode($data,true);
+            $dokis = $data["list"];
+            for ($i = 0; $i < count($dokis); ++$i) {
+                if ($dokis[$i]["name"] == "蒋申") {
+                    return $i+1;
+                    break;
+                }
+            }
+        } else {
+            $arr = array('status'=>"404","msg"=>"无法找到文件：".$timestamp.".json");
+            return $arr;
+        }
+    }
+
     public function getHourData() {
         $all_filenames = $this->getAllFileNames();
         rsort($all_filenames);
         $timestamps = array_slice($all_filenames,0,160);
         $hour_data = array();
+        $latest = "";
+        $rank = 0;
         foreach ($timestamps as $timestamp) {
+            if ($timestamp > $latest) {
+                $rank = $this->getRank($timestamp);
+            }
             $hour_data[] = $this->getEachData($timestamp);
         }
         $instant_delta = $this->getLatest($hour_data[0]);
 
         $forecast = $this->getHourDelta($hour_data);
-
         return array(
+            "rank" => $rank,
             "instant_delta" => $instant_delta,
             "forecast" => $forecast
         );
