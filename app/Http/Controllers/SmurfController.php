@@ -83,7 +83,7 @@ class SmurfController extends Controller
         } else {
             $nowtime = time();
             $delta_time= $nowtime - $timestamp;
-            if ($delta_time > 60 || $delta_time < 0) {
+            if ($delta_time > 180 || $delta_time < -60) {
                 $msg .= "链接已经过期，请重新获取链接";
             } else {
                 $uaps = Smurf::where('item',$item)->whereNull('last_operation')->orWhere(function($query) use ($item){
@@ -230,7 +230,7 @@ class SmurfController extends Controller
 
         $nowtime = time();
         $delta_time= $nowtime - $timestamp;
-        if ($delta_time > 120 || $delta_time < 0) {
+        if ($delta_time > 1200 || $delta_time < -60) {
             return "链接已经过期，请重新获取链接";
         }
 
