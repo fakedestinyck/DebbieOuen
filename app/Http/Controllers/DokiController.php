@@ -201,6 +201,7 @@ class DokiController extends Controller
         foreach ($timestamps as $timestamp) {
             if ($timestamp > $latest) {
                 $rank = $this->getRank($timestamp);
+                $latest = $timestamp;
             }
             $hour_data[] = $this->getEachData($timestamp);
         }
