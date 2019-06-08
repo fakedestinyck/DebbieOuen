@@ -16,7 +16,7 @@ class DokiController extends Controller
         return ($filenames);
     }
 
-    private function getEachData($timestamp) {
+    private function getEachData($timestamp,$front_name,$behind_name) {
         $path = dirname( __FILE__ ).'/../../../../doki/data/';
         $file_base_name = $path.$timestamp;
         $file = $file_base_name.'.json';
@@ -33,8 +33,14 @@ class DokiController extends Controller
             for ($i = 0; $i < count($dokis); ++$i) {
                 if ($dokis[$i]["name"] == "蒋申") {
                     $debbie = $dokis[$i];
-                    $front = $dokis[$i-1];
-                    $behind = $dokis[$i+1];
+                }
+                if ($dokis[$i]["name"] == $front_name) {
+                    $front = $dokis[$i];
+                }
+                if ($dokis[$i]["name"] == $behind_name) {
+                    $behind = $dokis[$i];
+                }
+                if (!empty($front) && !empty($debbie) && !empty($behind)) {
                     break;
                 }
             }
@@ -62,8 +68,8 @@ class DokiController extends Controller
         $delta_sign = $t_sign - $behind["sign_num"];
 
         return array(
-            "d_popularity" => $delta_popularity,
-            "d_sign" => $delta_sign
+            "d_popularity" => intval($delta_popularity),
+            "d_sign" => intval($delta_sign)
         );
     }
 
@@ -131,6 +137,8 @@ class DokiController extends Controller
         $front_s = array();
         $debbie_p = array();
         $debbie_s = array();
+        $behind_p = array();
+        $behind_s = array();
         foreach ($data as $datum) {
             $first_p[] = $datum["first"]["popularity"];
             $first_s[] = $datum["first"]["sign_num"];
@@ -138,6 +146,8 @@ class DokiController extends Controller
             $front_s[] = $datum["front"]["sign_num"];
             $debbie_p[] = $datum["debbie"]["popularity"];
             $debbie_s[] = $datum["debbie"]["sign_num"];
+            $behind_p[] = $datum["behind"]["popularity"];
+            $behind_s[] = $datum["behind"]["sign_num"];
         }
         $first_d_p = $this->calcHourDelta($first_p);
         $first_d_s = $this->calcHourDelta($first_s);
@@ -145,6 +155,8 @@ class DokiController extends Controller
         $front_d_s = $this->calcHourDelta($front_s);
 //        $debbie_d_p = $this->calcHourDelta($debbie_p);
 //        $debbie_d_s = $this->calcHourDelta($debbie_s);
+        $behind_d_p = $this->calcHourDelta($behind_p);
+        $behind_d_s = $this->calcHourDelta($behind_s);
 
         $first_new_p = $data[0]["first"]["popularity"]+$first_d_p;
         $first_new_s = $data[0]["first"]["sign_num"]+$first_d_s;
@@ -155,20 +167,44 @@ class DokiController extends Controller
         $front_new_p_score = 50*log($front_new_p)/log($first_new_p);
         $front_new_s_score = 50*log($front_new_s)/log($first_new_s);
 
+        $behind_new_p = $data[0]["behind"]["popularity"]+$behind_d_p;
+        $behind_new_s = $data[0]["behind"]["sign_num"]+$behind_d_s;
+
+        $behind_new_p_score = 50*log($behind_new_p)/log($first_new_p);
+        $behind_new_s_score = 50*log($behind_new_s)/log($first_new_s);
+
         return array(
-            "delta" => $this->calcDelta(
-                array(
-                    "popularity" => $first_new_p,
-                    "sign_num" => $first_new_s
+            "delta" => array(
+                "front" => $this->calcDelta(
+                    array(
+                        "popularity" => $first_new_p,
+                        "sign_num" => $first_new_s
+                    ),
+                    array(
+                        "score" => $front_new_p_score + $front_new_s_score
+                    ),
+                    $data[0]["debbie"]
                 ),
-                array(
-                    "score" => $front_new_p_score + $front_new_s_score
-                ),
-                $data[0]["debbie"]
+                "behind" => $this->calcDelta(
+                    array(
+                        "popularity" => $first_new_p,
+                        "sign_num" => $first_new_s
+                    ),
+                    $data[0]["debbie"],
+                    array(
+                        "score" => $behind_new_p_score + $behind_new_s_score,
+                        "popularity" => $behind_new_p,
+                        "sign_num" => $behind_new_s
+                    )
+                )
             ),
             "front_self_delta" => array(
                 "popularity" => round($front_d_p,0),
                 "sign" => round($front_d_s,0)
+            ),
+            "behind_self_delta" => array(
+                "popularity" => round($behind_d_p,0),
+                "sign" => round($behind_d_s,0)
             )
         );
     }
@@ -184,7 +220,11 @@ class DokiController extends Controller
             $dokis = $data["list"];
             for ($i = 0; $i < count($dokis); ++$i) {
                 if ($dokis[$i]["name"] == "蒋申") {
-                    return $i+1;
+                    return array(
+                        "rank" => $i+1,
+                        "front_name" => $dokis[$i-1]["name"],
+                        "behind_name" => $dokis[$i+1]["name"]
+                    );
                     break;
                 }
             }
@@ -199,14 +239,12 @@ class DokiController extends Controller
         rsort($all_filenames);
         $timestamps = array_slice($all_filenames,0,160);
         $hour_data = array();
-        $latest = "";
-        $rank = 0;
+        $rank_data = $this->getRank($timestamps[0]);
+        $rank = $rank_data["rank"];
+        $front_name = $rank_data["front_name"];
+        $behind_name = $rank_data["behind_name"];
         foreach ($timestamps as $timestamp) {
-            if ($timestamp > $latest) {
-                $rank = $this->getRank($timestamp);
-                $latest = $timestamp;
-            }
-            $hour_data[] = $this->getEachData($timestamp);
+            $hour_data[] = $this->getEachData($timestamp,$front_name,$behind_name);
         }
         $instant_delta = $this->getLatest($hour_data[0]);
 
