@@ -66,7 +66,6 @@ class DokiController extends Controller
 
         $delta_popularity = $t_popularity - $behind["popularity"];
         $delta_sign = $t_sign - $behind["sign_num"];
-
         return array(
             "d_popularity" => intval($delta_popularity),
             "d_sign" => intval($delta_sign)
@@ -190,7 +189,10 @@ class DokiController extends Controller
                         "popularity" => $first_new_p,
                         "sign_num" => $first_new_s
                     ),
-                    $data[0]["debbie"],
+                    array(
+                        "score" => 50*log($data[0]["debbie"]["popularity"])/log($first_new_p)
+                            + 50*log($data[0]["debbie"]["sign_num"])/log($first_new_s),
+                    ),
                     array(
                         "score" => $behind_new_p_score + $behind_new_s_score,
                         "popularity" => $behind_new_p,
