@@ -68,7 +68,10 @@ class DokiController extends Controller
     }
 
     private function getLatest($data) {
-        return $this->calcDelta($data["first"],$data["front"],$data["debbie"]);
+        return array(
+            "front" => $this->calcDelta($data["first"],$data["front"],$data["debbie"]),
+            "behind" => $this->calcDelta($data["first"],$data["debbie"],$data["behind"])
+        );
     }
 
     private function mean($arr) {
