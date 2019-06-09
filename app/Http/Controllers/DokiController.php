@@ -111,7 +111,7 @@ class DokiController extends Controller
 
     private function calcHourDelta($data) {
         $delta_arr = array();
-        for ($i = 0; $i < 159; ++$i) {
+        for ($i = 0; $i < count($data)-1; ++$i) {
             $delta_arr[] = $data[$i] - $data[$i+1];
         }
         $mean = $this->mean($delta_arr);
@@ -239,7 +239,7 @@ class DokiController extends Controller
     public function getHourData() {
         $all_filenames = $this->getAllFileNames();
         rsort($all_filenames);
-        $timestamps = array_slice($all_filenames,0,160);
+        $timestamps = array_slice($all_filenames,0,min(160,count($all_filenames)));
         $hour_data = array();
         $rank_data = $this->getRank($timestamps[0]);
         $rank = $rank_data["rank"];
