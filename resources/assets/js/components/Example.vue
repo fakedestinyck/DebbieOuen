@@ -1195,7 +1195,7 @@
                             return value.min;
                         },
                         max: function(value) {
-                            return value.max;
+                            return value.max + 1;
                         }
                     }],
                     dataZoom: {
