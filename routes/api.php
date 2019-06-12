@@ -36,6 +36,7 @@ Route::prefix('doki')->group(function () {
         return abort(404);
     });
     Route::get('/get', 'DokiController@getHourData');
+    Route::get('/getalldelta', 'DokiController@getAllDataDelta');
 //    Route::get('/getLatest', 'YouniController@getLatest');
 //    Route::get('/get/all', 'YouniController@getAll');
 //    Route::get('/get/{timestamp}', 'YouniController@getSpecific');
