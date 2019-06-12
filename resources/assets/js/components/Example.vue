@@ -1189,7 +1189,7 @@
                         type: 'value',
                         inverse: false,
                         scale: true,
-                        minInterval: 1,
+//                        minInterval: 1,
                         splitNumber: 7,
                         min: function(value) {
                             return value.min;
