@@ -113,7 +113,7 @@ class DokiController extends Controller
         }
     }
 
-    private function calcHourDelta($data, $allDelta=false) {
+    private function calcHourDelta($data, $allDelta=false, $futureMins=30) {
         $delta_arr = array();
         for ($i = 0; $i < count($data)-1; ++$i) {
             $delta_arr[] = $data[$i] - $data[$i+1];
@@ -133,11 +133,17 @@ class DokiController extends Controller
             return $delta_arr;
         }
 
-        return array_sum($valid_arr)*29/count($valid_arr);
+        if ($futureMins<=10) {
+            return array_sum($valid_arr)*($futureMins-1)/count($delta_arr);
+        } else {
+            return array_sum($valid_arr)*($futureMins-1)/count($valid_arr);
+        }
+
+
     }
 
 
-    private function getHourDelta($data, $allDelta=false) {
+    private function getHourDelta($data, $allDelta=false, $futureMins=30) {
         $first_p = array();
         $first_s = array();
         $front_p = array();
@@ -156,12 +162,12 @@ class DokiController extends Controller
             $behind_p[] = $datum["behind"]["popularity"];
             $behind_s[] = $datum["behind"]["sign_num"];
         }
-        $first_d_p = $this->calcHourDelta($first_p);
-        $first_d_s = $this->calcHourDelta($first_s);
-        $front_d_p = $this->calcHourDelta($front_p);
-        $front_d_s = $this->calcHourDelta($front_s);
-        $behind_d_p = $this->calcHourDelta($behind_p);
-        $behind_d_s = $this->calcHourDelta($behind_s);
+        $first_d_p = $this->calcHourDelta($first_p,false,$futureMins);
+        $first_d_s = $this->calcHourDelta($first_s,false,$futureMins);
+        $front_d_p = $this->calcHourDelta($front_p,false,$futureMins);
+        $front_d_s = $this->calcHourDelta($front_s,false,$futureMins);
+        $behind_d_p = $this->calcHourDelta($behind_p,false,$futureMins);
+        $behind_d_s = $this->calcHourDelta($behind_s,false,$futureMins);
 
         if ($allDelta) {
 //            $debbie_d_p = $this->calcHourDelta($debbie_p);
@@ -266,6 +272,27 @@ class DokiController extends Controller
         return array(
             "rank" => $rank,
             "instant_delta" => $instant_delta,
+            "forecast" => $forecast
+        );
+    }
+
+    public function forecastFiveMinutes() {
+        $all_filenames = $this->getAllFileNames();
+        rsort($all_filenames);
+        $timestamps = array_slice($all_filenames,0,min(8,count($all_filenames)));
+        $hour_data = array();
+        $rank_data = $this->getRank($timestamps[0]);
+        $rank = $rank_data["rank"];
+        $front_name = $rank_data["front_name"];
+        $behind_name = $rank_data["behind_name"];
+        foreach ($timestamps as $timestamp) {
+            $hour_data[] = $this->getEachData($timestamp,$front_name,$behind_name);
+        }
+//        $instant_delta = $this->getLatest($hour_data[0]);
+
+        $forecast = $this->getHourDelta($hour_data,false,5);
+        return array(
+            "rank" => $rank,
             "forecast" => $forecast
         );
     }
