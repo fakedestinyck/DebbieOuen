@@ -22,6 +22,10 @@ class DokiController extends Controller
         $file = $file_base_name.'.json';
         if (file_exists($file)) {
             $handle = fopen($file, 'r') or die('Cannot open file: '.$timestamp.".json");
+            $file_size = filesize($file);
+            if ($file_size < 4300) {
+                return "文件错误";
+            }
             $data = fread($handle,filesize($file));
             $data = json_decode($data,true);
             $time = $data["time"];
@@ -109,7 +113,7 @@ class DokiController extends Controller
         }
     }
 
-    private function calcHourDelta($data) {
+    private function calcHourDelta($data, $allDelta=false) {
         $delta_arr = array();
         for ($i = 0; $i < count($data)-1; ++$i) {
             $delta_arr[] = $data[$i] - $data[$i+1];
@@ -125,11 +129,15 @@ class DokiController extends Controller
             }
         }
 
+        if ($allDelta) {
+            return $delta_arr;
+        }
+
         return array_sum($valid_arr)*29/count($valid_arr);
     }
 
 
-    private function getHourDelta($data) {
+    private function getHourDelta($data, $allDelta=false) {
         $first_p = array();
         $first_s = array();
         $front_p = array();
@@ -152,10 +160,14 @@ class DokiController extends Controller
         $first_d_s = $this->calcHourDelta($first_s);
         $front_d_p = $this->calcHourDelta($front_p);
         $front_d_s = $this->calcHourDelta($front_s);
-//        $debbie_d_p = $this->calcHourDelta($debbie_p);
-//        $debbie_d_s = $this->calcHourDelta($debbie_s);
         $behind_d_p = $this->calcHourDelta($behind_p);
         $behind_d_s = $this->calcHourDelta($behind_s);
+
+        if ($allDelta) {
+//            $debbie_d_p = $this->calcHourDelta($debbie_p);
+            $debbie_d_s = $this->calcHourDelta($debbie_s, true);
+            return $debbie_d_s;
+        }
 
         $first_new_p = $data[0]["first"]["popularity"]+$first_d_p;
         $first_new_s = $data[0]["first"]["sign_num"]+$first_d_s;
@@ -255,6 +267,33 @@ class DokiController extends Controller
             "rank" => $rank,
             "instant_delta" => $instant_delta,
             "forecast" => $forecast
+        );
+    }
+
+    public function getAllDataDelta() {
+        $all_filenames = $this->getAllFileNames();
+        rsort($all_filenames);
+        $timestamps = $all_filenames;
+        $timestamp_str = array();
+        $hour_data = array();
+        $rank_data = $this->getRank($timestamps[0]);
+        $front_name = $rank_data["front_name"];
+        $behind_name = $rank_data["behind_name"];
+        foreach ($timestamps as $timestamp) {
+            $each_data = $this->getEachData($timestamp,$front_name,$behind_name);
+            if (!is_array($each_data)) {
+                continue;
+            }
+            $hour_data[] = $each_data;
+            $timestamp_str[] = substr((string)$timestamp,4,2)."/".substr((string)$timestamp,6,2)."\n".substr((string)$timestamp,8,2).":".substr((string)$timestamp,10,2);
+        }
+
+        return response(
+            array(
+                "timestamps" => array_reverse($timestamp_str),
+                "delta" => array_reverse($this->getHourDelta($hour_data,true))
+            ),
+            200
         );
     }
 }
