@@ -285,7 +285,7 @@ class DokiController extends Controller
                 continue;
             }
             $hour_data[] = $each_data;
-            $timestamp_str[] = substr((string)$timestamp,4,2)."/".substr((string)$timestamp,6,2)."\n".substr((string)$timestamp,8,2).":".substr((string)$timestamp,10,2);
+            $timestamp_str[] = substr((string)$timestamp,0,4).".".substr((string)$timestamp,4,2).".".substr((string)$timestamp,6,2)." ".substr((string)$timestamp,8,2).":".substr((string)$timestamp,10,2);
         }
 
         return response(

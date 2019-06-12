@@ -7,8 +7,9 @@
             </div>
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
                 <a href="#scroll-tab-1" class="mdl-layout__tab">微博榜单</a>
-                <a href="#scroll-tab-2" class="mdl-layout__tab is-active" v-on:click="onSwitchTabs(1)">由你音乐榜</a>
+                <a href="#scroll-tab-2" class="mdl-layout__tab" v-on:click="onSwitchTabs(1)">由你音乐榜</a>
                 <!--<a href="#scroll-tab-3" class="mdl-layout__tab">我要上春晚 - 点赞</a>-->
+                <a href="#scroll-tab-3" class="mdl-layout__tab is-active">腾讯视频Doki</a>
                 <!--<a href="#scroll-tab-4" class="mdl-layout__tab">Miscellaneous Tools</a>-->
             </div>
         </header>
@@ -34,7 +35,7 @@
                 </section>
             </section>
 
-            <section class="mdl-layout__tab-panel is-active" id="scroll-tab-2">
+            <section class="mdl-layout__tab-panel" id="scroll-tab-2">
                 <section class="page-content demo-layout mdl-layout mdl-layout--fixed-header mdl-color--grey-100">
                     <el-alert
                             title="数据暂停更新"
@@ -212,6 +213,93 @@
                 <!--</section>-->
             <!--</section>-->
 
+
+            <!--腾讯视频Doki-->
+            <section class="mdl-layout__tab-panel is-active" id="scroll-tab-3">
+                <section class="page-content demo-layout mdl-layout mdl-layout--fixed-header mdl-color--grey-100">
+                    <el-alert
+                            title="数据每一分钟更新一次"
+                            type="warning"
+                            show-icon
+                            center
+                            :closable="false">
+                    </el-alert>
+                    <div class="demo-ribbon" style="background-color: white"></div>
+                    <main class="demo-main mdl-layout__content">
+                        <div class="demo-container mdl-grid">
+                            <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                            <div class="demo-content mdl-color--white mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+
+                                <!--<div class="demo-crumbs mdl-color-text--grey-500">-->
+                                <!--Google &gt; Material Design Lite &gt; How to install MDL-->
+                                <!--</div>-->
+                                <div class="self-wrapper">
+                                    <h3>蒋申生日应援</h3>
+                                    <!--<p>当前排行：第<span style="font-size: 3em;">{{ dokiCurrentRank }}</span>名 <a v-on:click="loadWyscwGraph">刷新数据</a></p>-->
+                                    <h5>更新时间：{{ dokiUpdateTime }}</h5>
+                                    <br>
+                                    <!--<a class="mdl-button mdl-js-button mdl-button--raised-->
+                                    <!--mdl-js-ripple-effect mdl-button--colored" @click="saveInfo"-->
+                                    <!--v-show="!compiling">Save project info</a>-->
+
+                                </div>
+                                <div class="self-wrapper">
+                                    <h4>可视化数据</h4>
+                                    <!--<h5>签到人数涨幅数据</h5>-->
+                                    <!--<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-show-mark-point2">-->
+                                        <!--<input type="checkbox" id="switch-show-mark-point2" class="mdl-switch__input"-->
+                                               <!--checked @change="onDokiShowMarkPointSwitchChanged" v-model="dokiIsShowMarkPoint">-->
+                                        <!--<span class="mdl-switch__label">显示每小时涨幅标记</span>-->
+                                    <!--</label>-->
+                                    <!--&lt;!&ndash; MDL Spinner Component &ndash;&gt;-->
+                                    <!--<div class="mdl-spinner mdl-js-spinner is-active" v-show="dokiRankPointLoading"></div>-->
+                                    <!--<div id="chart-wyscw-rank" style="height: 400px; width: 100%;" v-on-echart-resize></div>-->
+                                    <!--<div><br></div>-->
+                                    <h5>签到人数涨幅数据</h5>
+                                    <!-- MDL Spinner Component -->
+                                    <div class="mdl-spinner mdl-js-spinner is-active" v-show="dokiUniChangeLoading"></div>
+                                    <div id="chart-doki-uni-change" style="height: 400px; width: 100%;" v-on-echart-resize></div>
+                                    <!--<div><br></div>-->
+                                    <!--<h5>前后几名的数据</h5>-->
+                                    <!--<p>输入区间过大可能导致浏览器卡死或报错！</p>-->
+                                    <!--<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">-->
+                                    <!--<input class="mdl-textfield__input" type="text" id="lowerBound" v-model="lowerBound" required>-->
+                                    <!--<label class="mdl-textfield__label" for="lowerBound">查找的排名上限</label>-->
+                                    <!--</div>-->
+                                    <!--<br>-->
+                                    <!--<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">-->
+                                    <!--<input class="mdl-textfield__input" type="text" id="upperBound" v-model="upperBound" required>-->
+                                    <!--<label class="mdl-textfield__label" for="lowerBound">查找的排名下限</label>-->
+                                    <!--</div>-->
+                                    <!--<br>-->
+                                    <!--&lt;!&ndash; MDL Spinner Component &ndash;&gt;-->
+                                    <!--<div class="mdl-spinner mdl-js-spinner is-active" v-show="loadingOthersRank"></div>-->
+                                    <!--<div v-show="loadingOthersRank">{{ getOthersProgress }}%获取完成</div>-->
+                                    <!--<a class="mdl-button mdl-js-button mdl-button--raised-->
+                                    <!--mdl-js-ripple-effect mdl-button--colored" @click="searchRank"-->
+                                    <!--v-show="!loadingOthersRank">查找</a>-->
+                                    <!--<div id="chart-wyscw-compare" style="height: 400px; width: 100%;" v-on-echart-resize></div>-->
+                                </div>
+                            </div>
+                        </div>
+                        <!--<footer class="demo-footer mdl-mini-footer">-->
+                        <!--<div class="mdl-mini-footer--left-section">-->
+                        <!--<ul class="mdl-mini-footer--link-list">-->
+                        <!--<li><a href="#">帮助</a></li>-->
+                        <!--<li><a href="#">隐私政策</a></li>-->
+                        <!--<li><a href="#">用户协议</a></li>-->
+                        <!--<li><a href="http://www.miibeian.gov.cn/">沪ICP备16029354号-2</a></li>-->
+                        <!--</ul>-->
+                        <!--</div>-->
+                        <!--</footer>-->
+                    </main>
+
+
+                </section>
+            </section>
+
+
+
             <!--<section class="mdl-layout__tab-panel" id="scroll-tab-3">-->
             <!--<div class="page-content">-->
             <!--<div class="flex-center position-ref full-height">-->
@@ -321,11 +409,12 @@
             this.projectDdl = (this.$cookies.get("projectDdl") === null ? "" : this.$cookies.get("projectDdl"));
             this.projectType = (this.$cookies.get("projectType") === null ? "" : this.$cookies.get("projectType"));
 //            this.loadRankingData();
-//            this.loadJs('https://cdn.bootcss.com/echarts/4.2.0-rc.2/echarts.common.min.js',this.echartsLoaded);
+            this.loadJs('https://cdn.bootcss.com/echarts/4.2.0-rc.2/echarts.common.min.js',this.echartsLoaded);
 //            this.loadYouniGraph();
 //            this.loadWyscwGraph();
+            this.loadDokiGraph();
             this.isAdmin();
-            this.hideLoading();
+//            this.hideLoading(); // 如果上面的loadJS注释掉了，就取消这行的注释。反之就注释这行
         },
         updated: function() {
             if (this.projectInfoLocked && !this.codingAreaCreated) {
@@ -508,6 +597,64 @@
                                     clearInterval(waitForLibsJs);
                                     that.createChartWyscwRank();
                                     that.createChartWyscwUniChange();
+                                } else {
+                                    console.log("wait for js");
+                                }
+                            }, 50);
+                        }
+                    })
+                    .catch(function (error) {
+                        alert(error);
+                    });
+
+            },
+            loadDokiGraph: function() {
+                this.isDokiGraphLoaded = true;
+                this.dokiAllRanks = [];
+                this.dokiAllTimes = [];
+                this.dokiAllPoints = [];
+                this.dokiAllUniChange = [];
+                this.dokiPointsMarkPointArray = [];
+                console.log("Graph loaded");
+                let that = this;
+                axios.get('/api/doki/getalldelta', {
+                    //
+                })
+                    .then(function (response) {
+                        if (response.status === 200) {
+                            let rankData = response.data;
+                            console.log(response.data);
+                            let timestamps = rankData.timestamps;
+                            let delta = rankData.delta;
+                            let dataLength = timestamps.length;
+                            for (let i = 0; i < dataLength ; ++i) {
+                                let timeString = timestamps[i];
+                                let lastTwoDigits = timeString.substring(timeString.length-2,timeString.length);
+                                let updateTimeDateTime = that.convertTimeString(timeString);
+//                                that.wyscwAllRanks.push(rankData[i].charts.r);
+                                that.dokiAllTimes.push(updateTimeDateTime);
+//                                that.wyscwAllPoints.push(rankData[i].charts.v);
+                                that.dokiAllUniChange.push(delta[i]);
+
+                                if (i === dataLength - 1) {
+//                                    that.dokiCurrentRank = rankData[i].charts.r;
+                                    that.dokiUpdateTime = timestamps[i];
+                                }
+
+                                if (lastTwoDigits === "00") {
+                                    let coord = [updateTimeDateTime,delta[i]];
+                                    let value = delta[i];
+                                    that.dokiPointsMarkPointArray.push({
+                                        coord: coord,
+                                        value: value,
+                                    });
+                                }
+                            }
+                            let waitForLibsJs = setInterval(function(){
+                                if (that.libsJsLoadComplete) {
+                                    clearInterval(waitForLibsJs);
+//                                    that.createChartWyscwRank();
+                                    that.createChartDokiUniChange();
                                 } else {
                                     console.log("wait for js");
                                 }
@@ -1007,6 +1154,87 @@
                 }
 
             },
+            createChartDokiUniChange: function() {
+                let that = this;
+                var dom = document.getElementById("chart-doki-uni-change");
+                var myChart = echarts.init(dom, 'debbie');
+                var app = {};
+
+                var option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            label: {
+                                backgroundColor: '#6a7985'
+                            },
+                            snap: true
+                        }
+                    },
+                    grid: {
+                        y2: 70
+                    },
+                    title: {
+                        left: 'center',
+                        text: '签到人数涨幅数据',
+                    },
+                    xAxis: [{
+                        type: 'time',
+                        boundaryGap: false,
+                        splitNumber:10
+                    }],
+                    yAxis: [{
+                        name: '签到人数变化',
+                        nameLocation: 'end',
+                        type: 'value',
+                        inverse: false,
+                        scale: true,
+                        minInterval: 1,
+                        splitNumber: 7,
+                        min: function(value) {
+                            return value.min;
+                        },
+                        max: function(value) {
+                            return value.max;
+                        }
+                    }],
+                    dataZoom: {
+                        type: 'slider',
+                        show: true,
+                        start : 0,
+                        bottom: 0
+                    },
+                    series: [
+                        {
+                            name:'签到人数变化',
+                            type:'line',
+                            smooth:false,
+                            showAllSymbol: true,
+                            symbolSize: 5,
+                            sampling: 'average',
+                            data: (function () {
+                                var d = [];
+                                var len = 1;
+                                var now = new Date();
+                                var value;
+                                while (len < that.dokiAllTimes.length) {
+                                    d.push([
+                                        that.dokiAllTimes[len],
+                                        that.dokiAllUniChange[len]
+                                    ]);
+                                    len++;
+                                }
+                                return d;
+                            })()
+                        },
+                    ]
+                };
+                if (option && typeof option === "object") {
+                    myChart.setOption(option, true);
+                    that.dokiUniChangeLoading = false;
+                }
+
+            },
             createChartCompare: function() {
                 let that = this;
                 var dom = document.getElementById("chart-compare");
@@ -1362,6 +1590,22 @@
                 wyscwPointDataZoom: {start:0,end:100},
                 wyscwOtherRanks: [],
                 wyscwOtherRanksLegends: [],
+
+                dokiUpdateTime: "加载中",
+                dokiRankData: {},
+                dokiCurrentRank: "",
+                isDokiGraphLoaded: false,
+                dokiAllRanks: [],
+                dokiAllUniChange: [],
+                dokiRankPointLoading: true,
+                dokiUniChangeLoading: true,
+                dokiAllTimes: [],
+                dokiAllPoints: [],
+                dokiPointsMarkPointArray: [],
+                dokiIsShowMarkPoint: true,
+                dokiPointDataZoom: {start:0,end:100},
+                dokiOtherRanks: [],
+                dokiOtherRanksLegends: [],
             }
         }
     }
