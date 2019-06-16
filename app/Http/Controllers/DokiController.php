@@ -23,7 +23,7 @@ class DokiController extends Controller
         if (file_exists($file)) {
             $handle = fopen($file, 'r') or die('Cannot open file: '.$timestamp.".json");
             $file_size = filesize($file);
-            if ($file_size < 4200) {
+            if ($file_size < 4000) {
                 return "文件错误";
             }
             $data = fread($handle,filesize($file));
