@@ -270,17 +270,18 @@ class WeiboController extends Controller
             $yesterdayRankData = $yesterdayRankData[0];
             return array(
                 "status" => 1,
-                "data" => [
-                    "myTotalRank" => $yesterdayRankData["myTotalRank"],
-                    "interactionValue" => $yesterdayRankData["interactionValue"],
-                    "interactionRank" => $yesterdayRankData["interactionRank"],
-                    "interactionRepostCount" => $yesterdayRankData["interactionRepostCount"],
-                    "interactionCommentCount" => $yesterdayRankData["interactionCommentCount"],
-                    "interactionStoryCount" => $yesterdayRankData["interactionStoryCount"],
-                    "flowerValue" => $yesterdayRankData["flowerValue"],
-                    "flowerRank" => $yesterdayRankData["flowerRank"],
-                    "flowerPersonCount" => $yesterdayRankData["flowerPersonCount"]
-                ],
+//                "data" => [
+//                    "myTotalRank" => $yesterdayRankData["myTotalRank"],
+//                    "interactionValue" => $yesterdayRankData["interactionValue"],
+//                    "interactionRank" => $yesterdayRankData["interactionRank"],
+//                    "interactionRepostCount" => $yesterdayRankData["interactionRepostCount"],
+//                    "interactionCommentCount" => $yesterdayRankData["interactionCommentCount"],
+//                    "interactionStoryCount" => $yesterdayRankData["interactionStoryCount"],
+//                    "flowerValue" => $yesterdayRankData["flowerValue"],
+//                    "flowerRank" => $yesterdayRankData["flowerRank"],
+//                    "flowerPersonCount" => $yesterdayRankData["flowerPersonCount"]
+//                ],
+            "data" => $yesterdayRankData,
                 "errmsg" => ""
             );
         }
