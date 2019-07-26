@@ -104,9 +104,7 @@ class ChangbaController extends Controller
                 );
             } else {
                 ChangbaPunch::create($request->except("sign"));
-                return array(
-                    "status" => 1,
-                );
+                return $this->getPunchDataByDay();
             }
         }
     }
