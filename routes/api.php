@@ -83,6 +83,16 @@ Route::prefix('yzxgb')->group(function () {
 
 });
 
+Route::prefix('changba')->group(function () {
+    Route::get('/',function (){
+        return abort(404);
+    });
+    Route::post('/punch', 'ChangbaController@punch');
+    Route::get('/punchData', 'ChangbaController@getPunchDataByDay');
+//    Route::get('/get/all', 'WyscwController@getAll');
+
+});
+
 Route::get('ip',"WeiboController@showIp");
 
 Route::prefix('block')->group(function () {
