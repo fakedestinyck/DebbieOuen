@@ -17,6 +17,17 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
+Route::prefix('billing')->group(function () {
+    Route::get('/',function (){
+        return abort(404);
+    });
+    Route::get('/get', 'BillingController@get');
+    Route::post('/store','BillingController@store');
+
+
+
+});
+
 Route::post('python/test','HomeController@pythontest');
 
 Route::prefix('youni')->group(function () {
