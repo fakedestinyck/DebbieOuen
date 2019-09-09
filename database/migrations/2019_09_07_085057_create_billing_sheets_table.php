@@ -21,6 +21,7 @@ class CreateBillingSheetsTable extends Migration
             $table->float('moneyDL');
             $table->float('moneyXL');
             $table->float('moneyQ');
+            $table->string('created_by');
             $table->timestamps();
         });
     }
