@@ -6,9 +6,9 @@
             </div>
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
                 <a href="#scroll-tab-1" class="mdl-layout__tab is-active">呆呆近30天微博链接</a>
-                <!--<a href="#scroll-tab-2" class="mdl-layout__tab">30天安利蒋申</a>-->
-                <!--<a href="#scroll-tab-3" class="mdl-layout__tab">补录数据</a>-->
-                <!--<a href="#scroll-tab-4" class="mdl-layout__tab">补录数据 - 无法识别</a>-->
+                <a href="#scroll-tab-2" class="mdl-layout__tab">30天安利蒋申</a>
+                <a href="#scroll-tab-3" class="mdl-layout__tab">补录数据</a>
+                <a href="#scroll-tab-4" class="mdl-layout__tab">补录数据 - 无法识别</a>
                 <!--<a href="#scroll-tab-3" class="mdl-layout__tab">View uploaded Projects</a>-->
                 <!--<a href="#scroll-tab-4" class="mdl-layout__tab">Miscellaneous Tools</a>-->
             </div>
