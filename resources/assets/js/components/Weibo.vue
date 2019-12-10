@@ -159,8 +159,8 @@
         mounted: function () {
             this.hideLoading();
             this.getRecentWeibo();
-//            this.loadNextThirtyDaysTweets();
-//            this.loadNextThirtyDaysTweetsBad();
+            this.loadNextThirtyDaysTweets();
+            this.loadNextThirtyDaysTweetsBad();
         },
         updated: function () {
 
