@@ -42,12 +42,13 @@ class LotteryController extends Controller
             if (count($exist) != 0) {
                 return response("你已经报过名了，无需重复报名",200);
             }
+            $currentNum = count(Test::where('cb','lottery')->where('cc','1')->orderBy('id')->get());
             Test::create([
                 "cb" => "lottery",
                 "cc" => "1",
                 "cd" => $request->qqid
             ]);
-            return response("报名参加抽奖成功",200);
+            return response("报名参加抽奖成功。目前中奖率为1/".($currentNum+1),200);
         }
     }
 
