@@ -155,3 +155,12 @@ Route::prefix('smurf')->group(function () {
 });
 
 Route::get('sp520', 'SpecialController@upload');
+
+Route::prefix('misc')->group(function () {
+    Route::get('/',function (){
+        return abort(404);
+    });
+
+    Route::post('/lottery/store','LotteryController@store');
+    Route::get('/lottery/getall','LotteryController@index');
+});
