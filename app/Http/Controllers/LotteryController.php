@@ -38,12 +38,16 @@ class LotteryController extends Controller
         if (!isset($request->qqid)) {
             return response("缺少参数",400);
         } else {
+            $exist = Test::where('cb','lottery')->where('cc','1')->where('cd',$request->qqid)->get();
+            if (count($exist) != 0) {
+                return response("你已经报过名了，无需重复报名",200);
+            }
             Test::create([
                 "cb" => "lottery",
                 "cc" => "1",
                 "cd" => $request->qqid
             ]);
-            return response("success",200);
+            return response("报名参加抽奖成功",200);
         }
     }
 
