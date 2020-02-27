@@ -232,7 +232,7 @@ class BlacklistController extends Controller
             $duration = "1031041050";
         }
         $delta_time = intval($starttime) - time();
-        if (abs($delta_time) > 60) {
+        if (abs($delta_time) > 600) {
             return array(
                 "status" => -401,
                 "err_msg" => "链接已过期"
