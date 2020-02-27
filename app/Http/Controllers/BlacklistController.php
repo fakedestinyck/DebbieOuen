@@ -194,14 +194,14 @@ class BlacklistController extends Controller
             ->where('cd',$qqid)->get();
 
         $timesAtPeopleToday = count($data);
-        if ($timesAtPeopleToday <= 20) {
+        if ($timesAtPeopleToday <= 10) {
             return array(
                 "status" => 1,
                 "duration" => 0,
                 "atCount" => $timesAtPeopleToday
             );
         }
-        return $this->addBan($group_id,$qqid,$starttime,$duration,$timesAtPeopleToday-20-1);
+        return $this->addBan($group_id,$qqid,$starttime,$duration,$timesAtPeopleToday-10-1);
     }
 
     public function parseBan(Request $request) {
