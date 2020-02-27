@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Blacklist;
 use App\GroupBan;
+use App\Test;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BlacklistController extends Controller
@@ -145,11 +147,16 @@ class BlacklistController extends Controller
 
     }
 
-    private function addBan($group_id, $qqid, $starttime, $duration) {
+    private function addBan($group_id, $qqid, $starttime, $duration, $durationIndex = null) {
         $bans = $this->getBanHistory($group_id,$qqid);
         $removes = $this->getRemoveHistory($group_id,$qqid);
         $duration_array = explode(",",$duration);
-        $this_index = min(count($bans)-count($removes),count($duration_array)-1);
+        $this_index = 0;
+        if ($durationIndex == null) {
+            $this_index = min(count($bans)-count($removes),count($duration_array)-1);
+        } else {
+            $this_index = $durationIndex;
+        }
         $new_duration = intval($duration_array[$this_index]);
         $endtime = intval($starttime)+$new_duration;
 
@@ -176,6 +183,27 @@ class BlacklistController extends Controller
 
     }
 
+    private function calculateAtTimesFirst($group_id, $qqid, $starttime,$duration) {
+        Test::create([
+            "cb" => "atPeopleCount",
+            "cc" => $group_id,
+            "cd" => $qqid
+        ]);
+        $data = Test::where('cc',$group_id)->where('cb','atPeopleCount')
+            ->whereDate('created_at', '=', Carbon::today()->toDateString())
+            ->where('cd',$qqid)->get();
+
+        $timesAtPeopleToday = count($data);
+        if ($timesAtPeopleToday <= 20) {
+            return array(
+                "status" => 1,
+                "duration" => 0,
+                "atCount" => $timesAtPeopleToday
+            );
+        }
+        return $this->addBan($group_id,$qqid,$starttime,$duration,$timesAtPeopleToday-20-1);
+    }
+
     public function parseBan(Request $request) {
 //        $removes = $this->getRemoveHistory("234567889","2333333333")->toArray();
 //        return end($removes);
@@ -192,7 +220,7 @@ class BlacklistController extends Controller
             );
         }
 
-        if ($action == "1") {
+        if ($action == "1" || $action == "3") {
             if ($duration == "") {
                 return array(
                     "status" => -400,
@@ -204,7 +232,7 @@ class BlacklistController extends Controller
             $duration = "1031041050";
         }
         $delta_time = intval($starttime) - time();
-        if (abs($delta_time) > 6000) {
+        if (abs($delta_time) > 60) {
             return array(
                 "status" => -401,
                 "err_msg" => "链接已过期"
@@ -237,6 +265,9 @@ class BlacklistController extends Controller
         if ($action == "2") {
             return $this->removeBan($group_id,$qqid);
         }
-
+        if ($action == "3") {
+            return $this->calculateAtTimesFirst($group_id,$qqid,$starttime,$duration);
+            // 这个是每天at成员次数限制，先查询是否超过次数。因为要请求两次网络不方便，所以放一起了
+        }
     }
 }
