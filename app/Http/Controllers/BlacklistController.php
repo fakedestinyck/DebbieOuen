@@ -76,7 +76,8 @@ class BlacklistController extends Controller
     }
 
     private function getBanHistory($group_id, $qqid) {
-        $bans = GroupBan::where('group_id',$group_id)->where('qqid',$qqid)->where('action','1')->whereYear('starttime',date('Y'))->whereMonth('starttime',date('n'))->whereDay('starttime',date('j'))->orderBy("id")->get();
+        // $bans = GroupBan::where('group_id',$group_id)->where('qqid',$qqid)->where('action','1')->whereYear('starttime',date('Y'))->whereMonth('starttime',date('n'))->whereDay('starttime',date('j'))->orderBy("id")->get();
+        $bans = GroupBan::where('qqid',$qqid)->where('action','1')->whereYear('starttime',date('Y'))->whereMonth('starttime',date('n'))->whereDay('starttime',date('j'))->orderBy("id")->get();
         $ban_array = array();
         foreach ($bans as $ban) {
             $ban_array[] = array(
