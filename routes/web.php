@@ -91,7 +91,12 @@ Route::prefix('modian')->group(function () {
 });
 
 
-Route::get('/dashboard/{any}', function () {
+
+Route::get('/dashboard/', function () {
     return view('dashboard.index');
-})->where('any', '.*')->middleware('auth');
+})->middleware('auth');
 //Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/fc/register', function() {
+    return view('fc.register');
+});

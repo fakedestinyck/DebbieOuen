@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#ffffff">
 
     <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/element-ui/2.4.9/theme-chalk/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.zhimg.com/element-ui/lib/theme-chalk/index.css">
     <!-- Fonts -->
     <link href="{{ asset('resources/fonts.css') }}" rel="stylesheet">
     <!-- CSS -->
@@ -141,11 +141,11 @@
 
 
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
-{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>--}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+{{--<script src="https://cdn.jsdelivr.net/npm/vue"></script>--}}
 {{--<script src="https://cdn.bootcss.com/vue-router/3.0.2/vue-router.js"></script>--}}
 <script src="https://cdn.bootcss.com/vue-router/3.0.2/vue-router.min.js"></script>
-<script src="https://unpkg.com/element-ui@2.4.11/lib/index.js"></script>
+<script src="https://unpkg.zhimg.com/element-ui/lib/index.js"></script>
 <script src="https://cdn.bootcss.com/jsencrypt/3.0.0-rc.1/jsencrypt.min.js"></script>
 
 @yield('Vue-script')

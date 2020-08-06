@@ -254,6 +254,132 @@ class DokiController extends Controller
         }
     }
 
+    private function getLastTwoWeeks() {
+        $week1 = array();
+        $week2 = array();
+        $path = dirname( __FILE__ ).'/../../../../doki/data/';
+        $file_base_name = $path.'week1/';
+        $file = $file_base_name.'20190609235702.json';
+        if (file_exists($file)) {
+            $handle = fopen($file, 'r') or die('Cannot open file: 20190609235702.json');
+            $file_size = filesize($file);
+            if ($file_size < 4000) {
+                return "文件错误";
+            }
+            $data = fread($handle,filesize($file));
+            $data = json_decode($data,true);
+            $time = $data["time"];
+            $dokis = $data["list"];
+            $week1 = $dokis;
+
+        } else {
+            $arr = array('status'=>"404","msg"=>"无法找到文件：20190609235702.json");
+            return $arr;
+        }
+        $file_base_name = $path.'week2/';
+        $file = $file_base_name.'20190616235902.json';
+        if (file_exists($file)) {
+            $handle = fopen($file, 'r') or die('Cannot open file: 20190616235902.json');
+            $file_size = filesize($file);
+            if ($file_size < 4000) {
+                return "文件错误";
+            }
+            $data = fread($handle,filesize($file));
+            $data = json_decode($data,true);
+            $time = $data["time"];
+            $dokis = $data["list"];
+            $week2 = $dokis;
+
+        } else {
+            $arr = array('status'=>"404","msg"=>"无法找到文件：20190616235902.json");
+            return $arr;
+        }
+        $week1Real = array();
+        $week2Real = array();
+
+        foreach ($week1 as $item) {
+            $week1Real[$item['name']] = $item;
+        }
+
+        foreach ($week2 as $item) {
+            $week2Real[$item['name']] = $item;
+        }
+
+        return array(
+            'week1' => $week1Real,
+            'week2' => $week2Real
+        );
+    }
+
+    private function array_sort_by_one_field(&$array, $field, $desc = false)
+    {
+        $fieldArr = array();
+        foreach ($array as $k => $v) {
+            $fieldArr[$k] = $v[$field];
+        }
+        $sort = $desc == false ? SORT_ASC : SORT_DESC;
+        return array_multisort($fieldArr, $sort, $array);
+    }
+
+    private function calc3WeekScore($finalLastData) {
+        $finalScoreData = array();
+        $first = $finalLastData['火箭少女101杨超越'];
+        foreach ($finalLastData as $finalLastDatum) {
+            if ($finalLastDatum['name'] == '火箭少女101杨超越') {
+                $finalScoreData[] = array(
+                    'name' => $finalLastDatum['name'],
+                    'sign_num' => $finalLastDatum['sign_num'],
+                    'popularity' => $finalLastDatum['popularity'],
+                    'score' => 100.0
+                );
+                continue;
+            }
+            $finalScoreData[] = array(
+                'name' => $finalLastDatum['name'],
+                'sign_num' => $finalLastDatum['sign_num'],
+                'popularity' => $finalLastDatum['popularity'],
+                'score' => 50*log($finalLastDatum["popularity"])/log($first["popularity"])+50*log($finalLastDatum["sign_num"])/log($first["sign_num"])
+            );
+        }
+        $this->array_sort_by_one_field($finalScoreData, 'score', true);
+        $allStr = '';
+        foreach ($finalScoreData as $finalScoreDatum) {
+            $allStr .= $finalScoreDatum['name'].'\t'.$finalScoreDatum['sign_num'].'\t'.$finalScoreDatum['popularity'].'\t'.$finalScoreDatum['score'].'\n';
+        }
+
+        return $finalScoreData;
+    }
+
+
+
+    private function getAccumulativeData($timestamp) {
+        $lastTwoWeeks = $this->getLastTwoWeeks();
+        $week1 = $lastTwoWeeks['week1'];
+        $week2 = $lastTwoWeeks['week2'];
+        $finalLastData = array();
+
+        $path = dirname( __FILE__ ).'/../../../../doki/data/';
+        $file_base_name = $path.$timestamp;
+        $file = $file_base_name.'.json';
+        if (file_exists($file)) {
+            $handle = fopen($file, 'r') or die('Cannot open file: '.$timestamp.".json");
+            $data = fread($handle,filesize($file));
+            $data = json_decode($data,true);
+            $dokis = $data["list"];
+            foreach ($dokis as $doki) {
+                $finalLastData[$doki['name']] = array(
+                    'sign_num' => $doki['sign_num'],
+                    'name' => $doki['name'],
+                    'popularity' => $doki['popularity'] + $week1[$doki['name']]['popularity'] + $week2[$doki['name']]['popularity']
+                );
+            }
+        } else {
+            $arr = array('status'=>"404","msg"=>"无法找到文件：".$timestamp.".json");
+            return $arr;
+        }
+        return $this->calc3WeekScore($finalLastData);
+    }
+
     public function getHourData() {
         $all_filenames = $this->getAllFileNames();
         rsort($all_filenames);
@@ -269,6 +395,8 @@ class DokiController extends Controller
         $instant_delta = $this->getLatest($hour_data[0]);
 
         $forecast = $this->getHourDelta($hour_data);
+
+        return $this->getAccumulativeData($timestamps[0]);
         return array(
             "rank" => $rank,
             "instant_delta" => $instant_delta,

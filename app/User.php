@@ -2,12 +2,13 @@
 
 namespace App;
 
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'password', 'role_id', 'email', 'qq', 'weibo', 'isQQVerified', 'isWeiboVerified'
+        'username', 'password', 'role_id', 'email', 'qq', 'weibo', 'isQQVerified', 'isWeiboVerified', 'fans_id', 'can_select_fans_id'
     ];
 
     /**

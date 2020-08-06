@@ -1,9 +1,13 @@
 {
+  "/js/admindashboard.js": "/js/admindashboard.js",
   "/js/app.js": "/js/app.js",
   "/css/app.css": "/css/app.css",
   "/js/smurf.js": "/js/smurf.js",
   "/js/ownsmurf.js": "/js/ownsmurf.js",
+  "/js/fanclub.js": "/js/fanclub.js",
+  "/js/userdashboard.js": "/js/userdashboard.js",
   "/js/weibo.js": "/js/weibo.js",
+  "/js/homepage.js": "/js/homepage.js",
   "/css/libs.css": "/css/libs.css",
   "/js/libs.js": "/js/libs.js"
 }

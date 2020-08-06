@@ -17,6 +17,21 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+// 注册相关
+Route::post('register', 'PassportController@register');
+Route::post('register_by_invitation', 'PassportController@register_by_invitation');
+Route::post('login', 'PassportController@login')->name('login');
+Route::post('logout', 'PassportController@logout')->name('logout');
+
+Route::prefix('fc')->middleware('auth:api')->group(function() {
+    Route::post('/choosefid', 'FcController@chooseFid');
+    Route::get('/getfid', 'FcController@getRandomFid');
+});
+
 Route::prefix('billing')->group(function () {
     Route::get('/',function (){
         return abort(404);

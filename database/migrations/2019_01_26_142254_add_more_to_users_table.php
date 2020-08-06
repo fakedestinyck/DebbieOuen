@@ -20,6 +20,8 @@ class AddMoreToUsersTable extends Migration
             $table->string('weibo')->unique();
             $table->boolean('isQQVerified')->default(false);
             $table->string('isWeiboVerified')->default(false);
+            $table->integer('fans_id')->unique()->nullable();
+            $table->boolean('can_select_fans_id')->default(false);
         });
     }
 

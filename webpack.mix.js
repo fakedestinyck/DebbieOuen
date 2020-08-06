@@ -14,15 +14,20 @@ mix.webpackConfig({
     externals: {
         "vue": "Vue",
         "element-ui": "ELEMENT",
-        "jsencrypt": "JSEncrypt"
+        "jsencrypt": "JSEncrypt",
+        "vue-router": "VueRouter"
     }
 });
 
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
     .js('resources/assets/js/weibo.js','public/js')
+    .js('resources/assets/js/homepage.js','public/js')
     .js('resources/assets/js/smurf.js','public/js')
-    .js('resources/assets/js/ownsmurf.js','public/js');
+    .js('resources/assets/js/ownsmurf.js','public/js')
+    .js('resources/assets/js/userdashboard.js','public/js')
+    .js('resources/assets/js/admindashboard.js','public/js')
+    .js('resources/assets/js/fanclub.js','public/js');
 
 mix.styles([
 
@@ -45,7 +50,8 @@ mix.scripts([
     // 'resources/assets/js/echarts.min.js',
     'resources/assets/js/echartsdebbietheme.js',
     'resources/assets/theme/js/script.js',
-    'resources/assets/js/referrer-killer.js'
+    'resources/assets/js/referrer-killer.js',
+    'resources/assets/js/chplayer.min.js'
 
 ], 'public/js/libs.js');
 
