@@ -29,7 +29,7 @@
             <div class="container">
                 <h2 class="mbr-section-title pb-3 align-center mbr-fonts-style display-2">FanClub入会</h2>
 
-                <div class="form-center form-login" v-if="token === ''">
+                <div class="form-center form-login" v-if="token === ''" v-loading="loading">
                     <h3 class="mbr-section-subtitle display-5 align-center mbr-fonts-style mbr-light">请先登录</h3>
                     <p style="margin-bottom: 10px;">用户名</p>
                     <el-input placeholder="请输入用户名" v-model="inputUsername"></el-input>
@@ -38,19 +38,22 @@
 
                     <el-button style="display: block; margin: auto; margin-top: 30px; text-align: center" type="primary" :disabled="inputUsername === '' || inputPassword === ''" @click="doLogin">登陆</el-button>
                 </div>
-                <div class="form-center form-step2" v-else-if="csfi">
-                    <h3 class="mbr-section-subtitle display-5 align-center mbr-fonts-style mbr-light">你有一次自选粉丝编号的机会</h3>
-                    <p style="margin-bottom: 10px;">你希望自己的粉丝编号是多少？</p>
-                    <el-input placeholder="请输入自选编号" v-model="inputFid" :min="1" :max="9999"></el-input>
+                <div class="form-center form-step2" v-else-if="pic === ''" v-loading="loading">
+                    <h3 class="mbr-section-subtitle display-5 align-center mbr-fonts-style mbr-light">请填写粉丝铭牌信息</h3>
+                    <p style="margin-bottom: 10px;">你的id(8个字符以内)</p>
+                    <el-input placeholder="请输入id，这会显示在粉丝铭牌上" v-model="inputId"></el-input>
+                    <p style="margin-top: 20px; margin-bottom: 10px;" v-if="csfi">你希望自己的粉丝编号是多少？</p>
+                    <el-input placeholder="请输入自选编号(1-9999)" v-model="inputFid" v-if="csfi"></el-input>
 
 
-                    <el-button style="display: block; margin: auto; margin-top: 30px; text-align: center" type="primary" :disabled="inputFid === ''" @click="doSubmitFansId">提交</el-button>
+                    <el-button style="display: block; margin: auto; margin-top: 30px; text-align: center" type="primary" :disabled="inputId === '' || inputFid === '' && csfi" @click="doSubmitInfo">提交</el-button>
                 </div>
-                <div class="form-center form-badge" v-else>
+                <div class="form-center form-badge" v-if="pic !== ''">
+                    <h3 class="mbr-section-subtitle display-5 align-center mbr-fonts-style mbr-light">这是你的粉丝铭牌</h3>
                     <div class="badge-canvas">
-                        <el-image fit="contain" src="/assets/images/badge.png" style="width: 100%;"></el-image>
+                        <el-image fit="contain" :src="pic" style="width: 100%;" @error="badgeError"></el-image>
                     </div>
-                    <div class="badge-fid">{{ formatedFid }}</div>
+
                 </div>
             </div>
         </section>
@@ -71,6 +74,8 @@
                 inputFid: '',
                 csfi: false,
                 fid: null,
+                inputId: '',
+                pic: '',
             }
         },
         mounted() {
@@ -95,6 +100,7 @@
                 console.log("hide");
             },
             doLogin() {
+                this.loading = true;
                 axios('/api/login','POST',{
                     email: this.inputUsername,
                     password: this.inputPassword
@@ -112,9 +118,10 @@
                             this.csfi = true
                         } else {
                             if (data.fid) {
-                                this.fid = data.fid
+                                this.pic=`https://lg-bus1kzl6-1251693677.cos.ap-shanghai.myqcloud.com/debbie/fc/badge/badge${data.fid}.jpg/small`
                             } else {
-                                this.getFansId();
+                                // 不能自定义
+                                this.csfi = false
                             }
                         }
                     }
@@ -129,11 +136,12 @@
                     }
                 })
                 .then(() => {
-
+                    this.loading = false;
                 })
 
             },
             getFansId() {
+                this.loading = true;
                 axios('/api/fc/getfid','GET',{}, this.token)
                     .then((response) => {
                         if (response.data.fid) {
@@ -142,6 +150,7 @@
                                 type: 'success',
                                 message: `成功！你的粉丝编号为：${data.fid}`
                             });
+                            this.fid = data.fid
                         }
 
                     })
@@ -152,38 +161,62 @@
                         })
                     })
                     .then(() => {
-
+                        this.loading = false;
                     })
             },
-            doSubmitFansId() {
-                axios('/api/fc/choosefid','POST',{
-                    fans_id: this.inputFid
+            doSubmitInfo() {
+                this.loading = true;
+                axios('/api/fc/postinfo','POST',{
+                    fans_id: this.inputFid,
+                    username: this.inputId,
                 }, this.token)
                     .then((response) => {
-                        if (response.data.fid) {
+                        console.log(response);
+                        if (response.data.pic_url) {
                             let data = response.data;
                             this.$message({
                                 type: 'success',
-                                message: `成功！你的粉丝编号为：${data.fid}`
+                                message: `成功！这是你的粉丝铭牌。可以直接保存或截图}`
                             });
+                            this.pic = "https://"+data.pic_url+"/small"
                         }
 
                     })
                     .catch((error) => {
-                        this.$message({
-                            type: 'error',
-                            message: `[E${error.code}] ${error.data}`
-                        })
-                    })
-                    .then(() => {
+                        if (error.code) {
+                            this.$message({
+                                type: 'error',
+                                message: `[E${error.code}]\n${error.data}`
+                            })
+                        } else {
+                            let msg = [];
+                            for (let key in error) {
+                                let item = error[key];
+                                item.forEach((each) => {
+                                    msg.push(each);
+                                })
+                            }
+                            this.$message({
+                                type: 'error',
+                                message: `[E422]\n${msg.join('\n')}`
+                            })
+                        }
 
                     })
+                    .then(() => {
+                        this.loading = false;
+                    })
+            },
+            badgeError(error) {
+                if (error.path[0].src !== '') {
+                    // 重新生成
+                }
             }
         }
     }
 </script>
 
-<style scoped>
+<style>
     .form-center {
         width: 90%;
         max-width: 768px;
@@ -196,14 +229,9 @@
     .badge-canvas {
         width: 100%;
     }
-    .badge-fid {
-        position: absolute;
-        bottom: -3px;
-        right: 8px;
-        font-family: Celtic, sans-serif;
-        font-size: 42px;
-        line-height: 1em;
-        color: #65aadd;
+    .el-message__content {
+        word-break: break-all;
+        white-space: pre-wrap;
     }
 
 </style>
