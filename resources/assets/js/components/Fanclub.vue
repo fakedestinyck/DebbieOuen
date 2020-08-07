@@ -223,7 +223,7 @@
         margin: auto;
     }
     .form-badge {
-        max-width: 800px;
+        max-width: 500px;
         position: relative;
     }
     .badge-canvas {
