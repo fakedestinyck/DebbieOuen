@@ -259,7 +259,9 @@ class FcController extends Controller
 //                        )
 //                    )
 //                )));
-                return response()->success(['pic_url' => str_replace("fid","badge",$result['Location'])]);
+                $url = str_replace("fid","badge",$result['Location']);
+                $url = str_replace("cos.ap-shanghai","image",$url);
+                return response()->success(['pic_url' => $url]);
             }
         } catch (\Exception $e) {
             return response()->error('内部错误', 500);

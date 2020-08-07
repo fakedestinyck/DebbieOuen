@@ -118,7 +118,7 @@
                             this.csfi = true
                         } else {
                             if (data.fid) {
-                                this.pic=`https://lg-bus1kzl6-1251693677.cos.ap-shanghai.myqcloud.com/debbie/fc/badge/badge${data.fid}.jpg/small`
+                                this.pic=`https://lg-bus1kzl6-1251693677.image.myqcloud.com/debbie/fc/badge/badge${data.fid}.jpg/small`
                             } else {
                                 // 不能自定义
                                 this.csfi = false
