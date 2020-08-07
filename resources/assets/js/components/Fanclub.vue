@@ -133,6 +133,13 @@
                             type: 'error',
                             message: error.data
                         })
+                    } else {
+                        if (error.code === 414) {
+                            this.$message({
+                                type: 'error',
+                                message: error.data
+                            })
+                        }
                     }
                 })
                 .then(() => {

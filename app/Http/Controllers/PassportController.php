@@ -26,7 +26,7 @@ class PassportController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'username' => 'required|string|alpha_dash|unique:users',
+            'username' => 'string|alpha_dash|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|max:32|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{3,}$/',
         ]);
@@ -64,6 +64,11 @@ class PassportController extends Controller
     }
 
     public function login(){
+        $h = date('H');
+
+        if ($h < 17) {
+            return response()->error('还没到时间哦~再等等吧',414);
+        }
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
             if(!$user){abort(404);}

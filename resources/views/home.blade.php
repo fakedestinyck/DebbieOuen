@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<?php
-phpinfo();
-?>
 <html>
     <head>
         <meta charset="UTF-8">
