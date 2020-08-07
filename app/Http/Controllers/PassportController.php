@@ -74,7 +74,7 @@ class PassportController extends Controller
             if(!$user){abort(404);}
             if ($user->id >= 22) {
                 $h = date('H');
-                if ($h < 9 || $h >= 21) {
+                if ($h < 12) {
                     return response()->error('还没到时间哦~再等等吧',414);
                 }
             }

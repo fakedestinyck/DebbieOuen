@@ -22,6 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('img', 'FcController@getPic');
+Route::get('test/send/email', 'FcController@sendEmail');
 
 // 注册相关
 Route::post('register', 'PassportController@register');

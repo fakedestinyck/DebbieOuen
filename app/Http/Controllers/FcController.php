@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Support\Facades\Mail;
 use Qcloud;
 use Illuminate\Http\Request;
 use App\Helpers\sts;
@@ -267,5 +268,16 @@ class FcController extends Controller
             return response()->error('内部错误', 500);
 //            echo "$e\n";
         }
+    }
+
+    public function sendEmail() {
+        $qqid = '1634164756';
+        $args = [
+            'qqid' => $qqid,
+            'pwd' => '2KDLFLD'
+        ];
+        return Mail::send('emails.register', ['args' => $args], function ($m) use ($qqid) {
+            $m->to($qqid.'@qq.com')->subject('蒋申粉丝俱乐部铭牌激活通知');
+        });
     }
 }
