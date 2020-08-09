@@ -1,5 +1,5 @@
 require('./bootstrap');
-Vue.component('fanclub',require('./components/Fanclub.vue'));
+Vue.component('fcregister',require('./components/FanclubRegister.vue'));
 
 import ElementUI from 'element-ui';
 Vue.use(require('vue-cookies'));
@@ -10,7 +10,7 @@ Vue.use(ElementUI);
 // import 'element-ui/lib/theme-chalk/index.css';
 // Vue.use(ElementUI);
 // Vue.prototype.$jsEncrypt = JsEncrypt;
-const fanclub = new Vue({
-    el: '#fanclub',
-    template: '<fanclub/>',
+const fcregister = new Vue({
+    el: '#fcregister',
+    template: '<fcregister/>',
 });

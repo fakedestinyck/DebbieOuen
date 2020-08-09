@@ -27,7 +27,8 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .js('resources/assets/js/ownsmurf.js','public/js')
     .js('resources/assets/js/userdashboard.js','public/js')
     .js('resources/assets/js/admindashboard.js','public/js')
-    .js('resources/assets/js/fanclub.js','public/js');
+    .js('resources/assets/js/fanclub.js','public/js')
+    .js('resources/assets/js/fanclubregister.js','public/js');
 
 mix.styles([
 

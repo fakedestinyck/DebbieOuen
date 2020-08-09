@@ -28,6 +28,10 @@
     <!-- Fonts -->
     <link href="{{ asset('resources/fonts.css') }}" rel="stylesheet">
     <!-- CSS -->
+    <link href="https://cdn.bootcss.com/tether/1.4.4/css/tether.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/css/bootstrap-grid.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/css/bootstrap-reboot.min.css" rel="stylesheet">
     <!-- Add Material font (Roboto) and Material icon as needed -->
     {{--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">--}}
     <link href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet">

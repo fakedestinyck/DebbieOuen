@@ -97,6 +97,11 @@ Route::get('/dashboard/', function () {
 })->middleware('auth');
 //Route::get('/home', 'HomeController@index')->name('home');
 
+
+Route::get('/fc/', function() {
+    return view('fc.index');
+});
+
 Route::get('/fc/register', function() {
     return view('fc.register');
 });

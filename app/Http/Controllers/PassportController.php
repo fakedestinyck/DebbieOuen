@@ -72,12 +72,12 @@ class PassportController extends Controller
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
             if(!$user){abort(404);}
-            if ($user->id >= 22) {
-                $h = date('H');
-                if ($h < 12) {
-                    return response()->error('还没到时间哦~再等等吧',414);
-                }
-            }
+//            if ($user->id >= 22) {
+//                $h = date('H');
+//                if ($h < 12) {
+//                    return response()->error('还没到时间哦~再等等吧',414);
+//                }
+//            }
             $success['token'] =  $user->createToken('MyApp')->accessToken;
             $success['username'] =  $user->username;
             $success['id'] = $user->id;

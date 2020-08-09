@@ -5,11 +5,11 @@
 @endsection
 
 @section('content')
-    <div id="fanclub">
-        <fanclub></fanclub>
+    <div id="fcregister">
+        <fcregister></fcregister>
     </div>
 @endsection
 
 @section('Vue-script')
-    <script src="{{ asset('js/fanclub.js') }}"></script>
+    <script src="{{ asset('js/fanclubregister.js') }}"></script>
 @endsection

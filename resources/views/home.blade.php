@@ -50,7 +50,7 @@
                                 我的个人中心</a></div>
                     @else
                         <div class="mbr-section-btn align-center" v-on:click="showLogin"><a class="btn btn-md btn-secondary display-7" href="javascript:void(0)"><span class="mbri-login mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 255, 255);"></span>
-                                护申符登陆</a></div>
+                                前往FanClub</a></div>
                     @endif
 
                 </div>
@@ -59,13 +59,13 @@
 
     </section>
 
-        <el-dialog title="护申符登陆" :visible.sync="loginFormVisible">
+        <el-dialog title="护申符登陆" :visible.sync="loginFormVisible" v-loading="loading" :close-on-press-escape="false">
             <p style="margin-bottom: 10px;">用户名</p>
             <el-input placeholder="请输入用户名" v-model="inputUsername"></el-input>
             <p style="margin-top: 20px; margin-bottom: 10px;">密码</p>
             <el-input placeholder="请输入密码" v-model="inputPassword" show-password></el-input>
 
-            <el-button style="display: block; margin: auto; margin-top: 30px; text-align: center" type="primary">登陆</el-button>
+            <el-button style="display: block; margin: auto; margin-top: 30px; text-align: center" type="primary" @click="performLogin" :disabled="inputUsername === '' || inputPassword === ''">登陆</el-button>
         </el-dialog>
 
 
@@ -205,10 +205,10 @@
         {{--</div>--}}
     {{--</section>--}}
 
-    <div id="homepage">
-        <homepage></homepage>
+{{--    <div id="homepage">--}}
+{{--        <homepage></homepage>--}}
 
-    </div>
+{{--    </div>--}}
 
 
 {{--    <section class="counters1 counters cid-rcfIDKQ3Xf" id="counters1-f" data-rv-view="30">--}}
@@ -699,6 +699,8 @@
     <script src="https://cdn.bootcss.com/jQuery-viewport-checker/1.8.8/jquery.viewportchecker.min.js"></script>
     <!--<script src="assets/theme/js/script.js"></script>-->
     <script src="js/libs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.zhimg.com/vue-cookies@1.7.3/vue-cookies.js"></script>
     <script type="text/javascript">
         var app = new Vue({
             el: '#app',
@@ -708,14 +710,60 @@
                     loginFormVisible: false,
                     inputUsername: '',
                     inputPassword: '',
+                    loading: false
                 }
             },
             mounted() {
                 this.isLoaded = true
             },
             methods: {
-                showLogin() {
+                getCookies() {
+                    if ($cookies.isKey('token') && $cookies.isKey('username') && $cookies.isKey('fid')) {
+                        if ($cookies.get('token') !== '' && $cookies.get('username') !== '' && $cookies.get('fid') !== '') {
+                            window.location.href="/fc/";
+                            return true
+                        }
+                    }
                     this.loginFormVisible = true
+                },
+                showLogin() {
+                    this.getCookies()
+                },
+                performLogin() {
+                    this.loading = true;
+                    axios.post('/api/login', {
+                        email: this.inputUsername,
+                        password: this.inputPassword
+                    })
+                        .then((response) => {
+                            if (response.status === 200 && response.data.data) {
+                                let data = response.data.data;
+                                $cookies.config('30d');
+                                $cookies.set('token', data.token);
+                                $cookies.set('username', data.username);
+                                $cookies.set('fid', data.fid);
+                                this.$message({
+                                    type: 'success',
+                                    message: '登陆成功！'
+                                });
+                                window.location.href="/fc/"
+                            } else {
+                                this.$message({
+                                    type: 'error',
+                                    message: '[E599] 未知错误'
+                                })
+                            }
+                        })
+                        .catch((error) => {
+                            let err_data = error.response ? error.response.data : {code: 400, data: error.message};
+                            this.$message({
+                                type: 'error',
+                                message: err_data.data
+                            })
+                        })
+                        .then(() => {
+                            this.loading = false
+                        });
                 }
             }
         })
