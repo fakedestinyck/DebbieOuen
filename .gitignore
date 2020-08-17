@@ -10,3 +10,4 @@ composer.lock
 .DS_Store
 .htaccess
 /keys
+/auto_generated

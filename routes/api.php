@@ -33,6 +33,8 @@ Route::post('logout', 'PassportController@logout')->name('logout');
 Route::prefix('fc')->middleware('auth:api')->group(function() {
     Route::post('/postinfo', 'FcController@postInfo');
     Route::get('/getfid', 'FcController@getRandomFid');
+    Route::get('/getpostlogin', 'FcController@getPostLogin');
+    Route::get('/getletterpaper', 'FcController@getLetterPaper');
 });
 
 Route::prefix('billing')->group(function () {

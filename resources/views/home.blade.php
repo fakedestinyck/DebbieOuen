@@ -50,7 +50,7 @@
                                 我的个人中心</a></div>
                     @else
                         <div class="mbr-section-btn align-center" v-on:click="showLogin"><a class="btn btn-md btn-secondary display-7" href="javascript:void(0)"><span class="mbri-login mbr-iconfont mbr-iconfont-btn" style="color: rgb(255, 255, 255);"></span>
-                                前往FanClub</a></div>
+                                登陆并前往FanClub</a></div>
                     @endif
 
                 </div>
@@ -751,7 +751,8 @@
                                 this.$message({
                                     type: 'error',
                                     message: '[E599] 未知错误'
-                                })
+                                });
+                                this.loading = false
                             }
                         })
                         .catch((error) => {
@@ -759,10 +760,11 @@
                             this.$message({
                                 type: 'error',
                                 message: err_data.data
-                            })
+                            });
+                            this.loading = false
                         })
                         .then(() => {
-                            this.loading = false
+
                         });
                 }
             }

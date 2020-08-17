@@ -28,21 +28,35 @@
     <!-- Fonts -->
     <link href="{{ asset('resources/fonts.css') }}" rel="stylesheet">
     <!-- CSS -->
-    <link href="https://cdn.bootcss.com/tether/1.4.4/css/tether.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/css/bootstrap-grid.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/css/bootstrap-reboot.min.css" rel="stylesheet">
-    <!-- Add Material font (Roboto) and Material icon as needed -->
-    {{--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">--}}
-    <link href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet">
-    {{--<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />--}}
-    <link href="https://cdn.bootcss.com/material-design-lite/1.3.0/material.blue-pink.min.css" rel="stylesheet">
-    {{--<link rel="stylesheet" href="{{ asset('css/material.indigo-pink.min.css') }}" />--}}
-    {{--<!-- Styles -->--}}
-    {{--<link rel="stylesheet" href="{{ asset('css/codemirror.css') }}"/>--}}
-    {{--<link rel="stylesheet" href="{{ asset('css/styles.css') }}" />--}}
-    {{--<link rel="stylesheet" href="{{ asset('css/mdn-like.css') }}"/>--}}
-    <link rel="stylesheet" href="{{ asset('css/libs.css') }}"/>
+{{--    <link href="https://cdn.bootcss.com/tether/1.4.4/css/tether.min.css" rel="stylesheet">--}}
+{{--    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet">--}}
+{{--    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/css/bootstrap-grid.min.css" rel="stylesheet">--}}
+{{--    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.2.1/css/bootstrap-reboot.min.css" rel="stylesheet">--}}
+{{--    <!-- Add Material font (Roboto) and Material icon as needed -->--}}
+{{--    --}}{{--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">--}}
+{{--    <link href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.min.css" rel="stylesheet">--}}
+{{--    --}}{{--<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css" />--}}
+{{--    <link href="https://cdn.bootcss.com/material-design-lite/1.3.0/material.blue-pink.min.css" rel="stylesheet">--}}
+{{--    --}}{{--<link rel="stylesheet" href="{{ asset('css/material.indigo-pink.min.css') }}" />--}}
+{{--    --}}{{--<!-- Styles -->--}}
+{{--    --}}{{--<link rel="stylesheet" href="{{ asset('css/codemirror.css') }}"/>--}}
+{{--    --}}{{--<link rel="stylesheet" href="{{ asset('css/styles.css') }}" />--}}
+{{--    --}}{{--<link rel="stylesheet" href="{{ asset('css/mdn-like.css') }}"/>--}}
+{{--    <link rel="stylesheet" href="{{ asset('css/libs.css') }}"/>--}}
+
+
+
+
+    <link rel="stylesheet" href="/css/tether/tether.min.css">
+    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="/css/animate.css/animate.min.css">
+    <link rel="stylesheet" href="/css/dropdown/css/style.css">
+{{--    <link rel="stylesheet" href="/css/theme/css/style.css">--}}
+{{--    <link rel="stylesheet" href="/css/mobirise/css/mbr-additional.css" type="text/css">--}}
+    <link rel="stylesheet" href="/css/libs.css">
+    <link rel="stylesheet" href="https://unpkg.zhimg.com/element-ui/lib/theme-chalk/index.css">
 
     <style>
         html, body {
@@ -134,17 +148,34 @@
 <body class="scoll_dis">
 @yield('content')
 
-
-
-{{--<script src="{{ asset('js/libs.js') }}"></script>--}}
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="{{ asset('js/libs.js') }}"></script>
 {{--<script src="{{ asset('js/codemirror.js') }}"></script>--}}
 {{--<script src="{{ asset('js/clike.js') }}"></script>--}}
 <!-- Optional JavaScript -->
+
+{{--<script src="/js/web/assets/jquery/jquery.min.js"></script>--}}
+{{--<script src="/js/popper/popper.min.js"></script>--}}
+{{--<script src="/js/tether/tether.min.js"></script>--}}
+{{--<script src="/js/bootstrap/js/bootstrap.min.js"></script>--}}
+{{--<script src="/js/smooth-scroll/smooth-scroll.js"></script>--}}
+{{--<script src="/js/jarallax/jarallax.min.js"></script>--}}
+{{--<script src="/js/viewport-checker/jquery.viewportchecker.js"></script>--}}
+{{--<script src="/js/touch-swipe/jquery.touch-swipe.min.js"></script>--}}
+{{--<script src="/js/jquery-mb-vimeo_player/jquery.mb.vimeo_player.js"></script>--}}
+{{--<script src="/js/dropdown/js/script.min.js"></script>--}}
+{{--<script src="/js/bootstrap-carousel-swipe/bootstrap-carousel-swipe.js"></script>--}}
+{{--<script src="/js/jquery-mb-ytplayer/jquery.mb.ytplayer.min.js"></script>--}}
+{{--<script src="/js/theme/js/script.js"></script>--}}
+{{--<script src="/js/mobirise-slider-video/script.js"></script>--}}
+
+
+
 {{--<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>--}}
 <script src="https://cdn.bootcss.com/material-design-lite/1.3.0/material.min.js"></script>
 
 
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+{{--<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>--}}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 {{--<script src="https://cdn.jsdelivr.net/npm/vue"></script>--}}
 {{--<script src="https://cdn.bootcss.com/vue-router/3.0.2/vue-router.js"></script>--}}
@@ -167,10 +198,10 @@
     {{--</div>--}}
 {{--</dialog>--}}
 
-<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
-    <div class="mdl-snackbar__text"></div>
-    <button class="mdl-snackbar__action" type="button"></button>
-</div>
+{{--<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">--}}
+{{--    <div class="mdl-snackbar__text"></div>--}}
+{{--    <button class="mdl-snackbar__action" type="button"></button>--}}
+{{--</div>--}}
 
 <script>
 //    document.getElementsByClassName("title")[0]

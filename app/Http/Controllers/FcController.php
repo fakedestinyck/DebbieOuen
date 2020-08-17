@@ -16,10 +16,10 @@ use Validator;
 class FcController extends Controller
 {
 
-//    public function __construct()
-//    {
-//        $this->middleware(['auth:api']);
-//    }
+    public function __construct()
+    {
+        $this->middleware(['auth:api'])->only('getLetterPaper', 'getPostLogin');
+    }
 
     /**
      * Display a listing of the resource.
@@ -297,5 +297,105 @@ class FcController extends Controller
         }
 
         return response()->success(['data' => 'success']);
+    }
+
+    public function getPostLogin() {
+        $user = auth('api')->user();
+        $success['username'] =  $user->username;
+        $success['id'] = $user->id;
+        $success['csfi'] = $user->can_select_fans_id;
+        $success['fid'] = $user->fans_id;
+        return response()->success($success);
+    }
+
+    public function getLetterPaper()
+    {
+        $with_badge = isset($_GET['b']) ? $_GET['b'] : 'false';
+        if ($with_badge !== 'false') {
+            $user = auth('api')->user();
+            if ($user->fans_id == null) {
+                return response()->error('请先去获取粉丝铭牌', 412);
+            }
+            $fid = $user->fans_id;
+
+            if (file_exists('storage/letterpaper/'.$fid.'.png')) {
+                return response()->success(
+                    [
+                        'type' => 'download',
+                        'data' => 'https://lg-bus1kzl6-1251693677.file.myqcloud.com/debbie/fc/letterpaper/letterpaper'.$fid.'.png',
+                        'exist' => true
+                    ]
+                );
+            }
+
+            $image = new Imagick('assets/images/letter_bg.png');
+            $badge = new Imagick('storage/badge/'.$fid.'.jpg');
+            $badge->scaleImage(400, 150.4, true);
+
+            $image->setImageFormat("png");
+            $image->setBackgroundColor('white');
+
+            $image->compositeImage($badge,Imagick::COMPOSITE_OVER,790,30);
+            $image->writeImage('storage/letterpaper/'.$fid.'.png');
+
+            $secretId = config('app.cos_secret_id'); // 固定密钥
+            $secretKey = config('app.cos_secret_key'); // 固定密钥
+            $region = config('app.cos_region'); //设置一个默认的存储桶地域
+            $cosClient = new Qcloud\Cos\Client(
+                array(
+                    'region' => $region,
+                    'schema' => 'https', //协议头部，默认为http
+                    'credentials'=> array(
+                        'secretId'  => $secretId ,
+                        'secretKey' => $secretKey
+                    ),
+                    'po' => array(
+                        'rules' => array(
+                            array(
+                                'fileid' => "letterpaper".$fid.".png",
+                                'rule' => "watermark/3/type/3/text/JiangshenFanclub"
+                            )
+                        )
+                    )
+                )
+            );
+
+            ### 上传文件流
+            try {
+                $bucket = config('app.cos_bucket'); // 换成你的 bucket
+                $key = "debbie/fc/letterpaper/fid".$fid.".png";
+                $srcPath = 'storage/letterpaper/'.$fid.'.png';//本地文件绝对路径
+                $file = fopen($srcPath, "rb");
+                if ($file) {
+                    $result = $cosClient->putObject(
+                        array(
+                            'Bucket' => $bucket, //格式：BucketName-APPID
+                            'Key' => $key,
+                            'Body' => $file
+//                        'Headers' => 'Pic-Operations:{"rules": [{"fileid": "4.jpg", "rule":"watermark/3/type/3/text/testtest"}]}'
+                        )
+
+                    );
+                    $url = str_replace("fid","letterpaper",$result['Location']);
+                    return response()->success(
+                        [
+                            'type' => 'download',
+                            'data' => 'https://'.$url
+                        ]
+                    );
+                }
+            } catch (\Exception $e) {
+//                return response()->error('内部错误', 500);
+                echo "$e\n";
+            }
+
+        } else {
+            return response()->success(
+                [
+                    'type' => 'download',
+                    'data' => 'https://lg-bus1kzl6-1251693677.file.myqcloud.com/debbie/web/resource/letter_bg.png'
+                ]
+            );
+        }
     }
 }

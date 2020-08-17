@@ -52,7 +52,20 @@ mix.scripts([
     'resources/assets/js/echartsdebbietheme.js',
     'resources/assets/theme/js/script.js',
     'resources/assets/js/referrer-killer.js',
-    'resources/assets/js/chplayer.min.js'
+    'resources/assets/js/chplayer.min.js',
+    'resources/assets/js/popper/popper.min.js',
+    'resources/assets/js/tether/tether.min.js',
+    'resources/assets/js/bootstrap/js/bootstrap.min.js',
+    'resources/assets/js/smooth-scroll/smooth-scroll.js',
+    'resources/assets/js/jarallax/jarallax.min.js',
+    'resources/assets/js/viewport-checker/jquery.viewportchecker.js',
+    'resources/assets/js/touch-swipe/jquery.touch-swipe.min.js',
+    'resources/assets/js/jquery-mb-vimeo_player/jquery.mb.vimeo_player.js',
+    'resources/assets/js/dropdown/js/script.min.js',
+    'resources/assets/js/bootstrap-carousel-swipe/bootstrap-carousel-swipe.js',
+    'resources/assets/js/jquery-mb-ytplayer/jquery.mb.ytplayer.min.js',
+    'resources/assets/js/theme/js/script.js',
+    'resources/assets/js/mobirise-slider-video/script.js'
 
 ], 'public/js/libs.js');
 

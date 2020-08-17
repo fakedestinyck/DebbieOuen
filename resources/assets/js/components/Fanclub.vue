@@ -1,117 +1,156 @@
 <template>
     <div>
-        <section class="header1 cid-rcfCVkx06l mbr-parallax-background" id="header1-8" data-rv-view="24">
-            <div class="mbr-overlay" style="opacity: 0; background-color: rgb(0, 0, 0);">
-            </div>
-            <div class="container">
+        <section class="menu cid-s7hqhwhqJr" once="menu" id="menu1-4" data-rv-view="56">
+
+
+            <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm">
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <div class="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+                <div class="menu-logo">
+                    <div class="navbar-brand">
+
+                <span class="navbar-caption-wrap"><a class="navbar-caption text-white display-4"
+                                                     href="/fc">
+                        蒋申FanClub</a></span>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
+                        <li class="nav-item">
+                            <a class="nav-link link text-white display-4" href="/">
+                                <span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>
+                                主页</a>
+                        </li>
+<!--                        <li class="nav-item dropdown open">-->
+<!--                            <a class="nav-link link text-white display-4" href="https://mobirise.com"-->
+<!--                               aria-expanded="true">-->
+<!--                                <span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span>-->
+<!--                                About Us-->
+<!--                            </a>-->
+<!--                        </li>-->
+                    </ul>
+                    <div class="navbar-buttons mbr-section-btn"><a class="btn btn-sm btn-primary display-4"
+                                                                   href="javascript:alert('施工中')"><span
+                            class="mbri-user mbr-iconfont mbr-iconfont-btn">&nbsp;个人中心</span></a></div>
+                </div>
+            </nav>
+        </section>
+
+        <section class="engine"><a href="/fc">bootstrap button</a></section>
+        <section class="cid-s7fZH8aHku mbr-fullscreen mbr-parallax-background" id="header2-0" data-rv-view="41">
+
+
+            <div class="mbr-overlay" style="opacity: 0.3; background-color: rgb(118, 118, 118);"></div>
+
+            <div class="container align-center">
                 <div class="row justify-content-md-center">
                     <div class="mbr-white col-md-10">
-                        <h1 class="mbr-section-title align-center mbr-bold pb-3 mbr-fonts-style display-1">蒋申应援站</h1>
-                        <p class="mbr-text align-center pb-3 mbr-fonts-style display-5"><strong>蒋心独具，不负此申</strong></p>
+                        <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">
+                            蒋申粉丝俱乐部</h1>
+                        <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-2">
+                            获取最新鲜的第一手资讯<br>尽在蒋申粉丝俱乐部</h3>
+
+
                     </div>
                 </div>
             </div>
-
-        </section>
-
-        <section class="features18 popup-btn-cards cid-rgiNlgWInX" id="features18-o" data-rv-view="54">
-
-
-            <div class="container">
-                <h2 class="mbr-section-title pb-3 align-center mbr-fonts-style display-2">FanClub</h2>
-
-                <div class="form-center form-login" v-if="token === ''" v-loading="loading">
-                    <h3 class="mbr-section-subtitle display-5 align-center mbr-fonts-style mbr-light">请先登录</h3>
-                    <p style="margin-bottom: 10px;">用户名</p>
-                    <el-input placeholder="请输入用户名" v-model="inputUsername"></el-input>
-                    <p style="margin-top: 20px; margin-bottom: 10px;">密码</p>
-                    <el-input placeholder="请输入密码" v-model="inputPassword" show-password></el-input>
-
-                    <el-button style="display: block; margin: auto; margin-top: 30px; text-align: center" type="primary"
-                               :disabled="inputUsername === '' || inputPassword === ''" @click="doLogin">登陆
-                    </el-button>
-                </div>
-                <div class="form-center form-step2" v-else-if="pic === ''" v-loading="loading">
-                    <h3 class="mbr-section-subtitle display-5 align-center mbr-fonts-style mbr-light">请填写粉丝铭牌信息</h3>
-                    <p style="margin-bottom: 10px;">你的id(8个字符以内)</p>
-                    <el-input placeholder="请输入id，这会显示在粉丝铭牌上" v-model="inputId"></el-input>
-                    <p style="margin-top: 20px; margin-bottom: 10px;" v-if="csfi">你希望自己的粉丝编号是多少？</p>
-                    <el-input placeholder="请输入自选编号(1-9999)" v-model="inputFid" v-if="csfi"></el-input>
-
-
-                    <el-button style="display: block; margin: auto; margin-top: 30px; text-align: center" type="primary"
-                               :disabled="inputId === '' || inputFid === '' && csfi" @click="doSubmitInfo">提交
-                    </el-button>
-                </div>
-                <div class="form-center form-badge" v-if="pic !== ''">
-                    <h3 class="mbr-section-subtitle display-5 align-center mbr-fonts-style mbr-light">这是你的粉丝铭牌</h3>
-                    <div class="badge-canvas">
-                        <el-image fit="contain" :src="pic" style="width: 100%;" @error="badgeError"></el-image>
-                    </div>
-
-                </div>
+            <div class="mbr-arrow hidden-sm-down" aria-hidden="true">
+                <a href="#next">
+                    <i class="mbri-down mbr-iconfont"></i>
+                </a>
             </div>
         </section>
-        <section class="cid-rcfM2t8yR8" id="footer1-i" data-rv-view="33">
-            <div class="container">
-                <div class="media-container-row content text-white">
-                    <div class="col-12 col-md-3">
-                        <div class="media-wrap">
-                            <img src="/assets/images/images-259x194.png" alt="" title="" media-simple="true">
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-3 mbr-fonts-style display-7">
-                        <h5 class="pb-3">
-                            网站功能
-                        </h5>
-                        <p class="mbr-text">
-<!--                            <a href="{{ url('/data') }}">进入数据站</a>-->
-                        </p>
-                    </div>
-                    <div class="col-12 col-md-3 mbr-fonts-style display-7">
-                        <h5 class="pb-3">
-                            友情链接
-                        </h5>
-                        <p class="mbr-text">
-                            <a href="https://www.weibo.com/u/2583858490">SING-蒋申微博</a><br>
-                            <a href="https://www.weibo.com/u/6123063147">蒋申后援会微博</a><br>
-                            <a href="https://www.weibo.com/u/6534389849">JJC微博</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="footer-lower">
-                    <div class="media-container-row">
-                        <div class="col-sm-12">
-                            <hr>
-                        </div>
-                    </div>
-                    <div class="media-container-row mbr-white">
-                        <div class="col-sm-6 copyright">
-                            <p class="mbr-text mbr-fonts-style display-7">
-                                © SING-蒋申后援会 - 版权所有
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="social-list align-right">
-                                <div class="soc-item">
-                                    <a href="#" target="_blank">
-                                        <span class="mbr-iconfont mbr-iconfont-social socicon-weibo socicon" media-simple="true"></span>
-                                    </a>
+
+        <section class="carousel slide cid-s7fZIOggm7" data-interval="false" id="slider1-1" data-rv-view="44">
+
+
+            <div class="full-screen">
+                <div class="mbr-slider slide carousel" data-pause="true" data-keyboard="false" data-ride="false"
+                     data-interval="false">
+                    <ol class="carousel-indicators">
+                        <li data-app-prevent-settings="" data-target="#slider1-1" class=" active"
+                            data-slide-to="0"></li>
+<!--                        <li data-app-prevent-settings="" data-target="#slider1-1" data-slide-to="1"></li>-->
+<!--                        <li data-app-prevent-settings="" data-target="#slider1-1" data-slide-to="2"></li>-->
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+                        <div class="carousel-item slider-fullscreen-image active" data-bg-video-slide="false"
+                             style="background-image: url(https://lg-bus1kzl6-1251693677.file.myqcloud.com/debbie/web/resource/bg_1.jpg);">
+                            <div class="container container-slide">
+                                <div class="image_wrapper">
+                                    <div class="mbr-overlay"></div>
+                                    <img src="https://lg-bus1kzl6-1251693677.file.myqcloud.com/debbie/web/resource/bg_1.jpg">
+                                    <div class="carousel-caption justify-content-center">
+                                        <div class="col-10 align-center"><h2 class="mbr-fonts-style display-1">信纸下载</h2>
+                                            <p class="lead mbr-text mbr-fonts-style display-5">可选择是否需要包含粉丝铭牌的信纸</p>
+                                            <div class="mbr-section-btn" buttons="0" v-loading="loading">
+                                                <a class="btn btn-primary display-4" href="javascript:void(0)" @click="downloadLetterPaper(true)">带粉丝铭牌</a>
+                                                <a class="btn  btn-white-outline display-4" href="javascript:void(0)" @click="downloadLetterPaper(false)">不带粉丝铭牌</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="soc-item">
-                                    <a href="#" target="_blank">
-                                        <span class="mbr-iconfont mbr-iconfont-social socicon-qq socicon" media-simple="true"></span>
-                                    </a>
-                                </div>
-
-
-
                             </div>
                         </div>
+<!--                        <div class="carousel-item slider-fullscreen-image"-->
+<!--                             data-bg-video-slide="https://www.y.com/watch?v=fwkKc6M60-0">-->
+<!--                            <div class="mbr-overlay"></div>-->
+<!--                            <div class="container container-slide">-->
+<!--                                <div class="image_wrapper"><img src="assets/images/2.jpg" style="opacity: 0;">-->
+<!--                                    <div class="carousel-caption justify-content-center">-->
+<!--                                        <div class="col-10 align-left"><h2 class="mbr-fonts-style display-1">VIDEO-->
+<!--                                            SLIDE</h2>-->
+<!--                                            <p class="lead mbr-text mbr-fonts-style display-5">Slide with youtube video-->
+<!--                                                background and color overlay. Title and text are aligned to the-->
+<!--                                                left.</p></div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="carousel-item slider-fullscreen-image" data-bg-video-slide="false"-->
+<!--                             style="background-image: url(assets/images/3.jpg);">-->
+<!--                            <div class="container container-slide">-->
+<!--                                <div class="image_wrapper">-->
+<!--                                    <div class="mbr-overlay"></div>-->
+<!--                                    <img src="assets/images/3.jpg">-->
+<!--                                    <div class="carousel-caption justify-content-center">-->
+<!--                                        <div class="col-10 align-right"><h2 class="mbr-fonts-style display-1">IMAGE-->
+<!--                                            SLIDE</h2>-->
+<!--                                            <p class="lead mbr-text mbr-fonts-style display-5">Choose from the large-->
+<!--                                                selection of latest pre-made blocks - jumbotrons, hero images, parallax-->
+<!--                                                scrolling, video backgrounds, hamburger menu, sticky header and-->
+<!--                                                more.</p>-->
+<!--                                            <div class="mbr-section-btn" buttons="0"><a class="btn btn-info display-4"-->
+<!--                                                                                        href="https://mobirise.com">FOR-->
+<!--                                                WINDOWS</a> <a class="btn  btn-white-outline display-4"-->
+<!--                                                               href="https://mobirise.com">FOR MAC</a></div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
-                </div>
+                    <a data-app-prevent-settings="" class="carousel-control carousel-control-prev" role="button"
+                       data-slide="prev" href="#slider1-1"><span aria-hidden="true"
+                                                                 class="mbri-left mbr-iconfont"></span><span
+                            class="sr-only">Previous</span></a><a data-app-prevent-settings=""
+                                                                  class="carousel-control carousel-control-next"
+                                                                  role="button" data-slide="next"
+                                                                  href="#slider1-1"><span aria-hidden="true"
+                                                                                          class="mbri-right mbr-iconfont"></span><span
+                        class="sr-only">Next</span></a></div>
             </div>
+
         </section>
+        <input name="animation" type="hidden">
     </div>
 </template>
 
@@ -131,10 +170,15 @@
                 fid: null,
                 inputId: '',
                 pic: '',
+                downloadLetterPaperLoading: false,
             }
         },
         mounted() {
+            if (!this.getCookies()) {
+                return false;
+            }
             this.hideLoading();
+            this.complementJs();
         },
         computed: {
             formatedFid() {
@@ -142,6 +186,18 @@
             }
         },
         methods: {
+            complementJs() {
+                $('.mbr-arrow').on('click', function (e) {
+                    var $next = $(e.target).closest('section').next();
+                    if ($next.hasClass('engine')) {
+                        $next = $next.closest('section').next();
+                    }
+                    var offset = $next.offset();
+                    $('html, body').stop().animate({
+                        scrollTop: offset.top
+                    }, 800, 'linear');
+                });
+            },
             hideLoading: function () {
                 $('#loading_all').delay(500).hide(0);
                 setTimeout(function () {
@@ -152,7 +208,24 @@
                         height: 'auto'
                     });
                 }, 500);
-                console.log("hide");
+                // console.log("hide");
+            },
+            getCookies() {
+                if ($cookies.isKey('token') && $cookies.isKey('username') && $cookies.isKey('fid')) {
+                    if ($cookies.get('token') !== '' && $cookies.get('username') !== '' && $cookies.get('fid') !== '') {
+                        this.token = $cookies.get('token');
+                        return true
+                    }
+                }
+                this.$message({
+                    type: 'error',
+                    message: '请先登录！'
+                });
+                setTimeout(() => {
+                    window.location.href="/";
+                }, 2000);
+                return false
+
             },
             doLogin() {
                 this.loading = true;
@@ -233,7 +306,7 @@
                     username: this.inputId,
                 }, this.token)
                     .then((response) => {
-                        console.log(response);
+                        // console.log(response);
                         if (response.data.pic_url) {
                             let data = response.data;
                             this.$message({
@@ -273,12 +346,54 @@
                 if (error.path[0].src !== '') {
                     // 重新生成
                 }
+            },
+            downloadLetterPaper(withBadge) {
+                this.loading = true;
+                axios('/api/fc/getletterpaper','GET',null,this.token,{b: withBadge})
+                .then((response) => {
+                    this.loading = false;
+                    // console.log(response);
+                    if (response.data && response.data.type && response.data.type === 'download') {
+                        this.downloadWithBlob(response.data.data)
+                    } else {
+                        // let url = webkitURL.createObjectURL(response);
+                        // this.downloadWithBlob(url)
+                    }
+                })
+                .catch((error) => {
+                    // console.log(error);
+                    if (error.code && error.data) {
+                        this.$message({
+                            type: 'error',
+                            message: error.data
+                        });
+                        if (error.code === 412) {
+                            setTimeout(() => {
+                                window.location.href="/fc/register"
+                            }, 1000);
+                            return false
+                        }
+                        this.loading = false;
+                    }
+                })
+                .then(() => {
+                    // this.loading = false;
+                })
+            },
+            downloadWithBlob(url) {
+                var a = document.createElement('a');
+                var filename = '信纸.txt';
+                a.href = url;
+                a.download = filename;
+                a.target = "_blank";
+                a.click();
+                window.URL.revokeObjectURL(url);
             }
         }
     }
 </script>
 
-<style>
+<style scoped>
     .form-center {
         width: 90%;
         max-width: 768px;
@@ -297,6 +412,15 @@
     .el-message__content {
         word-break: break-all;
         white-space: pre-wrap;
+    }
+
+    .mbri-user.mbr-iconfont.mbr-iconfont-btn {
+        font-size: 1rem;
+    }
+
+    .mbri-user:before {
+        font-size: 1.6rem;
+        vertical-align: middle;
     }
 
 </style>

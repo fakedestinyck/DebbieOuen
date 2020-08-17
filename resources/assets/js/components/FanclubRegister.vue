@@ -80,6 +80,7 @@
         },
         mounted() {
             this.hideLoading();
+            this.checkLoginStatus();
         },
         computed: {
             formatedFid() {
@@ -97,7 +98,63 @@
                         height: 'auto'
                     });
                 }, 500);
-                console.log("hide");
+                // console.log("hide");
+            },
+            checkLoginStatus() {
+                if ($cookies.isKey('token') && $cookies.isKey('username') && $cookies.isKey('fid')) {
+                    if ($cookies.get('token') !== '' && $cookies.get('username') !== '' && $cookies.get('fid') !== '' && $cookies.get('fid') !== 'null') {
+                        this.token = $cookies.get('token');
+                        this.pic=`https://lg-bus1kzl6-1251693677.image.myqcloud.com/debbie/fc/badge/badge${$cookies.get('fid')}.jpg/small`;
+                        return true
+                    }
+                }
+                if ($cookies.isKey('token')) {
+                    if ($cookies.get('token') !== '') {
+                        this.token = $cookies.get('token');
+                        this.postLogin();
+                        return true
+                    }
+                }
+
+            },
+            postLogin() {
+                this.loading = true;
+                axios('/api/fc/getpostlogin','GET',null, this.token)
+                    .then((response) => {
+                        if (response.data.id) {
+                            let data = response.data;
+                            if (data.csfi === 1) {
+                                // 可以自定义粉丝编号
+                                this.csfi = true
+                            } else {
+                                if (data.fid) {
+                                    this.pic=`https://lg-bus1kzl6-1251693677.image.myqcloud.com/debbie/fc/badge/badge${data.fid}.jpg/small`
+                                } else {
+                                    // 不能自定义
+                                    this.csfi = false
+                                }
+                            }
+                        }
+
+                    })
+                    .catch((error) => {
+                        if (error.code === 406) {
+                            this.$message({
+                                type: 'error',
+                                message: error.data
+                            })
+                        } else {
+                            if (error.code === 414) {
+                                this.$message({
+                                    type: 'error',
+                                    message: error.data
+                                })
+                            }
+                        }
+                    })
+                    .then(() => {
+                        this.loading = false;
+                    })
             },
             doLogin() {
                 this.loading = true;
@@ -178,7 +235,7 @@
                     username: this.inputId,
                 }, this.token)
                     .then((response) => {
-                        console.log(response);
+                        // console.log(response);
                         if (response.data.pic_url) {
                             let data = response.data;
                             this.$message({

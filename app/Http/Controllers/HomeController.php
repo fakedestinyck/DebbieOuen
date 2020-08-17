@@ -24,8 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $response = file_get_contents("https://space.bilibili.com/ajax/member/getSubmitVideos?mid=295679074&page=1&pagesize=3");
-        $data = json_decode($response,true)["data"];
+        $response = file_get_contents("https://api.bilibili.com/x/space/arc/search?mid=295679074&pn=1&ps=3&jsonp=jsonp");
+        $data = json_decode($response,true)["data"]["list"];
         $vlist = $data["vlist"];
 
         return view('home', compact('vlist'));
