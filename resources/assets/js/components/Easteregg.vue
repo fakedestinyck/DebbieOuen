@@ -8,11 +8,12 @@
             <el-switch
                     v-model="value"
                     active-color="#ff4949"
+                    @change="switchOn"
                     :disabled="value">
             </el-switch>
             <h2>一键解散</h2>
         </div>
-        <div><iframe src="/strip/s.html" frameborder="0" v-if="value"></iframe></div>
+<!--        <div><iframe src="/strip/s.html" frameborder="0" v-if="value"></iframe></div>-->
         <el-image
                 src="https://lg-bus1kzl6-1251693677.file.myqcloud.com/debbie/jiesan.jpeg"
                 fit="contain"
@@ -35,7 +36,6 @@
             }
         },
         mounted() {
-
             this.hideLoading();
         },
         computed: {
@@ -54,6 +54,30 @@
                     });
                 }, 500);
                 // console.log("hide");
+            },
+            loadJs: function loadScript(url, callback){
+                var script = document.createElement ("script");
+                script.type = "text/javascript";
+                if (script.readyState){ //IE
+                    script.onreadystatechange = function(){
+                        if (script.readyState === "loaded" || script.readyState === "complete"){
+                            script.onreadystatechange = null;
+                            callback();
+                        }
+                    };
+                } else { //Others
+                    script.onload = function(){
+                        callback();
+                    };
+                }
+                script.src = url;
+                document.getElementsByTagName("head")[0].appendChild(script);
+            },
+            libsJsLoaded: function () {
+                // this.hideLoading();
+            },
+            switchOn() {
+                this.loadJs('/strip/js/vendors.js',this.libsJsLoaded);
             },
 
         }
