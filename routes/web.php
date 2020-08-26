@@ -109,3 +109,7 @@ Route::get('/fc/register', function() {
 Route::get('/SINGShenMeShiHouJieSan', function() {
     return view('easteregg.index');
 });
+
+Route::get('/SING什么时候解散', function() {
+    return view('easteregg.index');
+});
