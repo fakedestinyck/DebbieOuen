@@ -105,3 +105,7 @@ Route::get('/fc/', function() {
 Route::get('/fc/register', function() {
     return view('fc.register');
 });
+
+Route::get('/SINGShenMeShiHouJieSan', function() {
+    return view('easteregg.index');
+});

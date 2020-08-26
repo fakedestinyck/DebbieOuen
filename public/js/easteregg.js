@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 124);
+/******/ 	return __webpack_require__(__webpack_require__.s = 122);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -2382,9 +2382,7 @@ function req(options) {
 /* 40 */,
 /* 41 */,
 /* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2392,7 +2390,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_element_ui__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_element_ui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_element_ui__);
 __webpack_require__(11);
-Vue.component('fcregister', __webpack_require__(84));
+Vue.component('easteregg', __webpack_require__(81));
 
 
 Vue.use(__webpack_require__(12));
@@ -2403,12 +2401,14 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_element_ui___default.a);
 // import 'element-ui/lib/theme-chalk/index.css';
 // Vue.use(ElementUI);
 // Vue.prototype.$jsEncrypt = JsEncrypt;
-var fcregister = new Vue({
-    el: '#fcregister',
-    template: '<fcregister/>'
+var easteregg = new Vue({
+    el: '#easteregg',
+    template: '<easteregg/>'
 });
 
 /***/ }),
+/* 44 */,
+/* 45 */,
 /* 46 */,
 /* 47 */,
 /* 48 */,
@@ -2417,10 +2417,7 @@ var fcregister = new Vue({
 /* 51 */,
 /* 52 */,
 /* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2452,71 +2449,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: "FanclubRegister",
+    name: "Easteregg",
     data: function data() {
         return {
-            inputUsername: '',
-            inputPassword: '',
-            loading: false,
-            token: '',
-            inputFid: '',
-            csfi: false,
-            fid: null,
-            inputId: '',
-            pic: ''
+            value: false
         };
     },
     mounted: function mounted() {
+
         this.hideLoading();
-        this.checkLoginStatus();
     },
 
-    computed: {
-        formatedFid: function formatedFid() {
-            return (Array(4).join("0") + this.fid).slice(-4);
-        }
-    },
+    computed: {},
     methods: {
+
         hideLoading: function hideLoading() {
             $('#loading_all').delay(500).hide(0);
             setTimeout(function () {
@@ -2528,178 +2478,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }, 500);
             // console.log("hide");
-        },
-        checkLoginStatus: function checkLoginStatus() {
-            if ($cookies.isKey('token') && $cookies.isKey('username') && $cookies.isKey('fid')) {
-                if ($cookies.get('token') !== '' && $cookies.get('username') !== '' && $cookies.get('fid') !== '' && $cookies.get('fid') !== 'null') {
-                    this.token = $cookies.get('token');
-                    this.pic = "https://lg-bus1kzl6-1251693677.image.myqcloud.com/debbie/fc/badge/badge" + $cookies.get('fid') + ".jpg/small";
-                    return true;
-                }
-            }
-            if ($cookies.isKey('token')) {
-                if ($cookies.get('token') !== '') {
-                    this.token = $cookies.get('token');
-                    this.postLogin();
-                    return true;
-                }
-            }
-        },
-        postLogin: function postLogin() {
-            var _this = this;
-
-            this.loading = true;
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__axios_api__["a" /* axios */])('/api/fc/getpostlogin', 'GET', null, this.token).then(function (response) {
-                if (response.data.id) {
-                    var data = response.data;
-                    if (data.csfi === 1) {
-                        // 可以自定义粉丝编号
-                        _this.csfi = true;
-                    } else {
-                        if (data.fid) {
-                            _this.pic = "https://lg-bus1kzl6-1251693677.image.myqcloud.com/debbie/fc/badge/badge" + data.fid + ".jpg/small";
-                        } else {
-                            // 不能自定义
-                            _this.csfi = false;
-                        }
-                    }
-                }
-            }).catch(function (error) {
-                if (error.code === 406) {
-                    _this.$message({
-                        type: 'error',
-                        message: error.data
-                    });
-                } else {
-                    if (error.code === 414) {
-                        _this.$message({
-                            type: 'error',
-                            message: error.data
-                        });
-                    }
-                }
-            }).then(function () {
-                _this.loading = false;
-            });
-        },
-        doLogin: function doLogin() {
-            var _this2 = this;
-
-            this.loading = true;
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__axios_api__["a" /* axios */])('/api/login', 'POST', {
-                email: this.inputUsername,
-                password: this.inputPassword
-            }).then(function (response) {
-                if (response.data.token) {
-                    var data = response.data;
-                    _this2.token = data.token;
-                    _this2.$message({
-                        type: 'success',
-                        message: '登陆成功'
-                    });
-                    if (data.csfi === 1) {
-                        // 可以自定义粉丝编号
-                        _this2.csfi = true;
-                    } else {
-                        if (data.fid) {
-                            _this2.pic = "https://lg-bus1kzl6-1251693677.image.myqcloud.com/debbie/fc/badge/badge" + data.fid + ".jpg/small";
-                        } else {
-                            // 不能自定义
-                            _this2.csfi = false;
-                        }
-                    }
-                }
-            }).catch(function (error) {
-                if (error.code === 406) {
-                    _this2.$message({
-                        type: 'error',
-                        message: error.data
-                    });
-                } else {
-                    if (error.code === 414) {
-                        _this2.$message({
-                            type: 'error',
-                            message: error.data
-                        });
-                    }
-                }
-            }).then(function () {
-                _this2.loading = false;
-            });
-        },
-        getFansId: function getFansId() {
-            var _this3 = this;
-
-            this.loading = true;
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__axios_api__["a" /* axios */])('/api/fc/getfid', 'GET', {}, this.token).then(function (response) {
-                if (response.data.fid) {
-                    var data = response.data;
-                    _this3.$message({
-                        type: 'success',
-                        message: "\u6210\u529F\uFF01\u4F60\u7684\u7C89\u4E1D\u7F16\u53F7\u4E3A\uFF1A" + data.fid
-                    });
-                    _this3.fid = data.fid;
-                }
-            }).catch(function (error) {
-                _this3.$message({
-                    type: 'error',
-                    message: "[E" + error.code + "] " + error.data
-                });
-            }).then(function () {
-                _this3.loading = false;
-            });
-        },
-        doSubmitInfo: function doSubmitInfo() {
-            var _this4 = this;
-
-            this.loading = true;
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__axios_api__["a" /* axios */])('/api/fc/postinfo', 'POST', {
-                fans_id: this.inputFid,
-                username: this.inputId
-            }, this.token).then(function (response) {
-                // console.log(response);
-                if (response.data.pic_url) {
-                    var data = response.data;
-                    _this4.$message({
-                        type: 'success',
-                        message: "\u6210\u529F\uFF01\u8FD9\u662F\u4F60\u7684\u7C89\u4E1D\u94ED\u724C\u3002\u53EF\u4EE5\u76F4\u63A5\u4FDD\u5B58\u6216\u622A\u56FE}"
-                    });
-                    _this4.pic = "https://" + data.pic_url + "/small";
-                }
-            }).catch(function (error) {
-                if (error.code) {
-                    _this4.$message({
-                        type: 'error',
-                        message: "[E" + error.code + "]\n" + error.data
-                    });
-                } else {
-                    (function () {
-                        var msg = [];
-                        for (var key in error) {
-                            var item = error[key];
-                            item.forEach(function (each) {
-                                msg.push(each);
-                            });
-                        }
-                        _this4.$message({
-                            type: 'error',
-                            message: "[E422]\n" + msg.join('\n')
-                        });
-                    })();
-                }
-            }).then(function () {
-                _this4.loading = false;
-            });
-        },
-        badgeError: function badgeError(error) {
-            if (error.path[0].src !== '') {
-                // 重新生成
-            }
         }
+
     }
 });
 
 /***/ }),
+/* 55 */,
+/* 56 */,
+/* 57 */,
 /* 58 */,
 /* 59 */,
 /* 60 */,
@@ -2708,13 +2495,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* 63 */,
 /* 64 */,
 /* 65 */,
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(8)();
-exports.push([module.i, "\n.form-center {\n    width: 90%;\n    max-width: 768px;\n    margin: auto;\n}\n.form-badge {\n    max-width: 500px;\n    position: relative;\n}\n.badge-canvas {\n    width: 100%;\n}\n.el-message__content {\n    word-break: break-all;\n    white-space: pre-wrap;\n}\n\n", ""]);
-
-/***/ }),
+/* 66 */,
 /* 67 */,
 /* 68 */,
 /* 69 */,
@@ -2729,29 +2510,26 @@ exports.push([module.i, "\n.form-center {\n    width: 90%;\n    max-width: 768px
 /* 78 */,
 /* 79 */,
 /* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(105)
+__webpack_require__(133)
 
 var Component = __webpack_require__(9)(
   /* script */
-  __webpack_require__(57),
+  __webpack_require__(54),
   /* template */
-  __webpack_require__(92),
+  __webpack_require__(96),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/Fakedestinyck/Sites/DebbieOuen/debbie-space/resources/assets/js/components/FanclubRegister.vue"
+Component.options.__file = "/Users/Fakedestinyck/Sites/DebbieOuen/debbie-space/resources/assets/js/components/Easteregg.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] FanclubRegister.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] Easteregg.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -2760,9 +2538,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-14cd2bdc", Component.options)
+    hotAPI.createRecord("data-v-3c9f413e", Component.options)
   } else {
-    hotAPI.reload("data-v-14cd2bdc", Component.options)
+    hotAPI.reload("data-v-3c9f413e", Component.options)
   }
 })()}
 
@@ -2770,6 +2548,9 @@ module.exports = Component.exports
 
 
 /***/ }),
+/* 82 */,
+/* 83 */,
+/* 84 */,
 /* 85 */,
 /* 86 */,
 /* 87 */,
@@ -2777,187 +2558,54 @@ module.exports = Component.exports
 /* 89 */,
 /* 90 */,
 /* 91 */,
-/* 92 */
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_vm._m(0), _vm._v(" "), _c('section', {
-    staticClass: "features18 popup-btn-cards cid-rgiNlgWInX",
+  return _c('div', [_c('h1', [_vm._v("SING什么时候解散？")]), _vm._v(" "), _c('div', {
+    staticClass: "main-switch"
+  }, [_c('h2', [_vm._v("SING女团")]), _vm._v(" "), _c('el-switch', {
     attrs: {
-      "id": "features18-o",
-      "data-rv-view": "54"
-    }
-  }, [_c('div', {
-    staticClass: "container"
-  }, [_c('h2', {
-    staticClass: "mbr-section-title pb-3 align-center mbr-fonts-style display-2"
-  }, [_vm._v("FanClub入会")]), _vm._v(" "), (_vm.token === '') ? _c('div', {
-    directives: [{
-      name: "loading",
-      rawName: "v-loading",
-      value: (_vm.loading),
-      expression: "loading"
-    }],
-    staticClass: "form-center form-login"
-  }, [_c('h3', {
-    staticClass: "mbr-section-subtitle display-5 align-center mbr-fonts-style mbr-light"
-  }, [_vm._v("请先登录")]), _vm._v(" "), _c('p', {
-    staticStyle: {
-      "margin-bottom": "10px"
-    }
-  }, [_vm._v("用户名")]), _vm._v(" "), _c('el-input', {
-    attrs: {
-      "placeholder": "请输入用户名"
+      "active-color": "#ff4949",
+      "disabled": _vm.value
     },
     model: {
-      value: (_vm.inputUsername),
+      value: (_vm.value),
       callback: function($$v) {
-        _vm.inputUsername = $$v
+        _vm.value = $$v
       },
-      expression: "inputUsername"
+      expression: "value"
     }
-  }), _vm._v(" "), _c('p', {
-    staticStyle: {
-      "margin-top": "20px",
-      "margin-bottom": "10px"
-    }
-  }, [_vm._v("密码")]), _vm._v(" "), _c('el-input', {
+  }), _vm._v(" "), _c('h2', [_vm._v("一键解散")])], 1), _vm._v(" "), _c('div', [(_vm.value) ? _c('iframe', {
     attrs: {
-      "placeholder": "请输入密码",
-      "show-password": ""
-    },
-    model: {
-      value: (_vm.inputPassword),
-      callback: function($$v) {
-        _vm.inputPassword = $$v
-      },
-      expression: "inputPassword"
+      "src": "/strip/s.html",
+      "frameborder": "0"
     }
-  }), _vm._v(" "), _c('el-button', {
-    staticStyle: {
-      "display": "block",
-      "margin": "auto",
-      "margin-top": "30px",
-      "text-align": "center"
-    },
+  }) : _vm._e()]), _vm._v(" "), (!_vm.value) ? _c('el-image', {
     attrs: {
-      "type": "primary",
-      "disabled": _vm.inputUsername === '' || _vm.inputPassword === ''
-    },
-    on: {
-      "click": _vm.doLogin
+      "src": "https://lg-bus1kzl6-1251693677.file.myqcloud.com/debbie/jiesan.jpeg",
+      "fit": "contain"
     }
-  }, [_vm._v("登陆")])], 1) : (_vm.pic === '') ? _c('div', {
-    directives: [{
-      name: "loading",
-      rawName: "v-loading",
-      value: (_vm.loading),
-      expression: "loading"
-    }],
-    staticClass: "form-center form-step2"
-  }, [_c('h3', {
-    staticClass: "mbr-section-subtitle display-5 align-center mbr-fonts-style mbr-light"
-  }, [_vm._v("请填写粉丝铭牌信息")]), _vm._v(" "), _c('p', {
-    staticStyle: {
-      "margin-bottom": "10px"
-    }
-  }, [_vm._v("你的id(8个字符以内)")]), _vm._v(" "), _c('el-input', {
+  }) : _c('el-image', {
     attrs: {
-      "placeholder": "请输入id，这会显示在粉丝铭牌上"
-    },
-    model: {
-      value: (_vm.inputId),
-      callback: function($$v) {
-        _vm.inputId = $$v
-      },
-      expression: "inputId"
+      "src": "https://lg-bus1kzl6-1251693677.file.myqcloud.com/debbie/jiesan2.jpeg",
+      "fit": "contain"
     }
-  }), _vm._v(" "), (_vm.csfi) ? _c('p', {
-    staticStyle: {
-      "margin-top": "20px",
-      "margin-bottom": "10px"
-    }
-  }, [_vm._v("你希望自己的粉丝编号是多少？")]) : _vm._e(), _vm._v(" "), (_vm.csfi) ? _c('el-input', {
-    attrs: {
-      "placeholder": "请输入自选编号(1-9999)"
-    },
-    model: {
-      value: (_vm.inputFid),
-      callback: function($$v) {
-        _vm.inputFid = $$v
-      },
-      expression: "inputFid"
-    }
-  }) : _vm._e(), _vm._v(" "), _c('el-button', {
-    staticStyle: {
-      "display": "block",
-      "margin": "auto",
-      "margin-top": "30px",
-      "text-align": "center"
-    },
-    attrs: {
-      "type": "primary",
-      "disabled": _vm.inputId === '' || _vm.inputFid === '' && _vm.csfi
-    },
-    on: {
-      "click": _vm.doSubmitInfo
-    }
-  }, [_vm._v("提交")])], 1) : _vm._e(), _vm._v(" "), (_vm.pic !== '') ? _c('div', {
-    staticClass: "form-center form-badge"
-  }, [_c('h3', {
-    staticClass: "mbr-section-subtitle display-5 align-center mbr-fonts-style mbr-light"
-  }, [_vm._v("这是你的粉丝铭牌")]), _vm._v(" "), _c('div', {
-    staticClass: "badge-canvas"
-  }, [_c('el-image', {
-    staticStyle: {
-      "width": "100%"
-    },
-    attrs: {
-      "fit": "contain",
-      "src": _vm.pic
-    },
-    on: {
-      "error": _vm.badgeError
-    }
-  })], 1)]) : _vm._e()])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', {
-    staticClass: "header1 cid-rcfCVkx06l mbr-parallax-background",
-    attrs: {
-      "id": "header1-8",
-      "data-rv-view": "24"
-    }
-  }, [_c('div', {
-    staticClass: "mbr-overlay",
-    staticStyle: {
-      "opacity": "0",
-      "background-color": "rgb(0, 0, 0)"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "container"
-  }, [_c('div', {
-    staticClass: "row justify-content-md-center"
-  }, [_c('div', {
-    staticClass: "mbr-white col-md-10"
-  }, [_c('h1', {
-    staticClass: "mbr-section-title align-center mbr-bold pb-3 mbr-fonts-style display-1"
-  }, [_vm._v("蒋申应援站")]), _vm._v(" "), _c('p', {
-    staticClass: "mbr-text align-center pb-3 mbr-fonts-style display-5"
-  }, [_c('strong', [_vm._v("蒋心独具，不负此申")])])])])])])
-}]}
+  })], 1)
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-14cd2bdc", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-3c9f413e", module.exports)
   }
 }
 
 /***/ }),
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
 /* 97 */,
 /* 98 */,
 /* 99 */,
@@ -2966,32 +2614,7 @@ if (false) {
 /* 102 */,
 /* 103 */,
 /* 104 */,
-/* 105 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(66);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(10)("296fa3c1", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-14cd2bdc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./FanclubRegister.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-14cd2bdc\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./FanclubRegister.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 105 */,
 /* 106 */,
 /* 107 */,
 /* 108 */,
@@ -3008,13 +2631,53 @@ if(false) {
 /* 119 */,
 /* 120 */,
 /* 121 */,
-/* 122 */,
-/* 123 */,
-/* 124 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(45);
+module.exports = __webpack_require__(43);
 
+
+/***/ }),
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(8)();
+exports.push([module.i, "\nh1 {\n    text-align: center;\n    margin-top: 20px;\n    font-size: 60px;\n}\nh2 {\n    text-align: center;\n    margin-top: 40px;\n    font-size: 36px;\n    color: #ff4949;\n}\n.el-switch {\n    margin-top: 20px;\n    display: inherit;\n    text-align: center;\n}\n.el-switch__core {\n    width: 120px!important;\n    height: 40px;\n    border-radius: 40px;\n    line-height: 40px;\n}\n.el-switch__core:after {\n    height: 36px;\n    width: 36px;\n}\n.el-switch.is-checked .el-switch__core::after {\n    left: 100%;\n    margin-left: -36px;\n    height: 36px;\n    width: 36px;\n}\n.el-image {\n    width: 90%;\n    max-width: 540px;\n    margin: auto;\n    display: block;\n}\niframe {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    z-index: 0;\n}\n", ""]);
+
+/***/ }),
+/* 133 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(132);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(10)("3af2fccb", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-3c9f413e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Easteregg.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-3c9f413e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Easteregg.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);
