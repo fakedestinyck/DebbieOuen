@@ -184,3 +184,13 @@ Route::prefix('misc')->group(function () {
     Route::post('/lottery/store','LotteryController@store');
     Route::get('/lottery/getall','LotteryController@index');
 });
+
+
+// 腾讯云点播
+Route::prefix('vod')->group(function () {
+    Route::get('/',function (){
+        return abort(404);
+    });
+
+    Route::post('/callback','VodController@callback');
+});
