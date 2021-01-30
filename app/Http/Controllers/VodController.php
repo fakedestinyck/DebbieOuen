@@ -97,9 +97,9 @@ class VodController extends Controller
     }
 
     public function callback(Request $request) {
-        $a = $request->all();
+//        $a = $request->all();
         $url="http://49.234.81.228:5700/send_private_msg";
-        $params=array('user_id'=>'1634164756', 'message'=>$a['EventType']);
+        $params=array('user_id'=>'1634164756', 'message'=>1);
         $headers=array(
             "Content-Type:application/x-www-form-urlencoded",
             "Accept:application/json",
