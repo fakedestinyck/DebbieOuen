@@ -101,7 +101,7 @@ class VodController extends Controller
         $url="http://49.234.81.228:5700/send_private_msg";
         $params=array('user_id'=>'1634164756', 'message'=>1);
         $headers=array(
-            "Content-Type:application/x-www-form-urlencoded",
+            "Content-Type:application/json",
             "Accept:application/json",
             'Authorization:Bearer aslkfdjie32df'
         );
