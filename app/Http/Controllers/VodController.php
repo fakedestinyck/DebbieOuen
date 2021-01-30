@@ -103,7 +103,7 @@ class VodController extends Controller
             "cc" => "1",
             "cd" => "1"
         ]);
-        return 'true';
+        return $request->EventType;
 //        $a = $request->all();
 //        $url="http://49.234.81.228:5700/send_private_msg";
 //        $params=array('user_id'=>'1634164756', 'message'=>1);
