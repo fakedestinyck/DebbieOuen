@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Test;
 use Illuminate\Http\Request;
 
 class VodController extends Controller
@@ -97,16 +98,22 @@ class VodController extends Controller
     }
 
     public function callback(Request $request) {
+        Test::create([
+            "cb" => "test",
+            "cc" => "1",
+            "cd" => "1"
+        ]);
+        return true;
 //        $a = $request->all();
-        $url="http://49.234.81.228:5700/send_private_msg";
-        $params=array('user_id'=>'1634164756', 'message'=>1);
-        $headers=array(
-            "Content-Type:application/json",
-            "Accept-Encoding:gzip",
-            'Authorization:Bearer aslkfdjie32df'
-        );
-        $result=$this->do_get($url,$params, $headers);
-        echo json_encode($result);
+//        $url="http://49.234.81.228:5700/send_private_msg";
+//        $params=array('user_id'=>'1634164756', 'message'=>1);
+//        $headers=array(
+//            "Content-Type:application/json",
+//            "Accept-Encoding:gzip",
+//            'Authorization:Bearer aslkfdjie32df'
+//        );
+//        $result=$this->do_get($url,$params, $headers);
+//        echo json_encode($result);
     }
 
 }
