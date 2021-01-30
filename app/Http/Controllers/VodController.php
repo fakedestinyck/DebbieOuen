@@ -102,7 +102,7 @@ class VodController extends Controller
         $params=array('user_id'=>'1634164756', 'message'=>1);
         $headers=array(
             "Content-Type:application/json",
-            "Accept:application/json",
+            "Accept-Encoding:gzip",
             'Authorization:Bearer aslkfdjie32df'
         );
         $result=$this->do_get($url,$params, $headers);
