@@ -106,7 +106,7 @@ class VodController extends Controller
         if ($status != 'FINISH') {
             return ['code' => 2];
         }
-        $outFileUrl = $data['FileUrl'];
+//        $outFileUrl = $data['FileUrl'];
         $MediaProcessResultSet = $data['MediaProcessResultSet'];
         if (count($MediaProcessResultSet) < 1) {
             return ['code' => 1];
@@ -128,8 +128,8 @@ class VodController extends Controller
         }
 
 
-        $url="http://49.234.81.228:5700/send_private_msg";
-        $params=array('user_id'=>'1634164756', 'message'=>$outFileUrl.'\n'.$resultUrl);
+        $url="http://49.234.81.228:5700/send_group_msg";
+        $params=array('group_id'=>'762116868', 'message'=>'直播视频处理完成。地址：'.$resultUrl);
         $headers=array(
             "Content-Type:application/json",
             "Accept-Encoding:gzip",
