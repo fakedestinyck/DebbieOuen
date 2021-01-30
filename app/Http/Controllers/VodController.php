@@ -98,15 +98,46 @@ class VodController extends Controller
     }
 
     public function callback(Request $request) {
+        if ($request->EventType != 'ProcedureStateChanged') {
+            return ['code' => 1];
+        }
+        $data = $request->ProcedureStateChangeEvent;
+        $status = $data['Status'];
+        if ($status != 'FINISH') {
+            return ['code' => 2];
+        }
+        $outFileUrl = $data['FileUrl'];
+        $MediaProcessResultSet = $data['MediaProcessResultSet'];
+        if (count($MediaProcessResultSet) < 1) {
+            return ['code' => 1];
+        }
+        $resultUrl = '';
+        foreach ($MediaProcessResultSet as $MediaProcessResult) {
+            $resultTaskType = $MediaProcessResult['Type'];
+            if ($resultTaskType != 'Transcode') {
+                continue;
+            }
+            $task = $MediaProcessResult['TranscodeTask'];
+            if ($task['Status'] != 'SUCCESS') {
+                return ['code' => 0];
+            }
+            $resultUrl = $task['Output']['Url'];
+        }
+        if ($resultUrl == '') {
+            return ['code' => 0];
+        }
+
+
         $url="http://49.234.81.228:5700/send_private_msg";
-        $params=array('user_id'=>'1634164756', 'message'=>$request->EventType);
+        $params=array('user_id'=>'1634164756', 'message'=>$outFileUrl.'\n'.$resultUrl);
         $headers=array(
             "Content-Type:application/json",
             "Accept-Encoding:gzip",
             'Authorization:Bearer aslkfdjie32df'
         );
         $result=$this->do_get($url,$params, $headers);
-        echo json_encode($result);
+        return json_decode($result, true);
+
     }
 
 }
