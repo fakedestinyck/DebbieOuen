@@ -129,7 +129,7 @@ class VodController extends Controller
 
 
         $url="http://49.234.81.228:5700/send_group_msg";
-        $params=array('group_id'=>'762116868', 'message'=>'直播视频处理完成。地址：'.$resultUrl);
+        $params=array('group_id'=>'708617599', 'message'=>'直播视频处理完成。地址：'.$resultUrl);
         $headers=array(
             "Content-Type:application/json",
             "Accept-Encoding:gzip",
