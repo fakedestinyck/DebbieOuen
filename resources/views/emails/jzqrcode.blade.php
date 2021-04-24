@@ -204,6 +204,8 @@
                                         如果二维码图片无法加载，也可以点击<a href="https://lg-bus1kzl6-1251693677.cos.ap-shanghai.myqcloud.com/debbie/web/qrcode/{{ $args['qrcode'] }}.png">此链接获取图片</a>
                                     </div>
                                 </td>
+                            </tr>
+                            <tr>
                                 <td align='center' style='font-size:0px;padding:10px 25px;word-break:break-word;'>
                                     <div style='color:#999999;font-family:Open Sans, Arial, sans-serif;font-size:15px;line-height:22px;text-align:center;'>
                                         当天现场前来领取的人可能较多。疫情之下，为了减少聚集，提高核验身份的效率，请提前截图或储存此二维码，作为现场领取jz奖励应援礼包的（最高优先级）有效凭证，切勿泄露给他人！遗失可向后援会机器人申请重发。

@@ -110,7 +110,8 @@ class SpecialController extends Controller
 //        $ups = '[{"qqid": 1634164756, "pwd": "fb8nvDZaJU"}]';
 
         // 454924089
-        $ups = '[{"o": "JM20210327203519oC80430", "qqid": "642746148", "n": "呆家馄饨", "a": "1830"}]';
+
+        $ups = request()->data;
 //        $ups = '{}';
         $ups = json_decode($ups, true);
         foreach ($ups as $up) {
