@@ -127,6 +127,7 @@ class SpecialController extends Controller
                 $m->to($qqid.'@qq.com')->subject('蒋申毕业应援活动二维码');
             });
             echo $qqid;
+            echo '\n';
         }
 
         return response()->success(['data' => 'success']);
