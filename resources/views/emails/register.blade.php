@@ -663,14 +663,14 @@
                                                                                         style="padding: 10px 20px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: 400; color: rgb(56, 56, 56); text-align: left;"
                                                                                         class="tblCell">
                                                                                         <div style="line-height: 200%; text-align: center;">
-                                                                                            <p style="font-size: 14px;font-family: Arial, Helvetica, sans-serif;color: #000000;line-height: 1.5em;white-space: pre-wrap;">亲爱的护申符，感谢你在这次生日应援活动中的支持。现在开始发放蒋申粉丝俱乐部(FanClub)的粉丝铭牌，具体领取方式如下：
+                                                                                            <p style="font-size: 14px;font-family: Arial, Helvetica, sans-serif;color: #000000;line-height: 1.5em;white-space: pre-wrap;">亲爱的护申符，感谢你对蒋申和蒋申后援会的支持。现在开始发放蒋申粉丝俱乐部(FanClub)的粉丝铭牌，具体领取方式如下：
 浏览器打开 https://debbie.jiangshen.club/fc/register
 使用用户名：<span style="font-weight: bolder;font-style: italic;">{{ $args['qqid'] }}@qq.com</span>
 和密码： <span style="font-weight: bolder;font-style: italic;">{{ $args['pwd'] }}</span>
 登陆
 填写你铭牌上想要显示的id(昵称)和希望的粉丝编号 （注意id和编号独一无二，且目前填写后均无法更改，请慎重填写）
 接着就可以看到你的专属粉丝铭牌啦~
-北京时间12:00准时开始抢注哦~
+{{--北京时间12:00准时开始抢注哦~--}}
 再次感谢您对蒋申和蒋申后援会的支持！</p>
                                                                                         </div>
                                                                                     </td>
