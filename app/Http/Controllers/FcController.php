@@ -284,7 +284,7 @@ class FcController extends Controller
 //        $ups = '[{"qqid": 1634164756, "pwd": "PNE9YaSiuk"}]';
 //        $ups = '[{"qqid": 544727775, "pwd": "XBpAE4haHv"}, {"qqid": 827060350, "pwd": "cnrsKQR75H"}, {"qqid": 869765593, "pwd": "3eOz8vmqDa"}, {"qqid": 947275992, "pwd": "E4Fm7iqSLN"}, {"qqid": 983696926, "pwd": "nM1h0ySKHo"}, {"qqid": 1013985351, "pwd": "6TIASzxK9F"}, {"qqid": 1106634899, "pwd": "sgA6W7ydUT"}, {"qqid": 1160294714, "pwd": "yokf30QTDC"}, {"qqid": 1171922974, "pwd": "xsaM6ITJED"}, {"qqid": 1440891061, "pwd": "rI5Bto9abA"}, {"qqid": 1483559384, "pwd": "Anmec6W7pk"}, {"qqid": 1727651710, "pwd": "aA1JdhT4HZ"}, {"qqid": 2256893294, "pwd": "o0vVwHMClj"}, {"qqid": 2432076214, "pwd": "JM3pWAYeKz"}, {"qqid": 2433175751, "pwd": "U1pvA7mNVf"}, {"qqid": 2541872920, "pwd": "DNv9GXUiWd"}, {"qqid": 2581715602, "pwd": "mt2fKRgG6b"}]';
 
-        $ups = '[{"qqid": 1634164756, "pwd": "fb8nvDZaJU"}]';
+        $ups = '[{"qqid": 3092194517, "pwd": "et8nvRZbJG"}]';
         // 454924089
 //        $ups = '{}';
         $ups = json_decode($ups, true);
